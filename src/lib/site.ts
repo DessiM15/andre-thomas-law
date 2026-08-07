@@ -536,6 +536,29 @@ export const practiceAreas: PracticeArea[] = [
 export const getPracticeArea = (slug: string) =>
   practiceAreas.find((a) => a.slug === slug);
 
+/**
+ * The six the homepage leads with — chosen for volume and value, not
+ * alphabetically. The other ten run past in the ticker beneath.
+ */
+/**
+ * `dim` is the navy multiply opacity for each photograph. Six stock images
+ * shot by six people under six lighting conditions do not sit together on
+ * their own — this is what levels them into one set. Bright frames take more.
+ */
+export const featuredAreas = [
+  { slug: "car-accidents", image: "/stock/feat-car.webp", dim: 0.22, alt: "A wrecked car taped off on a road at night" },
+  { slug: "truck-accidents", image: "/stock/grp-road.webp", dim: 0.42, alt: "Tractor-trailer wheels throwing spray on a wet highway" },
+  { slug: "workplace-injuries", image: "/stock/grp-work.webp", dim: 0.42, alt: "A construction worker on rebar above a building site" },
+  { slug: "premises-liability", image: "/stock/grp-property.webp", dim: 0.62, alt: "A caution wet floor sign in a supermarket aisle" },
+  { slug: "maritime-offshore-injuries", image: "/stock/feat-maritime.webp", dim: 0.6, alt: "An offshore drilling platform in heavy seas" },
+  { slug: "serious-injury-wrongful-death", image: "/stock/feat-wrongful.webp", dim: 0.3, alt: "An empty hospital corridor" },
+] as const;
+
+/** Everything not featured above — the ticker's contents. */
+export const tickerAreas = practiceAreas.filter(
+  (a) => !featuredAreas.some((f) => f.slug === a.slug)
+);
+
 /* ─────────────────────────────────────────────────────────────
    Reviews. Excerpts as displayed publicly on Google — shown
    truncated, exactly as they appear, with a link to the full text.
