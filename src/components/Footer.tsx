@@ -14,10 +14,10 @@ export default function Footer() {
             <Image
               src="/logo-light.png"
               alt={firm.name}
-              width={946}
-              height={484}
-              sizes="320px"
-              className="h-auto w-[15rem] md:w-[19rem]"
+              width={1699}
+              height={870}
+              sizes="(max-width: 768px) 304px, 448px"
+              className="h-auto w-[19rem] md:w-[28rem]"
             />
             <p className="mt-7 max-w-md font-display text-2xl italic leading-snug text-paper/90 md:text-3xl">
               {firm.tagline}

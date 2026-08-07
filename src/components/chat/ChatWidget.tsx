@@ -172,10 +172,10 @@ export default function ChatWidget() {
                   src="/logo-light.png"
                   alt=""
                   aria-hidden
-                  width={946}
-                  height={484}
-                  sizes="90px"
-                  className="h-auto w-[4.5rem] shrink-0"
+                  width={1699}
+                  height={870}
+                  sizes="104px"
+                  className="h-auto w-[6.5rem] shrink-0"
                 />
                 <div>
                   <p className="text-[0.82rem] font-medium leading-tight text-paper">

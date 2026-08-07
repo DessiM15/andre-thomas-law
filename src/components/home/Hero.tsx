@@ -33,7 +33,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="grain relative flex min-h-[100svh] flex-col overflow-hidden bg-ink-950 pb-8 pt-28 md:pb-10 md:pt-32">
+    <section className="grain relative flex min-h-[100svh] flex-col overflow-hidden bg-ink-950 pb-8 pt-32 md:pb-10 md:pt-48">
       {/* ── Portrait: full-bleed on mobile, cut to the right edge on desktop ── */}
       <div className="absolute inset-0 md:left-auto md:w-[47%]">
         <Image

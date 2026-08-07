@@ -32,8 +32,8 @@ export default function PageHeader({
     <header
       className={`grain relative overflow-hidden bg-ink-950 text-paper ${
         tall
-          ? "flex min-h-[70svh] flex-col justify-end pb-16 pt-36 md:min-h-[78svh] md:pb-24 md:pt-44"
-          : "pb-16 pt-32 md:pb-24 md:pt-44"
+          ? "flex min-h-[70svh] flex-col justify-end pb-16 pt-40 md:min-h-[78svh] md:pb-24 md:pt-56"
+          : "pb-16 pt-36 md:pb-24 md:pt-56"
       }`}
     >
       {image && (

@@ -79,15 +79,15 @@ export default function Preloader() {
               initial={{ clipPath: "inset(0 50% 0 50%)", opacity: 0 }}
               animate={{ clipPath: "inset(0 0% 0 0%)", opacity: 1 }}
               transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[76vw] max-w-[34rem]"
+              className="w-[86vw] max-w-[50rem]"
             >
               <Image
                 src="/logo-light.png"
                 alt={firm.name}
-                width={946}
-                height={484}
+                width={1699}
+                height={870}
                 priority
-                sizes="(max-width: 768px) 76vw, 34rem"
+                sizes="(max-width: 768px) 86vw, 800px"
                 className="h-auto w-full"
               />
             </motion.div>

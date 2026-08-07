@@ -50,12 +50,20 @@ export default function Nav() {
           <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink-950/65 to-transparent" />
         )}
 
-        <div className="container-x relative flex h-[68px] items-center justify-between md:h-20">
+        {/* Tall at the top so the wordmark is actually readable, condensing
+            on scroll so it doesn't eat the viewport for the rest of the page. */}
+        <div
+          className={`container-x relative flex items-center justify-between transition-[height] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            solid ? "h-20 md:h-28" : "h-[6.5rem] md:h-[9.5rem]"
+          }`}
+        >
           {/* Mark */}
           <Link
             href="/"
             aria-label={`${firm.name} — home`}
-            className="group relative block h-9 w-[9.5rem] shrink-0 md:h-11 md:w-[11.5rem]"
+            className={`group relative block aspect-[1699/870] shrink-0 transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              solid ? "w-[8rem] md:w-[11rem]" : "w-[10.5rem] md:w-[15.5rem]"
+            }`}
           >
             {/* Both variants ship; opacity cross-fades them as the bar solidifies,
                 so the mark never flashes the wrong colour mid-transition. */}
@@ -64,7 +72,7 @@ export default function Nav() {
               alt={firm.name}
               fill
               priority
-              sizes="200px"
+              sizes="(max-width: 768px) 176px, 248px"
               className={`object-contain object-left transition-opacity duration-500 ${
                 onDark ? "opacity-100" : "opacity-0"
               }`}
@@ -74,7 +82,7 @@ export default function Nav() {
               alt=""
               aria-hidden
               fill
-              sizes="200px"
+              sizes="(max-width: 768px) 176px, 248px"
               className={`object-contain object-left transition-opacity duration-500 ${
                 onDark ? "opacity-0" : "opacity-100"
               }`}

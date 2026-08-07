@@ -58,11 +58,13 @@ replacing the file; paths are referenced from `src/lib/site.ts` and the page
 components. Note that `panel-client.webp` shows models, not firm personnel — if
 that reads as "our team" to the client, replace it.
 
-**7. Logo.** `public/logo-dark.png` and `public/logo-light.png` were derived
-from `andre thomas PLLC logo.webp` by keying the white field to transparency
-(luminance → alpha, which preserves the hairline serifs). If the firm supplies
-an original transparent vector or PNG, drop it in and replace both — a native
-file will always beat a derived one.
+**7. Logo.** `public/logo-dark.png` and `public/logo-light.png` are derived
+from `assets/at-logo-source.png` (2000×2000) by keying the white field to
+transparency — luminance → alpha, which preserves the hairline serifs. That
+source file carries an alpha channel, but it only clips the corners; the white
+behind the mark is still opaque, hence the keying. A true vector (SVG/EPS) from
+whoever designed the mark would still be the ideal source — drop it in and
+regenerate both variants.
 
 ## The chat assistant
 

@@ -3,6 +3,7 @@ import { Bodoni_Moda, Inter } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
+import ScrollTop from "@/components/ScrollTop";
 import ChatWidget from "@/components/chat/ChatWidget";
 import { firm, fullAddress, SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -130,6 +131,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <ScrollTop />
         <Preloader />
         <Nav />
         <main id="main">{children}</main>
