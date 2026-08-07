@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
@@ -43,29 +44,41 @@ export default function Nav() {
             : "border-b border-transparent"
         }`}
       >
-        <div className="container-x flex h-[68px] items-center justify-between md:h-20">
+        {/* Scrim: keeps the reversed logo and links legible when the bar is
+            transparent over a photograph, whatever that photograph does. */}
+        {!solid && (
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink-950/65 to-transparent" />
+        )}
+
+        <div className="container-x relative flex h-[68px] items-center justify-between md:h-20">
           {/* Mark */}
           <Link
             href="/"
             aria-label={`${firm.name} — home`}
-            className="group flex items-center gap-3"
+            className="group relative block h-9 w-[9.5rem] shrink-0 md:h-11 md:w-[11.5rem]"
           >
-            <span
-              className={`flex items-center gap-1.5 font-display text-2xl leading-none transition-colors duration-500 md:text-[1.7rem] ${
-                onDark ? "text-paper" : "text-ink-900"
+            {/* Both variants ship; opacity cross-fades them as the bar solidifies,
+                so the mark never flashes the wrong colour mid-transition. */}
+            <Image
+              src="/logo-light.png"
+              alt={firm.name}
+              fill
+              priority
+              sizes="200px"
+              className={`object-contain object-left transition-opacity duration-500 ${
+                onDark ? "opacity-100" : "opacity-0"
               }`}
-            >
-              A
-              <span className="h-5 w-px bg-gold-500 transition-all duration-500 group-hover:h-7" />
-              T
-            </span>
-            <span
-              className={`eyebrow hidden leading-none transition-colors duration-500 lg:block ${
-                onDark ? "text-ink-200" : "text-ink-700/70"
+            />
+            <Image
+              src="/logo-dark.png"
+              alt=""
+              aria-hidden
+              fill
+              sizes="200px"
+              className={`object-contain object-left transition-opacity duration-500 ${
+                onDark ? "opacity-0" : "opacity-100"
               }`}
-            >
-              Andre Thomas Law
-            </span>
+            />
           </Link>
 
           {/* Desktop links */}

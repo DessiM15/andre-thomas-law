@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { firm } from "@/lib/site";
@@ -72,30 +73,30 @@ export default function Preloader() {
             <span className="hidden sm:block">Est. Texas &amp; Tennessee</span>
           </motion.div>
 
-          {/* the mark */}
-          <div className="flex items-center justify-center gap-5 md:gap-8">
-            <motion.span
-              initial={{ x: 40, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[18vw] leading-none text-paper md:text-[9rem]"
+          {/* the mark — wiped open from the centre line outward */}
+          <div className="flex flex-col items-center justify-center">
+            <motion.div
+              initial={{ clipPath: "inset(0 50% 0 50%)", opacity: 0 }}
+              animate={{ clipPath: "inset(0 0% 0 0%)", opacity: 1 }}
+              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              className="w-[76vw] max-w-[34rem]"
             >
-              A
-            </motion.span>
+              <Image
+                src="/logo-light.png"
+                alt={firm.name}
+                width={946}
+                height={484}
+                priority
+                sizes="(max-width: 768px) 76vw, 34rem"
+                className="h-auto w-full"
+              />
+            </motion.div>
             <motion.span
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ delay: 0.25, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="h-[16vw] w-px origin-center bg-gold-500 md:h-32"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.5, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-8 h-px w-[40vw] max-w-[16rem] origin-center bg-gold-500"
             />
-            <motion.span
-              initial={{ x: -40, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[18vw] leading-none text-paper md:text-[9rem]"
-            >
-              T
-            </motion.span>
           </div>
 
           {/* bottom rail + progress */}

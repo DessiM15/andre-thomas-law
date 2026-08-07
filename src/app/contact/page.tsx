@@ -18,6 +18,10 @@ export default function ContactPage() {
         n="01"
         title={["Tell us", "what happened."]}
         lede="The consultation is free, and so is finding out where you stand. Fill in the form or call directly — either way, you'll speak with the firm."
+        image="/stock/contact-distress.webp"
+        alt="A woman sitting alone, looking worried"
+        focal="70% 30%"
+        tall
       />
 
       {/* Form + details */}

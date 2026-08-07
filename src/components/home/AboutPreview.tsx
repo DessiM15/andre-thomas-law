@@ -30,7 +30,7 @@ export default function AboutPreview() {
           {/* Copy */}
           <div className="md:col-span-6 md:col-start-7">
             <Reveal>
-              <Eyebrow n="04" tone="light">
+              <Eyebrow n="03" tone="light">
                 The attorney
               </Eyebrow>
               <h2 className="mt-6 font-display text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.08]">

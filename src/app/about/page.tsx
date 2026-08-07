@@ -21,6 +21,10 @@ export default function AboutPage() {
         n="01"
         title={["Meet Andre Thomas:", "committed to justice."]}
         lede="Licensed in two states. A career that began by prosecuting cases and now spends itself taking them apart on behalf of the people they were built against."
+        image="/stock/houston-skyline.webp"
+        alt="The downtown Houston skyline at dusk"
+        focal="50% 65%"
+        tall
       />
 
       {/* Bio + portrait */}
@@ -116,9 +120,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Notable trials */}
+      {/* Notable trials — set in Tennessee, where they were tried */}
       <section className="grain relative overflow-hidden bg-ink-950 py-20 text-paper md:py-28">
-        <div className="container-x">
+        <Image
+          src="/stock/memphis-bridge.webp"
+          alt="The Hernando de Soto Bridge over the Mississippi River at Memphis"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-ink-900/80 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink-950 via-ink-950/80 to-ink-950" />
+
+        <div className="container-x relative">
           <Reveal>
             <Eyebrow n="03" tone="light">Notable trials</Eyebrow>
             <h2 className="mt-6 max-w-3xl font-display text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.08]">
@@ -128,7 +142,7 @@ export default function AboutPage() {
 
           <div className="mt-14 grid gap-px bg-ink-800/60 md:grid-cols-2">
             {bio.notableTrials.map((t, i) => (
-              <Reveal key={t.caption} delay={i * 0.08} className="bg-ink-950 p-10 md:p-12">
+              <Reveal key={t.caption} delay={i * 0.08} className="bg-ink-950/80 p-10 backdrop-blur-sm md:p-12">
                 <span className="font-display text-3xl text-gold-600/60">
                   0{i + 1}
                 </span>

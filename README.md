@@ -51,6 +51,19 @@ Point it at the real deployment domain.
 **5. Have the firm's attorney review** `/disclaimer` and `/privacy`. These are
 drafted from standard practice, not from the firm's existing policies.
 
+**6. Stock photography.** Everything in `public/stock/` comes from Pexels under
+the [Pexels License](https://www.pexels.com/license/) — free for commercial use,
+no attribution required, no release needed for the site. Swap any of them by
+replacing the file; paths are referenced from `src/lib/site.ts` and the page
+components. Note that `panel-client.webp` shows models, not firm personnel — if
+that reads as "our team" to the client, replace it.
+
+**7. Logo.** `public/logo-dark.png` and `public/logo-light.png` were derived
+from `andre thomas PLLC logo.webp` by keying the white field to transparency
+(luminance → alpha, which preserves the hairline serifs). If the firm supplies
+an original transparent vector or PNG, drop it in and replace both — a native
+file will always beat a derived one.
+
 ## The chat assistant
 
 Deterministic retrieval over the site's own content — no model call, so it

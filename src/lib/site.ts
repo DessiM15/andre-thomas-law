@@ -42,8 +42,7 @@ export const firm = {
   reviews: {
     rating: 4.9,
     count: 60,
-    // TODO on signing: swap for the firm's Google Place URL for a direct deep link.
-    url: "https://www.google.com/search?q=Andre+Thomas+Law+PLLC+Houston+reviews",
+    url: "https://www.google.com/search?q=andre+thomas+law&sca_esv=a6e07816c90ab268&ei=mXJ1apriCZukqtsPtI3w-AY&gs_ssp=eJzj4tVP1zc0rDSuqjAqyK4wYLRSNaiwMDMxSEozsUhKM0lLNUo1tzKoMDE1SjI0MTUzTk4ztUw2S_YSSMxLKUpVKMnIz00sVshJLAcA-L8Vvg&oq=andre+&sclient=gws-wiz-serp",
   },
 } as const;
 
@@ -97,7 +96,40 @@ export const bio = {
 } as const;
 
 /* ─────────────────────────────────────────────────────────────
-   Why the other side should worry — grounded in his actual résumé
+   Why Andre Thomas Law, PLLC — the firm's own words, verbatim
+   ───────────────────────────────────────────────────────────── */
+export const whyFirm = {
+  heading: "Why Andre Thomas Law, PLLC",
+  lede: "Choosing Andre Thomas Law, PLLC means partnering with a legal advocate who combines a profound understanding of the law with compassion for your situation. With Andre Thomas, you gain a dedicated ally for justice and success, backed by a passion that has been his driving force since childhood.",
+} as const;
+
+/* The three pillars from the firm's own site, verbatim, as image panels. */
+export const advocatePanels = [
+  {
+    n: "01",
+    title: "Core Values and Approach",
+    body: "Andre Thomas's legal practice revolves around client-centric values, including diligent work, determination, and empathy. He treats clients as he would wish to be treated, delivering steadfast support and securing favorable outcomes. Renowned for professionalism and dedication, Andre stands by his clients, offering unwavering commitment on their toughest days.",
+    image: "/stock/panel-values.webp",
+    alt: "A law library with bound volumes and a figure of Lady Justice",
+  },
+  {
+    n: "02",
+    title: "Experience and Expertise",
+    body: "Andre Thomas's specialization in Personal Injury law signifies his deep expertise in this intricate domain. His impactful contributions are evident in cases like State of TN v Billy Ray Turner and State of TN v Tedarrius Bean. Cases such as these have earned him the reputation of exuding unwavering dedication and legal acumen necessary to deliver justice to his clients.",
+    image: "/stock/panel-experience.webp",
+    alt: "The columned facade and steps of a county courthouse",
+  },
+  {
+    n: "03",
+    title: "Client-Centered Approach",
+    body: "For Andre, prioritizing his clients' needs and concerns is non-negotiable. He believes in identifying their requirements early and addressing each one with precision. His commitment to understanding their situation and crafting tailored legal strategies is unwavering.",
+    image: "/stock/panel-client.webp",
+    alt: "An attorney in consultation with clients across a desk",
+  },
+] as const;
+
+/* ─────────────────────────────────────────────────────────────
+   Supporting proof points — grounded in his actual résumé
    ───────────────────────────────────────────────────────────── */
 export const pillars = [
   {
@@ -136,11 +168,46 @@ export type PracticeArea = {
 };
 
 export const practiceGroups = [
-  { id: "foundation", label: "The Foundation", n: "01" },
-  { id: "road", label: "On the Road", n: "02" },
-  { id: "work", label: "On the Job", n: "03" },
-  { id: "property", label: "On the Property", n: "04" },
-  { id: "aftermath", label: "When It's Worst", n: "05" },
+  {
+    id: "foundation",
+    label: "The Foundation",
+    n: "01",
+    blurb: "Where every claim starts: someone else was careless, and you are the one carrying it.",
+    image: "/stock/pa-hero-crash.webp",
+    alt: "A wrecked car at the roadside in morning fog",
+  },
+  {
+    id: "road",
+    label: "On the Road",
+    n: "02",
+    blurb: "Collisions with cars, trucks, motorcycles, and impaired drivers.",
+    image: "/stock/grp-road.webp",
+    alt: "The wheels of a tractor-trailer throwing spray on a wet highway",
+  },
+  {
+    id: "work",
+    label: "On the Job",
+    n: "03",
+    blurb: "Construction, industrial, maritime, and rail — the places Texas gets built and moved.",
+    image: "/stock/grp-work.webp",
+    alt: "A construction worker on rebar high above a building site",
+  },
+  {
+    id: "property",
+    label: "On the Property",
+    n: "04",
+    blurb: "Hazards someone else was responsible for finding and fixing.",
+    image: "/stock/grp-property.webp",
+    alt: "A caution wet floor sign in a supermarket aisle",
+  },
+  {
+    id: "aftermath",
+    label: "When It's Worst",
+    n: "05",
+    blurb: "Catastrophic injury, wrongful death, and the insurers who would rather not pay.",
+    image: "/stock/grp-aftermath.webp",
+    alt: "A tanker truck on a dark highway at night",
+  },
 ] as const;
 
 export const practiceAreas: PracticeArea[] = [

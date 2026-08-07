@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -167,9 +168,15 @@ export default function ChatWidget() {
             {/* Header */}
             <div className="grain relative flex items-center justify-between bg-ink-950 px-5 py-4">
               <div className="flex items-center gap-3">
-                <span className="flex items-center gap-1 font-display text-xl leading-none text-paper">
-                  A<span className="h-4 w-px bg-gold-500" />T
-                </span>
+                <Image
+                  src="/logo-light.png"
+                  alt=""
+                  aria-hidden
+                  width={946}
+                  height={484}
+                  sizes="90px"
+                  className="h-auto w-[4.5rem] shrink-0"
+                />
                 <div>
                   <p className="text-[0.82rem] font-medium leading-tight text-paper">
                     Firm Assistant

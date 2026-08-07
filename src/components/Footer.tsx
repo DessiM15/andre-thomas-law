@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { firm, nav, practiceAreas } from "@/lib/site";
 
@@ -10,11 +11,15 @@ export default function Footer() {
         {/* Mark + tagline */}
         <div className="flex flex-col gap-10 border-b border-ink-800/60 pb-14 md:flex-row md:items-end md:justify-between">
           <div>
-            <div className="flex items-center gap-2 font-display text-5xl leading-none text-paper md:text-6xl">
-              A<span className="h-10 w-px bg-gold-500 md:h-12" />T
-            </div>
-            <p className="eyebrow mt-6 text-ink-300">{firm.name}</p>
-            <p className="mt-4 max-w-md font-display text-2xl italic leading-snug text-paper/90 md:text-3xl">
+            <Image
+              src="/logo-light.png"
+              alt={firm.name}
+              width={946}
+              height={484}
+              sizes="320px"
+              className="h-auto w-[15rem] md:w-[19rem]"
+            />
+            <p className="mt-7 max-w-md font-display text-2xl italic leading-snug text-paper/90 md:text-3xl">
               {firm.tagline}
             </p>
           </div>
