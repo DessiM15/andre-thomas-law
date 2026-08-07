@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Ink: deep navy, the brand's spine ─────────────────── */
+  --color-ink-950: #04101f;
+  --color-ink-900: #071628;
+  --color-ink-800: #0a1a30;
+  --color-ink-700: #10294a;
+  --color-ink-600: #1c3e6a;
+  --color-ink-500: #274f80;
+  --color-ink-300: #7f96b4;
+  --color-ink-200: #b6c4d6;
+
+  /* ── Gold: hairlines, numerals, every CTA ──────────────── */
+  --color-gold-500: #c4a24c;
+  --color-gold-400: #d5b96b;
+  --color-gold-600: #a4823a;
+  --color-gold-700: #8a6c22;
+  --color-gold-200: #e7d7ac;
+  --color-gold-100: #f3ebd6;
+
+  /* ── Paper: the bright side ────────────────────────────── */
+  --color-paper: #fbf9f5;
+  --color-paper-warm: #f4efe5;
+  --color-paper-edge: #e6dfd1;
+
+  --font-display: var(--font-bodoni), "Didot", "Bodoni MT", Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink-800);
+    font-family: var(--font-sans);
+    font-feature-settings: "kern", "liga", "calt";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-200);
+    color: var(--color-ink-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-600);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  /* Didone display faces get optically loose at small sizes and
+     too tight at huge ones — pull the tracking in as it scales up. */
+  .display-xl {
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+  }
+}
+
+@layer components {
+  /* ── Eyebrow: tracked-out small caps, the editorial signature ── */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .rule-gold {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      var(--color-gold-500) 0%,
+      var(--color-gold-500) 60%,
+      transparent 100%
+    );
+  }
+
+  /* ── Grain: what keeps the navy from looking like flat CSS ──── */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  }
+
+  .link-underline {
+    background-image: linear-gradient(
+      var(--color-gold-500),
+      var(--color-gold-500)
+    );
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.5s var(--ease-editorial);
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+}
+
+@utility container-x {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 88rem;
+  padding-inline: 1.5rem;
+  @media (width >= 48rem) {
+    padding-inline: 3rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 4.5rem;
+  }
+}
+
+/* Respect the user's motion setting — non-negotiable on a site
+   whose audience is, by definition, sometimes injured. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
