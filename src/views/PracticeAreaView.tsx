@@ -1,50 +1,26 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
 import CTABand from "@/components/CTABand";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
-import {
-  firm,
-  getPracticeArea,
-  practiceAreas,
-  practiceGroups,
-  SITE_URL,
-} from "@/lib/site";
+import { content, type PracticeArea } from "@/lib/content";
+import { firm, SITE_URL } from "@/lib/firm";
+import { areaPath, path, type Lang } from "@/lib/i18n";
 
-type Props = { params: Promise<{ slug: string }> };
+export default function PracticeAreaView({
+  lang,
+  area,
+}: {
+  lang: Lang;
+  area: PracticeArea;
+}) {
+  const c = content(lang);
+  const t = c.ui.area;
 
-export function generateStaticParams() {
-  return practiceAreas.map((a) => ({ slug: a.slug }));
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const area = getPracticeArea(slug);
-  if (!area) return {};
-
-  return {
-    title: `${area.name} Attorney in Houston, Texas`,
-    description: `${area.short} ${firm.attorney} represents the injured in Texas and Tennessee. Free consultation — ${firm.phone}.`,
-    alternates: { canonical: `/practice-areas/${area.slug}` },
-    openGraph: {
-      title: `${area.name} — ${firm.name}`,
-      description: area.short,
-      url: `${SITE_URL}/practice-areas/${area.slug}`,
-    },
-  };
-}
-
-export default async function PracticeAreaPage({ params }: Props) {
-  const { slug } = await params;
-  const area = getPracticeArea(slug);
-  if (!area) notFound();
-
-  const group = practiceGroups.find((g) => g.id === area.group);
-  const related = practiceAreas
-    .filter((a) => a.group === area.group && a.slug !== area.slug)
+  const group = c.practiceGroups.find((g) => g.id === area.group);
+  const related = c.practiceAreas
+    .filter((a) => a.group === area.group && a.key !== area.key)
     .slice(0, 3);
-  const others = practiceAreas.filter((a) => a.slug !== area.slug).slice(0, 8);
+  const others = c.practiceAreas.filter((a) => a.key !== area.key).slice(0, 8);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -52,26 +28,32 @@ export default async function PracticeAreaPage({ params }: Props) {
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: c.schema.home,
+            item: `${SITE_URL}${path("home", lang)}`,
+          },
           {
             "@type": "ListItem",
             position: 2,
-            name: "Practice Areas",
-            item: `${SITE_URL}/practice-areas`,
+            name: c.schema.practiceAreas,
+            item: `${SITE_URL}${path("practiceAreas", lang)}`,
           },
           {
             "@type": "ListItem",
             position: 3,
             name: area.name,
-            item: `${SITE_URL}/practice-areas/${area.slug}`,
+            item: `${SITE_URL}${areaPath(area.slug, lang)}`,
           },
         ],
       },
       {
         "@type": "Service",
-        name: `${area.name} Representation`,
+        name: `${area.name} — ${t.representation}`,
         serviceType: area.name,
         description: area.short,
+        inLanguage: lang,
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: [
           { "@type": "State", name: "Texas" },
@@ -86,7 +68,10 @@ export default async function PracticeAreaPage({ params }: Props) {
   const words = area.name.split(" ");
   const titleLines =
     words.length > 2
-      ? [words.slice(0, Math.ceil(words.length / 2)).join(" "), words.slice(Math.ceil(words.length / 2)).join(" ")]
+      ? [
+          words.slice(0, Math.ceil(words.length / 2)).join(" "),
+          words.slice(Math.ceil(words.length / 2)).join(" "),
+        ]
       : [area.name];
 
   return (
@@ -97,11 +82,11 @@ export default async function PracticeAreaPage({ params }: Props) {
       />
 
       <PageHeader
-        eyebrow={group?.label ?? "Practice area"}
+        eyebrow={group?.label ?? t.fallbackEyebrow}
         n={group?.n}
         title={titleLines}
         lede={area.lede}
-        crumb={{ label: "All practice areas", href: "/practice-areas" }}
+        crumb={{ label: t.crumb, href: path("practiceAreas", lang) }}
       />
 
       <section className="bg-paper py-20 md:py-28">
@@ -118,8 +103,8 @@ export default async function PracticeAreaPage({ params }: Props) {
 
             <Reveal delay={0.08}>
               <div className="mt-10 space-y-6 text-[1.05rem] leading-relaxed text-ink-800/85">
-                {area.body.slice(1).map((p) => (
-                  <p key={p.slice(0, 24)}>{p}</p>
+                {area.body.slice(1).map((para) => (
+                  <p key={para.slice(0, 24)}>{para}</p>
                 ))}
               </div>
             </Reveal>
@@ -127,17 +112,17 @@ export default async function PracticeAreaPage({ params }: Props) {
             {/* What this covers */}
             <Reveal delay={0.14}>
               <div className="mt-16 border-t border-paper-edge pt-12">
-                <Eyebrow n="—">What this covers</Eyebrow>
+                <Eyebrow n="—">{t.covers}</Eyebrow>
                 <ul className="mt-8 space-y-0">
-                  {area.covers.map((c, i) => (
+                  {area.covers.map((cover, i) => (
                     <li
-                      key={c}
+                      key={cover}
                       className="flex gap-6 border-b border-paper-edge py-5 text-[1rem] leading-relaxed text-ink-800/85"
                     >
                       <span className="shrink-0 font-display text-lg text-gold-600">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span>{c}</span>
+                      <span>{cover}</span>
                     </li>
                   ))}
                 </ul>
@@ -150,12 +135,12 @@ export default async function PracticeAreaPage({ params }: Props) {
             <div className="md:sticky md:top-28 md:space-y-8">
               <Reveal>
                 <div className="grain relative overflow-hidden bg-ink-950 p-9 text-paper">
-                  <Eyebrow tone="light">Free consultation</Eyebrow>
+                  <Eyebrow tone="light">{c.ui.freeConsultation}</Eyebrow>
                   <p className="mt-5 font-display text-3xl leading-tight">
-                    Find out where you stand.
+                    {t.consultTitle}
                   </p>
                   <p className="mt-4 text-sm leading-relaxed text-ink-200">
-                    It costs nothing and commits you to nothing.
+                    {t.consultBody}
                   </p>
                   <a
                     href={firm.phoneHref}
@@ -164,26 +149,26 @@ export default async function PracticeAreaPage({ params }: Props) {
                     {firm.phone}
                   </a>
                   <Link
-                    href="/contact"
+                    href={path("contact", lang)}
                     className="group relative mt-6 block overflow-hidden bg-gold-500 px-6 py-3.5 text-center text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-ink-950"
                   >
-                    <span className="relative z-10">Send a message</span>
+                    <span className="relative z-10">{c.ui.sendMessage}</span>
                     <span className="absolute inset-0 -translate-x-full bg-gold-200 transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
                   </Link>
                   <p className="mt-6 text-[0.7rem] leading-relaxed text-ink-300/80">
-                    Licensed in Texas and Tennessee. {firm.hours}.
+                    {t.licensedNote} {c.hours}.
                   </p>
                 </div>
               </Reveal>
 
               <Reveal delay={0.1} className="hidden md:block">
                 <div className="border border-paper-edge p-8">
-                  <Eyebrow>Other practice areas</Eyebrow>
+                  <Eyebrow>{t.others}</Eyebrow>
                   <ul className="mt-6 space-y-3 text-sm">
                     {others.map((o) => (
-                      <li key={o.slug}>
+                      <li key={o.key}>
                         <Link
-                          href={`/practice-areas/${o.slug}`}
+                          href={areaPath(o.slug, lang)}
                           className="link-underline text-ink-800/80 transition-colors hover:text-ink-900"
                         >
                           {o.name}
@@ -192,10 +177,10 @@ export default async function PracticeAreaPage({ params }: Props) {
                     ))}
                   </ul>
                   <Link
-                    href="/practice-areas"
+                    href={path("practiceAreas", lang)}
                     className="eyebrow mt-7 inline-flex items-center gap-3 text-gold-700"
                   >
-                    View all
+                    {c.ui.viewAll}
                     <span className="h-px w-8 bg-gold-500" />
                   </Link>
                 </div>
@@ -210,14 +195,16 @@ export default async function PracticeAreaPage({ params }: Props) {
         <section className="border-t border-paper-edge bg-paper-warm py-16 md:py-24">
           <div className="container-x">
             <Reveal>
-              <Eyebrow n={group?.n}>Also under {group?.label}</Eyebrow>
+              <Eyebrow n={group?.n}>
+                {t.alsoUnder} {group?.label}
+              </Eyebrow>
             </Reveal>
             <GoldRule className="mt-6 w-full" />
             <div className="grid gap-px bg-paper-edge md:grid-cols-3">
               {related.map((r, i) => (
-                <Reveal key={r.slug} delay={i * 0.06}>
+                <Reveal key={r.key} delay={i * 0.06}>
                   <Link
-                    href={`/practice-areas/${r.slug}`}
+                    href={areaPath(r.slug, lang)}
                     className="group relative flex h-full flex-col overflow-hidden bg-paper-warm p-8 md:p-10"
                   >
                     <span className="absolute inset-0 origin-bottom scale-y-0 bg-ink-950 transition-transform duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-y-100" />
@@ -229,7 +216,7 @@ export default async function PracticeAreaPage({ params }: Props) {
                         {r.short}
                       </span>
                       <span className="eyebrow mt-8 text-gold-600 transition-colors duration-500 group-hover:text-gold-400">
-                        Learn more →
+                        {c.ui.learnMore} →
                       </span>
                     </span>
                   </Link>
@@ -240,7 +227,7 @@ export default async function PracticeAreaPage({ params }: Props) {
         </section>
       )}
 
-      <CTABand />
+      <CTABand lang={lang} />
     </>
   );
 }

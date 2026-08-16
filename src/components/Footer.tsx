@@ -1,8 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { firm, nav, practiceAreas } from "@/lib/site";
+import LangSwitch from "@/components/LangSwitch";
+import { content } from "@/lib/content";
+import { firm } from "@/lib/firm";
+import { areaPath, path, type Lang } from "@/lib/i18n";
 
-export default function Footer() {
+export default function Footer({ lang }: { lang: Lang }) {
+  const c = content(lang);
   const year = new Date().getFullYear();
 
   return (
@@ -20,15 +24,15 @@ export default function Footer() {
               className="h-auto w-[19rem] md:w-[28rem]"
             />
             <p className="mt-7 max-w-md font-display text-2xl italic leading-snug text-paper/90 md:text-3xl">
-              {firm.tagline}
+              {c.tagline}
             </p>
           </div>
 
           <Link
-            href="/contact"
+            href={path("contact", lang)}
             className="group inline-flex items-center gap-4 self-start border border-ink-200/25 px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-paper transition-colors duration-300 hover:border-gold-500 hover:text-gold-400 md:self-auto"
           >
-            Start your free consultation
+            {c.ui.footer.cta}
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
@@ -38,12 +42,12 @@ export default function Footer() {
         {/* Columns */}
         <div className="grid gap-12 py-14 md:grid-cols-12">
           <div className="md:col-span-3">
-            <h2 className="eyebrow mb-6 text-gold-500">Navigate</h2>
+            <h2 className="eyebrow mb-6 text-gold-500">{c.ui.footer.navigate}</h2>
             <ul className="space-y-3 text-sm">
-              {nav.map((item) => (
-                <li key={item.href}>
+              {c.nav.map((item) => (
+                <li key={item.key}>
                   <Link
-                    href={item.href}
+                    href={path(item.key, lang)}
                     className="link-underline text-ink-200 transition-colors hover:text-paper"
                   >
                     {item.label}
@@ -57,19 +61,27 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="link-underline text-ink-200 transition-colors hover:text-paper"
                 >
-                  Instagram ↗
+                  {c.ui.instagram} ↗
                 </a>
+              </li>
+              <li>
+                <LangSwitch
+                  lang={lang}
+                  label={lang === "en" ? "Ver en español" : "View in English"}
+                  ariaLabel={c.ui.switchLangAria}
+                  className="link-underline text-gold-500 transition-colors hover:text-gold-400"
+                />
               </li>
             </ul>
           </div>
 
           <div className="md:col-span-5">
-            <h2 className="eyebrow mb-6 text-gold-500">Practice Areas</h2>
+            <h2 className="eyebrow mb-6 text-gold-500">{c.ui.footer.practiceAreas}</h2>
             <ul className="grid grid-cols-1 gap-x-8 gap-y-3 text-sm sm:grid-cols-2">
-              {practiceAreas.map((area) => (
-                <li key={area.slug}>
+              {c.practiceAreas.map((area) => (
+                <li key={area.key}>
                   <Link
-                    href={`/practice-areas/${area.slug}`}
+                    href={areaPath(area.slug, lang)}
                     className="link-underline text-ink-200 transition-colors hover:text-paper"
                   >
                     {area.name}
@@ -80,7 +92,7 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-4">
-            <h2 className="eyebrow mb-6 text-gold-500">Office</h2>
+            <h2 className="eyebrow mb-6 text-gold-500">{c.ui.footer.office}</h2>
             <address className="space-y-5 text-sm not-italic leading-relaxed">
               <a
                 href={firm.mapsUrl}
@@ -101,7 +113,9 @@ export default function Footer() {
                 >
                   {firm.phone}
                 </a>
-                <p className="text-ink-300">Fax {firm.fax}</p>
+                <p className="text-ink-300">
+                  {c.ui.footer.fax} {firm.fax}
+                </p>
               </div>
               <a
                 href={firm.emailHref}
@@ -109,7 +123,7 @@ export default function Footer() {
               >
                 {firm.email}
               </a>
-              <p className="text-ink-300">{firm.hours}</p>
+              <p className="text-ink-300">{c.hours}</p>
             </address>
           </div>
         </div>
@@ -117,27 +131,24 @@ export default function Footer() {
         {/* Legal */}
         <div className="border-t border-ink-800/60 pt-10">
           <p className="max-w-4xl text-xs leading-relaxed text-ink-300/80">
-            The information on this website is provided for general informational
-            purposes only and is not legal advice. Viewing this site, contacting
-            the firm, or sending information through this website does not create
-            an attorney–client relationship. Do not send confidential information
-            until an attorney–client relationship has been established in
-            writing. Prior results do not guarantee a similar outcome.{" "}
-            {firm.attorney} is licensed to practice law in Texas and Tennessee.
+            {c.ui.footer.legal}{" "}
+            {lang === "es"
+              ? `${firm.attorney} tiene licencia para ejercer la abogacía en Texas y Tennessee.`
+              : `${firm.attorney} is licensed to practice law in Texas and Tennessee.`}
           </p>
           <div className="mt-8 flex flex-col gap-4 text-xs text-ink-300/70 sm:flex-row sm:items-center sm:justify-between">
             <p>
-              © {year} {firm.name}. All rights reserved.
+              © {year} {firm.name}. {c.ui.footer.rights}
             </p>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-              <Link href="/disclaimer" className="transition-colors hover:text-paper">
-                Disclaimer
+              <Link href={path("disclaimer", lang)} className="transition-colors hover:text-paper">
+                {c.ui.footer.disclaimer}
               </Link>
-              <Link href="/privacy" className="transition-colors hover:text-paper">
-                Privacy
+              <Link href={path("privacy", lang)} className="transition-colors hover:text-paper">
+                {c.ui.footer.privacy}
               </Link>
               <p>
-                Powered by{" "}
+                {c.ui.footer.poweredBy}{" "}
                 <a
                   href="https://smartscaleagent.com"
                   target="_blank"

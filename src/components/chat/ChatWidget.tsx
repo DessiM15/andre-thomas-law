@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { firm } from "@/lib/site";
-import { DISCLAIMER, OPENERS } from "@/lib/chat/kb";
+import { getBundle } from "@/lib/chat/kb";
 import type { Reply } from "@/lib/chat/engine";
+import { content } from "@/lib/content";
+import { firm } from "@/lib/firm";
+import type { Lang } from "@/lib/i18n";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -18,14 +20,20 @@ type Msg = {
   chips?: string[];
 };
 
+const NUDGE_KEY = "atl-chat-nudge";
+
 let uid = 0;
 
-export default function ChatWidget() {
+export default function ChatWidget({ lang }: { lang: Lang }) {
+  const c = content(lang);
+  const chat = c.ui.chat;
+  const bundle = getBundle(lang);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [nudge, setNudge] = useState(false);
+  const nudged = useRef(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -36,13 +44,13 @@ export default function ChatWidget() {
         {
           id: uid++,
           role: "bot",
-          text: `Hi — I'm the ${firm.shortName} assistant. I can tell you about the firm, our practice areas, the office, and how to get a free consultation.`,
-          chips: OPENERS,
+          text: chat.greeting,
+          chips: bundle.openers,
         },
       ]);
       setTimeout(() => inputRef.current?.focus(), 500);
     }
-  }, [open, messages.length]);
+  }, [open, messages.length, chat.greeting, bundle.openers]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -51,11 +59,59 @@ export default function ChatWidget() {
     });
   }, [messages, typing]);
 
-  // A single, polite nudge after the visitor has had time to look around.
+  /**
+   * A single, polite nudge — but never over the hero's own call to action.
+   * The bubble sits bottom-right, which is exactly where the "Call" button
+   * lands on a short viewport, and a widget that covers the phone number
+   * costs more calls than it wins. So it waits until the visitor has
+   * scrolled past the first screen, then leaves on its own.
+   */
   useEffect(() => {
-    const t = setTimeout(() => setNudge(true), 9000);
-    return () => clearTimeout(t);
+    try {
+      if (sessionStorage.getItem(NUDGE_KEY)) return;
+    } catch {
+      return;
+    }
+
+    let hideTimer: ReturnType<typeof setTimeout>;
+    const pastFold = () => window.scrollY > window.innerHeight * 0.9;
+
+    const show = () => {
+      if (nudged.current || !pastFold()) return;
+      nudged.current = true;
+      window.removeEventListener("scroll", show);
+      setNudge(true);
+      // Spend the session's one nudge here, not on dismissal — otherwise it
+      // retreats politely and then reappears on every subsequent page.
+      try {
+        sessionStorage.setItem(NUDGE_KEY, "1");
+      } catch {
+        /* nothing to remember it with */
+      }
+      hideTimer = setTimeout(() => setNudge(false), 12000);
+    };
+
+    const armed = setTimeout(() => {
+      show();
+      if (!nudged.current) window.addEventListener("scroll", show, { passive: true });
+    }, 6000);
+
+    return () => {
+      clearTimeout(armed);
+      clearTimeout(hideTimer);
+      window.removeEventListener("scroll", show);
+    };
   }, []);
+
+  /** Once waved off, stay waved off for the rest of the session. */
+  const dismissNudge = () => {
+    setNudge(false);
+    try {
+      sessionStorage.setItem(NUDGE_KEY, "1");
+    } catch {
+      /* nothing to remember it with */
+    }
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -76,13 +132,11 @@ export default function ChatWidget() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: trimmed }),
+        body: JSON.stringify({ message: trimmed, lang }),
       });
       reply = await res.json();
     } catch {
-      reply = {
-        text: `I couldn't reach the server just then. You can always call ${firm.phone}.`,
-      };
+      reply = { text: `${chat.unreachable} ${firm.phone}.` };
     }
 
     // A beat of "thinking" — instant replies read as canned.
@@ -99,26 +153,42 @@ export default function ChatWidget() {
   return (
     <>
       {/* ── Launcher ──────────────────────────────────────────── */}
-      <div className="fixed bottom-5 right-5 z-[85] flex items-center gap-3 md:bottom-7 md:right-7">
+      <div className="fixed bottom-[calc(1.25rem+var(--atl-banner-h,0px))] right-5 z-[85] flex items-center gap-3 transition-[bottom] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:bottom-[calc(1.75rem+var(--atl-banner-h,0px))] md:right-7">
         <AnimatePresence>
           {nudge && !open && (
-            <motion.button
+            <motion.div
               initial={{ opacity: 0, x: 12, scale: 0.96 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 12, scale: 0.96 }}
               transition={{ duration: 0.6, ease: EASE }}
-              onClick={() => setOpen(true)}
-              className="hidden max-w-[15rem] border border-paper-edge bg-paper px-4 py-3 text-left text-[0.78rem] leading-snug text-ink-800 shadow-[0_8px_30px_rgba(4,16,31,0.12)] sm:block"
+              className="relative hidden max-w-[15rem] border border-paper-edge bg-paper shadow-[0_8px_30px_rgba(4,16,31,0.12)] sm:block"
             >
-              Questions about your situation?{" "}
-              <span className="text-gold-700">Ask here →</span>
-            </motion.button>
+              <button
+                onClick={() => {
+                  dismissNudge();
+                  setOpen(true);
+                }}
+                className="block px-4 py-3 pr-8 text-left text-[0.78rem] leading-snug text-ink-800"
+              >
+                {chat.nudge}{" "}
+                <span className="text-gold-700">{chat.nudgeCta}</span>
+              </button>
+              <button
+                onClick={dismissNudge}
+                aria-label={chat.nudgeDismiss}
+                className="absolute right-1.5 top-1.5 p-1 text-ink-300 transition-colors hover:text-ink-800"
+              >
+                <svg width="9" height="9" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2.4">
+                  <path d="M2 2l14 14M16 2L2 16" />
+                </svg>
+              </button>
+            </motion.div>
           )}
         </AnimatePresence>
 
         <button
           onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close chat" : "Open chat assistant"}
+          aria-label={open ? chat.close : chat.open}
           aria-expanded={open}
           className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gold-500 text-ink-950 shadow-[0_10px_34px_rgba(4,16,31,0.28)] transition-transform duration-300 hover:scale-105 active:scale-95"
         >
@@ -162,8 +232,8 @@ export default function ChatWidget() {
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.45, ease: EASE }}
             role="dialog"
-            aria-label="Firm assistant"
-            className="fixed inset-0 z-[86] flex flex-col bg-paper sm:inset-auto sm:bottom-24 sm:right-7 sm:h-[min(34rem,calc(100vh-9rem))] sm:w-[24rem] sm:border sm:border-paper-edge sm:shadow-[0_24px_70px_rgba(4,16,31,0.24)]"
+            aria-label={chat.dialogAria}
+            className="fixed inset-0 z-[86] flex flex-col bg-paper sm:inset-auto sm:bottom-[calc(6rem+var(--atl-banner-h,0px))] sm:right-7 sm:h-[min(34rem,calc(100vh-9rem-var(--atl-banner-h,0px)))] sm:w-[24rem] sm:border sm:border-paper-edge sm:shadow-[0_24px_70px_rgba(4,16,31,0.24)]"
           >
             {/* Header */}
             <div className="grain relative flex items-center justify-between bg-ink-950 px-5 py-4">
@@ -179,17 +249,17 @@ export default function ChatWidget() {
                 />
                 <div>
                   <p className="text-[0.82rem] font-medium leading-tight text-paper">
-                    Firm Assistant
+                    {chat.title}
                   </p>
                   <p className="flex items-center gap-1.5 text-[0.68rem] leading-tight text-ink-300">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                    Automated · replies instantly
+                    {chat.status}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                aria-label="Close chat"
+                aria-label={chat.close}
                 className="p-1.5 text-ink-300 transition-colors hover:text-paper"
               >
                 <svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -200,7 +270,7 @@ export default function ChatWidget() {
 
             {/* Disclaimer strip — always visible, never dismissible */}
             <p className="border-b border-gold-200 bg-gold-100 px-5 py-2.5 text-[0.68rem] leading-relaxed text-ink-700">
-              {DISCLAIMER}
+              {bundle.disclaimer}
             </p>
 
             {/* Transcript */}
@@ -288,14 +358,14 @@ export default function ChatWidget() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   maxLength={500}
-                  placeholder="Ask about the firm…"
-                  aria-label="Type your question"
+                  placeholder={chat.placeholder}
+                  aria-label={chat.inputAria}
                   className="flex-1 bg-transparent px-2 py-2.5 text-[0.85rem] text-ink-900 outline-none placeholder:text-ink-300"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || typing}
-                  aria-label="Send"
+                  aria-label={chat.sendAria}
                   className="flex h-9 w-9 items-center justify-center bg-gold-500 text-ink-950 transition-opacity disabled:opacity-30"
                 >
                   <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -304,9 +374,9 @@ export default function ChatWidget() {
                 </button>
               </div>
               <p className="px-2 pt-1.5 text-[0.65rem] text-ink-300">
-                Don&apos;t share confidential details.{" "}
+                {chat.confidential}{" "}
                 <a href={firm.phoneHref} className="text-gold-700 underline underline-offset-2">
-                  Call {firm.phone}
+                  {c.ui.callPhone} {firm.phone}
                 </a>
               </p>
             </form>

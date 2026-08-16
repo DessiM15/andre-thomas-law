@@ -1,25 +1,23 @@
-import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/ContactForm";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
-import { firm, fullAddress, process } from "@/lib/site";
+import { content } from "@/lib/content";
+import { firm, fullAddress } from "@/lib/firm";
+import type { Lang } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Contact — Free Consultation with Andre Thomas Law",
-  description: `Call ${firm.phone} or send a message. ${fullAddress}. Free consultation, ${firm.hours}.`,
-  alternates: { canonical: "/contact" },
-};
+export default function ContactView({ lang }: { lang: Lang }) {
+  const c = content(lang);
+  const p = c.pages.contact;
 
-export default function ContactPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Contact"
+        eyebrow={p.eyebrow}
         n="01"
-        title={["Tell us", "what happened."]}
-        lede="The consultation is free, and so is finding out where you stand. Fill in the form or call directly — either way, you'll speak with the firm."
+        title={p.titleLines}
+        lede={p.lede}
         image="/stock/contact-distress.webp"
-        alt="A woman sitting alone, looking worried"
+        alt={p.heroAlt}
         focal="70% 30%"
         tall
       />
@@ -29,22 +27,22 @@ export default function ContactPage() {
         <div className="container-x grid gap-16 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-7">
             <Reveal>
-              <Eyebrow n="02">Request a consultation</Eyebrow>
+              <Eyebrow n="02">{p.requestEyebrow}</Eyebrow>
             </Reveal>
             <GoldRule className="mt-6 mb-12 w-32" />
             <Reveal delay={0.06}>
-              <ContactForm />
+              <ContactForm lang={lang} />
             </Reveal>
           </div>
 
           <aside className="md:col-span-4 md:col-start-9">
             <Reveal delay={0.1}>
               <div className="md:sticky md:top-28">
-                <Eyebrow n="03">The office</Eyebrow>
+                <Eyebrow n="03">{p.officeEyebrow}</Eyebrow>
 
                 <dl className="mt-8 space-y-8 text-[0.95rem]">
                   <div>
-                    <dt className="eyebrow mb-3 text-gold-700">Phone</dt>
+                    <dt className="eyebrow mb-3 text-gold-700">{p.phone}</dt>
                     <dd>
                       <a
                         href={firm.phoneHref}
@@ -53,13 +51,13 @@ export default function ContactPage() {
                         {firm.phone}
                       </a>
                       <span className="mt-2 block text-sm text-ink-800/60">
-                        Fax {firm.fax}
+                        {c.ui.footer.fax} {firm.fax}
                       </span>
                     </dd>
                   </div>
 
                   <div>
-                    <dt className="eyebrow mb-3 text-gold-700">Email</dt>
+                    <dt className="eyebrow mb-3 text-gold-700">{p.email}</dt>
                     <dd>
                       <a
                         href={firm.emailHref}
@@ -71,7 +69,7 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <dt className="eyebrow mb-3 text-gold-700">Address</dt>
+                    <dt className="eyebrow mb-3 text-gold-700">{p.address}</dt>
                     <dd className="leading-relaxed text-ink-800/85">
                       <a
                         href={firm.mapsUrl}
@@ -89,12 +87,12 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <dt className="eyebrow mb-3 text-gold-700">Hours</dt>
-                    <dd className="text-ink-800/85">{firm.hours}</dd>
+                    <dt className="eyebrow mb-3 text-gold-700">{p.hours}</dt>
+                    <dd className="text-ink-800/85">{c.hours}</dd>
                   </div>
 
                   <div>
-                    <dt className="eyebrow mb-3 text-gold-700">Licensed in</dt>
+                    <dt className="eyebrow mb-3 text-gold-700">{p.licensedIn}</dt>
                     <dd className="flex gap-3">
                       {firm.barAdmissions.map((s) => (
                         <span
@@ -117,8 +115,8 @@ export default function ContactPage() {
       <section className="border-t border-paper-edge">
         <div className="relative h-[380px] w-full bg-paper-warm md:h-[460px]">
           <iframe
-            title={`Map to ${firm.name}`}
-            src={`https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`}
+            title={`${p.mapTitle} ${firm.name}`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed&hl=${lang}`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             className="absolute inset-0 h-full w-full grayscale-[0.35] contrast-[1.05]"
@@ -131,18 +129,16 @@ export default function ContactPage() {
       <section className="grain relative overflow-hidden bg-ink-950 py-20 text-paper md:py-28">
         <div className="container-x">
           <Reveal>
-            <Eyebrow n="04" tone="light">After you reach out</Eyebrow>
+            <Eyebrow n="04" tone="light">{p.nextEyebrow}</Eyebrow>
             <h2 className="mt-6 max-w-2xl font-display text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.08]">
-              No one should have to guess what comes next.
+              {p.nextTitle}
             </h2>
           </Reveal>
 
           <div className="mt-14 grid gap-px bg-ink-800/60 md:grid-cols-2 lg:grid-cols-4">
-            {process.map((step, i) => (
+            {c.process.map((step, i) => (
               <Reveal key={step.n} delay={i * 0.06} className="bg-ink-950 p-8 md:p-10">
-                <span className="font-display text-3xl text-gold-600/70">
-                  {step.n}
-                </span>
+                <span className="font-display text-3xl text-gold-600/70">{step.n}</span>
                 <h3 className="mt-5 font-display text-xl leading-snug md:text-2xl">
                   {step.title}
                 </h3>
@@ -155,10 +151,7 @@ export default function ContactPage() {
 
           <Reveal>
             <p className="mt-12 max-w-3xl text-xs leading-relaxed text-ink-300/70">
-              Submitting this form does not create an attorney–client
-              relationship, and the information you send is not privileged until
-              such a relationship is established in writing. Please do not send
-              confidential or time-sensitive information through this form.
+              {p.formNote}
             </p>
           </Reveal>
         </div>

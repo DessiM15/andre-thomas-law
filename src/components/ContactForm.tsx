@@ -2,7 +2,9 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { firm, practiceAreas } from "@/lib/site";
+import { content } from "@/lib/content";
+import { firm } from "@/lib/firm";
+import type { Lang } from "@/lib/i18n";
 
 type Tone = "light" | "dark";
 
@@ -20,7 +22,15 @@ const label = (tone: Tone) =>
       : "text-ink-800/55 peer-focus:text-gold-700"
   }`;
 
-export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
+export default function ContactForm({
+  lang,
+  tone = "light",
+}: {
+  lang: Lang;
+  tone?: Tone;
+}) {
+  const c = content(lang);
+  const t = c.ui.form;
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -30,7 +40,7 @@ export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
     setErrors({});
 
     const fd = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(fd.entries());
+    const payload = { ...Object.fromEntries(fd.entries()), lang };
 
     try {
       const res = await fetch("/api/contact", {
@@ -40,13 +50,13 @@ export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
       });
       const json = await res.json();
       if (!res.ok || !json.ok) {
-        setErrors(json.errors ?? { form: "Please check your details." });
+        setErrors(json.errors ?? { form: t.checkDetails });
         setStatus("error");
         return;
       }
       setStatus("done");
     } catch {
-      setErrors({ form: `Couldn't send. Please call ${firm.phone}.` });
+      setErrors({ form: `${t.couldNotSend} ${firm.phone}.` });
       setStatus("error");
     }
   }
@@ -61,16 +71,13 @@ export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         className={`border p-10 ${dark ? "border-gold-500/30 bg-ink-900" : "border-gold-200 bg-gold-100"}`}
       >
-        <p className="font-display text-3xl leading-snug text-gold-600">
-          Message received.
-        </p>
+        <p className="font-display text-3xl leading-snug text-gold-600">{t.doneTitle}</p>
         <p className={`mt-4 leading-relaxed ${dark ? "text-ink-200" : "text-ink-800/80"}`}>
-          Someone from the firm will follow up shortly. If it&apos;s urgent,
-          calling{" "}
+          {t.doneBody[0]}{" "}
           <a href={firm.phoneHref} className="font-medium text-gold-700 underline underline-offset-4">
             {firm.phone}
           </a>{" "}
-          is always faster.
+          {t.doneBody[1]}
         </p>
       </motion.div>
     );
@@ -94,7 +101,7 @@ export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
             id="name" name="name" type="text" required placeholder=" "
             autoComplete="name" className={field(tone)}
           />
-          <label htmlFor="name" className={label(tone)}>Name *</label>
+          <label htmlFor="name" className={label(tone)}>{t.name}</label>
           {errors.name && <p className="mt-2 text-xs text-red-500">{errors.name}</p>}
         </div>
 
@@ -103,7 +110,7 @@ export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
             id="phone" name="phone" type="tel" required placeholder=" "
             autoComplete="tel" className={field(tone)}
           />
-          <label htmlFor="phone" className={label(tone)}>Phone *</label>
+          <label htmlFor="phone" className={label(tone)}>{t.phone}</label>
           {errors.phone && <p className="mt-2 text-xs text-red-500">{errors.phone}</p>}
         </div>
       </div>
@@ -113,7 +120,7 @@ export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
           id="email" name="email" type="email" required placeholder=" "
           autoComplete="email" className={field(tone)}
         />
-        <label htmlFor="email" className={label(tone)}>Email *</label>
+        <label htmlFor="email" className={label(tone)}>{t.email}</label>
         {errors.email && <p className="mt-2 text-xs text-red-500">{errors.email}</p>}
       </div>
 
@@ -122,7 +129,7 @@ export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
           htmlFor="matter"
           className={`eyebrow mb-3 block ${dark ? "text-ink-300" : "text-ink-800/55"}`}
         >
-          What happened?
+          {t.matter}
         </label>
         <select
           id="matter" name="matter" defaultValue=""
@@ -132,12 +139,12 @@ export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
               : "border-paper-edge text-ink-900 focus:border-gold-600"
           }`}
         >
-          <option value="">Select a practice area (optional)</option>
-          {practiceAreas.map((a) => (
-            <option key={a.slug} value={a.name}>{a.name}</option>
+          <option value="">{t.matterPlaceholder}</option>
+          {c.practiceAreas.map((a) => (
+            <option key={a.key} value={a.name}>{a.name}</option>
           ))}
-          <option value="Criminal Defense">Criminal Defense</option>
-          <option value="Something else">Something else</option>
+          <option value={t.criminalDefense}>{t.criminalDefense}</option>
+          <option value={t.somethingElse}>{t.somethingElse}</option>
         </select>
       </div>
 
@@ -146,9 +153,7 @@ export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
           id="message" name="message" rows={4} placeholder=" "
           className={`${field(tone)} resize-none`}
         />
-        <label htmlFor="message" className={label(tone)}>
-          Tell us briefly what happened (optional)
-        </label>
+        <label htmlFor="message" className={label(tone)}>{t.message}</label>
       </div>
 
       <AnimatePresence>
@@ -169,13 +174,12 @@ export default function ContactForm({ tone = "light" }: { tone?: Tone }) {
           className="group relative shrink-0 self-start overflow-hidden whitespace-nowrap bg-gold-500 px-10 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-ink-950 transition-opacity disabled:opacity-60"
         >
           <span className="relative z-10">
-            {status === "sending" ? "Sending…" : "Send Message"}
+            {status === "sending" ? t.sending : t.submit}
           </span>
           <span className="absolute inset-0 -translate-x-full bg-gold-200 transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
         </button>
         <p className={`text-xs leading-relaxed ${dark ? "text-ink-300" : "text-ink-800/55"}`}>
-          Free consultation. Submitting this form does not create an
-          attorney–client relationship.
+          {t.footnote}
         </p>
       </div>
     </form>

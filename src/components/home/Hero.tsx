@@ -4,12 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { firm, heroWords } from "@/lib/site";
+import { content } from "@/lib/content";
+import { firm } from "@/lib/firm";
+import { path, type Lang } from "@/lib/i18n";
 import { useIntroDone } from "@/lib/useIntro";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-export default function Hero() {
+export default function Hero({ lang }: { lang: Lang }) {
+  const c = content(lang);
+  const h = c.ui.hero;
   const ready = useIntroDone();
   const reduce = useReducedMotion();
   const [wordIndex, setWordIndex] = useState(0);
@@ -17,11 +21,11 @@ export default function Hero() {
   useEffect(() => {
     if (!ready || reduce) return;
     const id = setInterval(
-      () => setWordIndex((i) => (i + 1) % heroWords.length),
+      () => setWordIndex((i) => (i + 1) % c.heroWords.length),
       2600
     );
     return () => clearInterval(id);
-  }, [ready, reduce]);
+  }, [ready, reduce, c.heroWords.length]);
 
   // Everything keys off the curtain lift; +0.35s so the motions overlap.
   const t = (d: number) => ({ duration: 1.1, delay: 0.35 + d, ease: EASE });
@@ -38,7 +42,7 @@ export default function Hero() {
       <div className="absolute inset-0 md:left-auto md:w-[47%]">
         <Image
           src="/andre-standing.webp"
-          alt={`${firm.attorney}, attorney at ${firm.name}`}
+          alt={`${firm.attorney}, ${c.pages.about.portraitAlt} ${firm.name}`}
           fill
           priority
           sizes="(max-width: 768px) 100vw, 47vw"
@@ -62,13 +66,13 @@ export default function Hero() {
             variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: t(0) } }}
             className="eyebrow mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-gold-500"
           >
-            <span>Houston, Texas</span>
+            <span>{h.place}</span>
             <span className="hidden h-px w-8 bg-gold-500/50 sm:block" />
-            <span className="text-ink-200">Licensed in Texas &amp; Tennessee</span>
+            <span className="text-ink-200">{h.licensed}</span>
           </motion.div>
 
           <h1 className="display-xl font-display text-[clamp(2.6rem,7.6vw,5.9rem)] text-paper">
-            {["Empowering", "your voice,"].map((text, i) => (
+            {h.titleLines.map((text, i) => (
               <span key={text} className="block overflow-hidden pb-[0.04em]">
                 <motion.span
                   className="block"
@@ -89,20 +93,20 @@ export default function Hero() {
                 initial="hidden"
                 animate={show}
               >
-                <span>ensuring</span>
+                <span>{h.ensuring}</span>
                 {/* Clip the swap so the outgoing word never ghosts above the
                     line. Extra padding keeps italic descenders intact. */}
                 <span className="relative -mb-[0.2em] inline-block overflow-hidden pb-[0.2em]">
                   <AnimatePresence mode="popLayout" initial={false}>
                     <motion.span
-                      key={heroWords[wordIndex]}
+                      key={c.heroWords[wordIndex]}
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: "0%", opacity: 1 }}
                       exit={{ y: "-100%", opacity: 0 }}
                       transition={{ duration: 0.75, ease: EASE }}
                       className="inline-block italic text-gold-500"
                     >
-                      {heroWords[wordIndex]}
+                      {c.heroWords[wordIndex]}
                     </motion.span>
                   </AnimatePresence>
                 </span>
@@ -116,9 +120,7 @@ export default function Hero() {
             variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: t(0.5) } }}
             className="mt-8 max-w-[34rem] text-[1.02rem] leading-relaxed text-ink-200 md:text-[1.12rem]"
           >
-            A former prosecutor who now represents the injured. If someone
-            else&apos;s negligence changed your life, you deserve an attorney who
-            has argued to a jury — and an honest answer about where you stand.
+            {h.lede}
           </motion.p>
 
           <motion.div
@@ -128,17 +130,17 @@ export default function Hero() {
             className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
           >
             <Link
-              href="/contact"
+              href={path("contact", lang)}
               className="group relative overflow-hidden bg-gold-500 px-8 py-4 text-center text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-ink-950"
             >
-              <span className="relative z-10">Free Consultation</span>
+              <span className="relative z-10">{c.ui.freeConsultation}</span>
               <span className="absolute inset-0 -translate-x-full bg-gold-200 transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
             </Link>
             <a
               href={firm.phoneHref}
               className="border border-ink-200/30 px-8 py-4 text-center text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-paper transition-colors duration-300 hover:border-gold-500 hover:text-gold-400"
             >
-              Call {firm.phone}
+              {c.ui.callPhone} {firm.phone}
             </a>
           </motion.div>
         </div>
@@ -157,14 +159,12 @@ export default function Hero() {
             <span className="text-gold-500">★</span>
             {firm.reviews.rating}
             <span className="text-ink-300">
-              · {firm.reviews.count} Google reviews
+              · {firm.reviews.count} {h.reviewsSuffix}
             </span>
           </span>
-          <span className="eyebrow hidden text-ink-300 sm:block">
-            Two state bars
-          </span>
+          <span className="eyebrow hidden text-ink-300 sm:block">{h.twoBars}</span>
           <span className="eyebrow hidden text-ink-300 lg:block">
-            Former Shelby County prosecutor
+            {h.formerProsecutor}
           </span>
         </div>
       </motion.div>
