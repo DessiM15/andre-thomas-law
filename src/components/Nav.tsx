@@ -132,10 +132,8 @@ export default function Nav({ lang }: { lang: Lang }) {
               lang={lang}
               label={c.ui.switchLangLabel}
               ariaLabel={c.ui.switchLangAria}
-              className={`shrink-0 border px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.14em] transition-colors duration-500 ${
-                onDark
-                  ? "border-ink-200/35 text-paper/85 hover:border-gold-500 hover:text-gold-400"
-                  : "border-paper-edge text-ink-800/75 hover:border-gold-600 hover:text-gold-700"
+              className={`link-underline shrink-0 whitespace-nowrap text-[0.8rem] font-medium tracking-wide transition-colors duration-500 ${
+                onDark ? "text-gold-500 hover:text-gold-400" : "text-gold-700 hover:text-gold-600"
               }`}
             />
 
@@ -155,10 +153,8 @@ export default function Nav({ lang }: { lang: Lang }) {
               lang={lang}
               label={c.ui.switchLangLabel}
               ariaLabel={c.ui.switchLangAria}
-              className={`relative z-[80] border px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.14em] transition-colors ${
-                open || onDark
-                  ? "border-ink-200/35 text-paper/85"
-                  : "border-paper-edge text-ink-800/75"
+              className={`relative z-[80] shrink-0 whitespace-nowrap px-1 text-[0.8rem] font-medium tracking-wide transition-colors ${
+                open || onDark ? "text-gold-500" : "text-gold-700"
               }`}
             />
 
