@@ -548,7 +548,7 @@ export const es: Content = {
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
     instagram: "Instagram",
-    switchLangLabel: "EN",
+    switchLangLabel: "English",
     switchLangAria: "View this site in English",
 
     banner: {
