@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { firm } from "@/lib/site";
-import { DISCLAIMER, OPENERS } from "@/lib/chat/kb";
+import { getBundle } from "@/lib/chat/kb";
 import type { Reply } from "@/lib/chat/engine";
+import { content } from "@/lib/content";
+import { firm } from "@/lib/firm";
+import type { Lang } from "@/lib/i18n";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -20,7 +22,10 @@ type Msg = {
 
 let uid = 0;
 
-export default function ChatWidget() {
+export default function ChatWidget({ lang }: { lang: Lang }) {
+  const c = content(lang);
+  const chat = c.ui.chat;
+  const bundle = getBundle(lang);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
@@ -36,13 +41,13 @@ export default function ChatWidget() {
         {
           id: uid++,
           role: "bot",
-          text: `Hi — I'm the ${firm.shortName} assistant. I can tell you about the firm, our practice areas, the office, and how to get a free consultation.`,
-          chips: OPENERS,
+          text: chat.greeting,
+          chips: bundle.openers,
         },
       ]);
       setTimeout(() => inputRef.current?.focus(), 500);
     }
-  }, [open, messages.length]);
+  }, [open, messages.length, chat.greeting, bundle.openers]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -76,13 +81,11 @@ export default function ChatWidget() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: trimmed }),
+        body: JSON.stringify({ message: trimmed, lang }),
       });
       reply = await res.json();
     } catch {
-      reply = {
-        text: `I couldn't reach the server just then. You can always call ${firm.phone}.`,
-      };
+      reply = { text: `${chat.unreachable} ${firm.phone}.` };
     }
 
     // A beat of "thinking" — instant replies read as canned.
@@ -110,15 +113,15 @@ export default function ChatWidget() {
               onClick={() => setOpen(true)}
               className="hidden max-w-[15rem] border border-paper-edge bg-paper px-4 py-3 text-left text-[0.78rem] leading-snug text-ink-800 shadow-[0_8px_30px_rgba(4,16,31,0.12)] sm:block"
             >
-              Questions about your situation?{" "}
-              <span className="text-gold-700">Ask here →</span>
+              {chat.nudge}{" "}
+              <span className="text-gold-700">{chat.nudgeCta}</span>
             </motion.button>
           )}
         </AnimatePresence>
 
         <button
           onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close chat" : "Open chat assistant"}
+          aria-label={open ? chat.close : chat.open}
           aria-expanded={open}
           className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gold-500 text-ink-950 shadow-[0_10px_34px_rgba(4,16,31,0.28)] transition-transform duration-300 hover:scale-105 active:scale-95"
         >
@@ -162,7 +165,7 @@ export default function ChatWidget() {
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.45, ease: EASE }}
             role="dialog"
-            aria-label="Firm assistant"
+            aria-label={chat.dialogAria}
             className="fixed inset-0 z-[86] flex flex-col bg-paper sm:inset-auto sm:bottom-24 sm:right-7 sm:h-[min(34rem,calc(100vh-9rem))] sm:w-[24rem] sm:border sm:border-paper-edge sm:shadow-[0_24px_70px_rgba(4,16,31,0.24)]"
           >
             {/* Header */}
@@ -179,17 +182,17 @@ export default function ChatWidget() {
                 />
                 <div>
                   <p className="text-[0.82rem] font-medium leading-tight text-paper">
-                    Firm Assistant
+                    {chat.title}
                   </p>
                   <p className="flex items-center gap-1.5 text-[0.68rem] leading-tight text-ink-300">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                    Automated · replies instantly
+                    {chat.status}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                aria-label="Close chat"
+                aria-label={chat.close}
                 className="p-1.5 text-ink-300 transition-colors hover:text-paper"
               >
                 <svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -200,7 +203,7 @@ export default function ChatWidget() {
 
             {/* Disclaimer strip — always visible, never dismissible */}
             <p className="border-b border-gold-200 bg-gold-100 px-5 py-2.5 text-[0.68rem] leading-relaxed text-ink-700">
-              {DISCLAIMER}
+              {bundle.disclaimer}
             </p>
 
             {/* Transcript */}
@@ -288,14 +291,14 @@ export default function ChatWidget() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   maxLength={500}
-                  placeholder="Ask about the firm…"
-                  aria-label="Type your question"
+                  placeholder={chat.placeholder}
+                  aria-label={chat.inputAria}
                   className="flex-1 bg-transparent px-2 py-2.5 text-[0.85rem] text-ink-900 outline-none placeholder:text-ink-300"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || typing}
-                  aria-label="Send"
+                  aria-label={chat.sendAria}
                   className="flex h-9 w-9 items-center justify-center bg-gold-500 text-ink-950 transition-opacity disabled:opacity-30"
                 >
                   <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -304,9 +307,9 @@ export default function ChatWidget() {
                 </button>
               </div>
               <p className="px-2 pt-1.5 text-[0.65rem] text-ink-300">
-                Don&apos;t share confidential details.{" "}
+                {chat.confidential}{" "}
                 <a href={firm.phoneHref} className="text-gold-700 underline underline-offset-2">
-                  Call {firm.phone}
+                  {c.ui.callPhone} {firm.phone}
                 </a>
               </p>
             </form>

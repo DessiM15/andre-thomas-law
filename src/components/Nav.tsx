@@ -5,16 +5,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
-import { firm, nav } from "@/lib/site";
+import LangSwitch from "@/components/LangSwitch";
+import { content } from "@/lib/content";
+import { firm } from "@/lib/firm";
+import { path, type Lang } from "@/lib/i18n";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-export default function Nav() {
+export default function Nav({ lang }: { lang: Lang }) {
+  const c = content(lang);
   const pathname = usePathname();
   const { scrollY } = useScroll();
   const [solid, setSolid] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const items = c.nav.map((item) => ({ ...item, href: path(item.key, lang) }));
+  const home = path("home", lang);
+  const contact = path("contact", lang);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
@@ -59,8 +67,8 @@ export default function Nav() {
         >
           {/* Mark */}
           <Link
-            href="/"
-            aria-label={`${firm.name} — home`}
+            href={home}
+            aria-label={`${firm.name} — ${c.ui.homeAria}`}
             className={`group relative block aspect-[1699/870] shrink-0 transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
               solid ? "w-[8rem] md:w-[11rem]" : "w-[10.5rem] md:w-[15.5rem]"
             }`}
@@ -91,7 +99,7 @@ export default function Nav() {
 
           {/* Desktop links */}
           <nav className="hidden items-center gap-9 md:flex">
-            {nav.slice(1).map((item) => {
+            {items.slice(1).map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + "/");
               return (
@@ -116,39 +124,66 @@ export default function Nav() {
             >
               {firm.phone}
             </a>
+
+            {/* Language pill — small, permanent, on every page. */}
+            <LangSwitch
+              lang={lang}
+              label={c.ui.switchLangLabel}
+              ariaLabel={c.ui.switchLangAria}
+              className={`border px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.14em] transition-colors duration-500 ${
+                onDark
+                  ? "border-ink-200/35 text-paper/85 hover:border-gold-500 hover:text-gold-400"
+                  : "border-paper-edge text-ink-800/75 hover:border-gold-600 hover:text-gold-700"
+              }`}
+            />
+
             <Link
-              href="/contact"
+              href={contact}
               className="group relative overflow-hidden bg-gold-500 px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ink-950 transition-transform duration-300 hover:-translate-y-px"
             >
-              <span className="relative z-10">Free Consultation</span>
+              <span className="relative z-10">{c.ui.freeConsultation}</span>
               <span className="absolute inset-0 -translate-x-full bg-gold-200 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
             </Link>
           </nav>
 
-          {/* Mobile trigger */}
-          <button
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            className="relative z-[80] flex h-10 w-10 items-center justify-center md:hidden"
-          >
-            <span className="relative block h-3 w-6">
-              <motion.span
-                animate={open ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.4, ease: EASE }}
-                className={`absolute left-0 top-0 h-px w-6 ${
-                  open || onDark ? "bg-paper" : "bg-ink-900"
-                }`}
-              />
-              <motion.span
-                animate={open ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.4, ease: EASE }}
-                className={`absolute bottom-0 left-0 h-px w-6 ${
-                  open || onDark ? "bg-paper" : "bg-ink-900"
-                }`}
-              />
-            </span>
-          </button>
+          {/* Mobile: the language pill sits outside the menu, so a Spanish
+              speaker never has to open an English menu to find it. */}
+          <div className="flex items-center gap-1 md:hidden">
+            <LangSwitch
+              lang={lang}
+              label={c.ui.switchLangLabel}
+              ariaLabel={c.ui.switchLangAria}
+              className={`relative z-[80] border px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.14em] transition-colors ${
+                open || onDark
+                  ? "border-ink-200/35 text-paper/85"
+                  : "border-paper-edge text-ink-800/75"
+              }`}
+            />
+
+            <button
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? c.ui.closeMenu : c.ui.openMenu}
+              aria-expanded={open}
+              className="relative z-[80] flex h-10 w-10 items-center justify-center"
+            >
+              <span className="relative block h-3 w-6">
+                <motion.span
+                  animate={open ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                  className={`absolute left-0 top-0 h-px w-6 ${
+                    open || onDark ? "bg-paper" : "bg-ink-900"
+                  }`}
+                />
+                <motion.span
+                  animate={open ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                  className={`absolute bottom-0 left-0 h-px w-6 ${
+                    open || onDark ? "bg-paper" : "bg-ink-900"
+                  }`}
+                />
+              </span>
+            </button>
+          </div>
         </div>
       </motion.header>
 
@@ -163,7 +198,7 @@ export default function Nav() {
             className="grain fixed inset-0 z-[75] flex flex-col justify-between bg-ink-950 px-6 pb-10 pt-28 md:hidden"
           >
             <nav className="flex flex-col">
-              {nav.map((item, i) => (
+              {items.map((item, i) => (
                 <div key={item.href} className="overflow-hidden">
                   <motion.div
                     initial={{ y: "110%" }}
@@ -174,9 +209,7 @@ export default function Nav() {
                       href={item.href}
                       className="flex items-baseline gap-4 border-b border-ink-800/60 py-4 font-display text-[2.6rem] leading-tight text-paper"
                     >
-                      <span className="eyebrow text-gold-500">
-                        0{i + 1}
-                      </span>
+                      <span className="eyebrow text-gold-500">0{i + 1}</span>
                       {item.label}
                     </Link>
                   </motion.div>
@@ -191,10 +224,10 @@ export default function Nav() {
               className="space-y-5"
             >
               <Link
-                href="/contact"
+                href={contact}
                 className="block bg-gold-500 py-4 text-center text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-ink-950"
               >
-                Free Consultation
+                {c.ui.freeConsultation}
               </Link>
               <div className="flex items-center justify-between">
                 <a href={firm.phoneHref} className="font-display text-2xl text-paper">
@@ -206,7 +239,7 @@ export default function Nav() {
                   rel="noopener noreferrer"
                   className="eyebrow text-ink-300"
                 >
-                  Instagram
+                  {c.ui.instagram}
                 </a>
               </div>
             </motion.div>

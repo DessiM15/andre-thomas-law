@@ -1,20 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow, GoldRule, MaskLines, Reveal } from "@/components/Reveal";
-import { featuredAreas, getPracticeArea, tickerAreas } from "@/lib/site";
+import { content, getPracticeAreaByKey, tickerAreas } from "@/lib/content";
+import { areaPath, path, type Lang } from "@/lib/i18n";
+import { featuredMedia } from "@/lib/media";
 
 /**
  * Six cards over photographs, then the remaining ten running past in a gold
  * ticker. This is the page's only ticker — the marquee that used to sit under
  * the hero was removed so the device isn't spent twice.
  */
-export default function FeaturedAreas() {
-  const cards = featuredAreas
-    .map((f) => ({ ...f, area: getPracticeArea(f.slug) }))
-    .filter((c) => c.area);
+export default function FeaturedAreas({ lang }: { lang: Lang }) {
+  const c = content(lang);
+
+  const cards = featuredMedia
+    .map((f) => ({ ...f, area: getPracticeAreaByKey(f.key, lang) }))
+    .filter((card) => card.area);
 
   // Duplicated so the CSS loop has a seamless second half to scroll into.
-  const ticker = [...tickerAreas, ...tickerAreas];
+  const rest = tickerAreas(lang, featuredMedia.map((f) => f.key));
+  const ticker = [...rest, ...rest];
 
   return (
     <section
@@ -26,21 +31,21 @@ export default function FeaturedAreas() {
       <div className="container-x relative">
         <Reveal>
           <Eyebrow n="02" tone="light">
-            What we handle
+            {c.ui.featured.eyebrow}
           </Eyebrow>
         </Reveal>
 
         <div className="mt-7 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <MaskLines
             className="font-display text-[clamp(2.1rem,5.4vw,4.2rem)] leading-[1.04] tracking-[-0.025em]"
-            lines={[<>Sixteen ways a life</>, <>gets interrupted.</>]}
+            lines={c.ui.featured.titleLines}
           />
           <Reveal delay={0.15}>
             <Link
-              href="/practice-areas"
+              href={path("practiceAreas", lang)}
               className="group inline-flex shrink-0 items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-paper"
             >
-              All sixteen
+              {c.ui.featured.all}
               <span className="h-px w-10 bg-gold-500 transition-all duration-500 group-hover:w-16" />
             </Link>
           </Reveal>
@@ -52,22 +57,22 @@ export default function FeaturedAreas() {
       {/* ── The six ────────────────────────────────────────────── */}
       <div className="container-x relative mt-12">
         <div className="grid gap-px bg-ink-800/50 sm:grid-cols-2 lg:grid-cols-3">
-          {cards.map((c, i) => (
-            <Reveal key={c.slug} delay={i * 0.06}>
+          {cards.map((card, i) => (
+            <Reveal key={card.key} delay={i * 0.06}>
               <Link
-                href={`/practice-areas/${c.slug}`}
+                href={areaPath(card.area!.slug, lang)}
                 className="group relative flex min-h-[19rem] flex-col justify-end overflow-hidden bg-ink-950 p-7 md:min-h-[22rem] md:p-8"
               >
                 <Image
-                  src={c.image}
-                  alt={c.alt}
+                  src={card.image}
+                  alt={c.featuredAlts[card.key] ?? ""}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]"
                 />
                 <div
                   className="absolute inset-0 bg-ink-900 mix-blend-multiply"
-                  style={{ opacity: c.dim }}
+                  style={{ opacity: card.dim }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/65 to-ink-950/10 transition-opacity duration-700 group-hover:opacity-90" />
 
@@ -76,11 +81,11 @@ export default function FeaturedAreas() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-3 font-display text-[1.6rem] leading-tight text-paper md:text-[1.9rem]">
-                    {c.area!.name}
+                    {card.area!.name}
                   </h3>
                   <span className="mt-4 block h-px w-12 bg-gold-500 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-20" />
                   <p className="mt-4 text-[0.88rem] leading-relaxed text-ink-200">
-                    {c.area!.short}
+                    {card.area!.short}
                   </p>
                 </div>
               </Link>
@@ -92,14 +97,14 @@ export default function FeaturedAreas() {
       {/* ── And the other ten ──────────────────────────────────── */}
       <div className="relative mt-14">
         <p className="container-x eyebrow mb-5 text-ink-300">
-          Also handled
+          {c.ui.featured.alsoHandled}
         </p>
         <div className="relative overflow-hidden border-y border-ink-800/50 py-4">
           <div className="flex w-max animate-[atl-ticker_48s_linear_infinite] motion-reduce:animate-none">
             {ticker.map((area, i) => (
               <Link
-                key={`${area.slug}-${i}`}
-                href={`/practice-areas/${area.slug}`}
+                key={`${area.key}-${i}`}
+                href={areaPath(area.slug, lang)}
                 className="flex items-center whitespace-nowrap px-7 font-display text-lg text-paper/70 transition-colors hover:text-gold-400 md:text-xl"
               >
                 {area.name}
@@ -122,10 +127,10 @@ export default function FeaturedAreas() {
       <div className="container-x relative mt-14">
         <Reveal>
           <Link
-            href="/practice-areas"
+            href={path("practiceAreas", lang)}
             className="group relative inline-flex items-center gap-4 overflow-hidden bg-gold-500 px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-ink-950"
           >
-            <span className="relative z-10">Explore practice areas</span>
+            <span className="relative z-10">{c.ui.featured.explore}</span>
             <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>

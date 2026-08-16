@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { firm } from "@/lib/site";
+import { content } from "@/lib/content";
+import { firm } from "@/lib/firm";
+import type { Lang } from "@/lib/i18n";
 import { INTRO_EVENT, INTRO_KEY as KEY } from "@/lib/useIntro";
 
 /**
@@ -11,7 +13,8 @@ import { INTRO_EVENT, INTRO_KEY as KEY } from "@/lib/useIntro";
  * then the whole thing lifts away to reveal the hero already in motion.
  * Shown once per browser session — an intro you cannot skip is a tax.
  */
-export default function Preloader() {
+export default function Preloader({ lang }: { lang: Lang }) {
+  const c = content(lang);
   const reduce = useReducedMotion();
   const [active, setActive] = useState(false);
   const [count, setCount] = useState(0);
@@ -69,8 +72,8 @@ export default function Preloader() {
             transition={{ delay: 0.5, duration: 0.6 }}
             className="eyebrow flex justify-between text-ink-300"
           >
-            <span>Houston, Texas</span>
-            <span className="hidden sm:block">Est. Texas &amp; Tennessee</span>
+            <span>{c.ui.preloader.place}</span>
+            <span className="hidden sm:block">{c.ui.preloader.est}</span>
           </motion.div>
 
           {/* the mark — wiped open from the centre line outward */}

@@ -1,15 +1,17 @@
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
-import { pillars } from "@/lib/site";
+import { content } from "@/lib/content";
+import type { Lang } from "@/lib/i18n";
 
-export default function Pillars() {
+export default function Pillars({ lang }: { lang: Lang }) {
+  const c = content(lang);
   return (
     <section className="border-t border-paper-edge bg-paper-warm py-24 md:py-32">
       <div className="container-x">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <Reveal>
-            <Eyebrow n="02">Why the other side should worry</Eyebrow>
+            <Eyebrow n="02">{c.ui.why.eyebrow}</Eyebrow>
             <h2 className="mt-6 max-w-2xl font-display text-[clamp(2rem,4.6vw,3.6rem)] leading-[1.08] text-ink-900">
-              Credentials are common. This combination is not.
+              {c.whyFirm.heading}
             </h2>
           </Reveal>
         </div>
@@ -17,7 +19,7 @@ export default function Pillars() {
         <GoldRule className="mt-12 w-full" />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4">
-          {pillars.map((p, i) => (
+          {c.pillars.map((p, i) => (
             <Reveal
               key={p.n}
               delay={i * 0.08}

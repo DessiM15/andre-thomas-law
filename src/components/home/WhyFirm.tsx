@@ -1,41 +1,45 @@
 import Image from "next/image";
 import { Eyebrow, GoldRule, MaskLines, Reveal } from "@/components/Reveal";
-import { advocatePanels, whyFirm } from "@/lib/site";
+import { content } from "@/lib/content";
+import type { Lang } from "@/lib/i18n";
+import { panelImages } from "@/lib/media";
 
 /**
  * One section, two beats: the firm's own "why choose us" paragraph as the
  * lede, then its three pillars as full-bleed panels under a navy wash —
  * the FGT treatment, with the copy lifted verbatim from the firm's site.
  */
-export default function WhyFirm() {
+export default function WhyFirm({ lang }: { lang: Lang }) {
+  const c = content(lang);
+
   return (
     <section className="bg-paper pt-24 md:pt-32">
       <div className="container-x">
         <Reveal>
-          <Eyebrow n="01">A compassionate advocate for justice</Eyebrow>
+          <Eyebrow n="01">{c.ui.why.eyebrow}</Eyebrow>
         </Reveal>
 
         <MaskLines
           className="mt-7 max-w-4xl font-display text-[clamp(2rem,4.6vw,3.5rem)] leading-[1.08] tracking-[-0.02em] text-ink-900"
-          lines={[<>Why Andre Thomas</>, <>Law, PLLC.</>]}
+          lines={c.ui.why.titleLines}
         />
 
         <GoldRule className="mt-9 w-full max-w-sm" />
 
         <Reveal delay={0.1}>
           <p className="mt-9 max-w-3xl text-[1.08rem] leading-relaxed text-ink-800/85 md:text-[1.2rem]">
-            {whyFirm.lede}
+            {c.whyFirm.lede}
           </p>
         </Reveal>
       </div>
 
       {/* ── Panels ─────────────────────────────────────────────── */}
       <div className="mt-16 grid grid-cols-1 gap-px bg-paper-edge md:mt-20 md:grid-cols-3">
-        {advocatePanels.map((panel, i) => (
+        {c.advocatePanels.map((panel, i) => (
           <Reveal key={panel.n} delay={i * 0.09}>
             <article className="group relative flex min-h-[30rem] flex-col justify-end overflow-hidden bg-ink-950 p-8 md:min-h-[38rem] md:p-10">
               <Image
-                src={panel.image}
+                src={panelImages[i]}
                 alt={panel.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"

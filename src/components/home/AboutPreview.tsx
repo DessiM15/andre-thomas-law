@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
-import { bio, firm } from "@/lib/site";
+import { content } from "@/lib/content";
+import { firm } from "@/lib/firm";
+import { path, type Lang } from "@/lib/i18n";
 
-export default function AboutPreview() {
+export default function AboutPreview({ lang }: { lang: Lang }) {
+  const c = content(lang);
+
   return (
     <section className="grain relative overflow-hidden bg-ink-950 py-24 text-paper md:py-32">
       <div className="container-x relative">
@@ -13,7 +17,7 @@ export default function AboutPreview() {
             <div className="relative aspect-[4/5] w-full overflow-hidden">
               <Image
                 src="/andre-seated.webp"
-                alt={`${firm.attorney} on the courthouse steps`}
+                alt={`${firm.attorney} ${c.ui.aboutPreview.portraitAlt}`}
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"
                 className="object-cover object-center transition-transform duration-[1.6s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04]"
@@ -23,7 +27,7 @@ export default function AboutPreview() {
               <div className="pointer-events-none absolute inset-0 border border-gold-500/25" />
             </div>
             <p className="eyebrow mt-5 text-ink-300">
-              {firm.attorney} · Founding Attorney
+              {firm.attorney} · {c.ui.aboutPreview.role}
             </p>
           </Reveal>
 
@@ -31,10 +35,10 @@ export default function AboutPreview() {
           <div className="md:col-span-6 md:col-start-7">
             <Reveal>
               <Eyebrow n="03" tone="light">
-                The attorney
+                {c.ui.aboutPreview.eyebrow}
               </Eyebrow>
               <h2 className="mt-6 font-display text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.08]">
-                {bio.heading}
+                {c.bio.heading}
               </h2>
             </Reveal>
 
@@ -42,7 +46,7 @@ export default function AboutPreview() {
 
             <Reveal delay={0.1}>
               <div className="mt-8 space-y-5 text-[1rem] leading-relaxed text-ink-200">
-                {bio.paragraphs.slice(0, 2).map((p) => (
+                {c.bio.paragraphs.slice(0, 2).map((p) => (
                   <p key={p.slice(0, 24)}>{p}</p>
                 ))}
               </div>
@@ -51,9 +55,11 @@ export default function AboutPreview() {
             {/* Notable trials */}
             <Reveal delay={0.18}>
               <div className="mt-10 border-t border-ink-800/70 pt-8">
-                <p className="eyebrow mb-5 text-gold-500">Notable trials</p>
+                <p className="eyebrow mb-5 text-gold-500">
+                  {c.ui.aboutPreview.notableTrials}
+                </p>
                 <ul className="space-y-3">
-                  {bio.notableTrials.map((t) => (
+                  {c.bio.notableTrials.map((t) => (
                     <li
                       key={t.caption}
                       className="font-display text-lg italic text-paper/90 md:text-xl"
@@ -67,10 +73,10 @@ export default function AboutPreview() {
 
             <Reveal delay={0.26}>
               <Link
-                href="/about"
+                href={path("about", lang)}
                 className="group mt-10 inline-flex items-center gap-4 border border-ink-200/25 px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] transition-colors duration-300 hover:border-gold-500 hover:text-gold-400"
               >
-                Read the full background
+                {c.ui.aboutPreview.readFull}
                 <span className="transition-transform duration-300 group-hover:translate-x-1">
                   →
                 </span>

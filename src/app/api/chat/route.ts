@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { answer } from "@/lib/chat/engine";
+import { firm } from "@/lib/firm";
+import { DEFAULT_LANG, isLang } from "@/lib/i18n";
 
 export const runtime = "nodejs";
 
@@ -19,19 +21,25 @@ export const runtime = "nodejs";
  */
 export async function POST(req: Request) {
   try {
-    const { message } = await req.json();
+    const { message, lang } = await req.json();
+    const language = isLang(lang) ? lang : DEFAULT_LANG;
 
     if (typeof message !== "string" || message.length > 1000) {
       return NextResponse.json(
-        { text: "Sorry — I couldn't read that. Try rephrasing?" },
+        {
+          text:
+            language === "es"
+              ? "Perdón — no pude leer eso. ¿Puede escribirlo de otra forma?"
+              : "Sorry — I couldn't read that. Try rephrasing?",
+        },
         { status: 400 }
       );
     }
 
-    return NextResponse.json(answer(message));
+    return NextResponse.json(answer(message, language));
   } catch {
     return NextResponse.json(
-      { text: "Something went wrong on my end. Please call 713-212-3003." },
+      { text: `Something went wrong on my end. Please call ${firm.phone}.` },
       { status: 500 }
     );
   }

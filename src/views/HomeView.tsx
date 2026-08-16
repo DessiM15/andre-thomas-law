@@ -4,16 +4,17 @@ import FeaturedAreas from "@/components/home/FeaturedAreas";
 import AboutPreview from "@/components/home/AboutPreview";
 import ReviewsBand from "@/components/ReviewsBand";
 import CTABand from "@/components/CTABand";
+import type { Lang } from "@/lib/i18n";
 
-export default function HomePage() {
+export default function HomeView({ lang }: { lang: Lang }) {
   return (
     <>
-      <Hero />
-      <WhyFirm />
-      <FeaturedAreas />
-      <AboutPreview />
-      <ReviewsBand n="04" />
-      <CTABand n="05" />
+      <Hero lang={lang} />
+      <WhyFirm lang={lang} />
+      <FeaturedAreas lang={lang} />
+      <AboutPreview lang={lang} />
+      <ReviewsBand lang={lang} n="04" />
+      <CTABand lang={lang} n="05" />
     </>
   );
 }
