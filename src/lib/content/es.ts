@@ -685,6 +685,7 @@ export const es: Content = {
       dialogAria: "Asistente del despacho",
       confidential: "No comparta datos confidenciales.",
       unreachable: "No pude conectarme al servidor en este momento. Siempre puede llamar al",
+      nudgeDismiss: "Cerrar",
     },
   },
 

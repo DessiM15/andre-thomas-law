@@ -201,6 +201,7 @@ export type Content = {
       dialogAria: string;
       confidential: string;
       unreachable: string;
+      nudgeDismiss: string;
     };
   };
 

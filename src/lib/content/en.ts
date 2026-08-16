@@ -673,6 +673,7 @@ export const en: Content = {
       dialogAria: "Firm assistant",
       confidential: "Don't share confidential details.",
       unreachable: "I couldn't reach the server just then. You can always call",
+      nudgeDismiss: "Dismiss",
     },
   },
 

@@ -20,6 +20,8 @@ type Msg = {
   chips?: string[];
 };
 
+const NUDGE_KEY = "atl-chat-nudge";
+
 let uid = 0;
 
 export default function ChatWidget({ lang }: { lang: Lang }) {
@@ -31,6 +33,7 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [nudge, setNudge] = useState(false);
+  const nudged = useRef(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -56,11 +59,59 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
     });
   }, [messages, typing]);
 
-  // A single, polite nudge after the visitor has had time to look around.
+  /**
+   * A single, polite nudge — but never over the hero's own call to action.
+   * The bubble sits bottom-right, which is exactly where the "Call" button
+   * lands on a short viewport, and a widget that covers the phone number
+   * costs more calls than it wins. So it waits until the visitor has
+   * scrolled past the first screen, then leaves on its own.
+   */
   useEffect(() => {
-    const t = setTimeout(() => setNudge(true), 9000);
-    return () => clearTimeout(t);
+    try {
+      if (sessionStorage.getItem(NUDGE_KEY)) return;
+    } catch {
+      return;
+    }
+
+    let hideTimer: ReturnType<typeof setTimeout>;
+    const pastFold = () => window.scrollY > window.innerHeight * 0.9;
+
+    const show = () => {
+      if (nudged.current || !pastFold()) return;
+      nudged.current = true;
+      window.removeEventListener("scroll", show);
+      setNudge(true);
+      // Spend the session's one nudge here, not on dismissal — otherwise it
+      // retreats politely and then reappears on every subsequent page.
+      try {
+        sessionStorage.setItem(NUDGE_KEY, "1");
+      } catch {
+        /* nothing to remember it with */
+      }
+      hideTimer = setTimeout(() => setNudge(false), 12000);
+    };
+
+    const armed = setTimeout(() => {
+      show();
+      if (!nudged.current) window.addEventListener("scroll", show, { passive: true });
+    }, 6000);
+
+    return () => {
+      clearTimeout(armed);
+      clearTimeout(hideTimer);
+      window.removeEventListener("scroll", show);
+    };
   }, []);
+
+  /** Once waved off, stay waved off for the rest of the session. */
+  const dismissNudge = () => {
+    setNudge(false);
+    try {
+      sessionStorage.setItem(NUDGE_KEY, "1");
+    } catch {
+      /* nothing to remember it with */
+    }
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -102,20 +153,36 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
   return (
     <>
       {/* ── Launcher ──────────────────────────────────────────── */}
-      <div className="fixed bottom-5 right-5 z-[85] flex items-center gap-3 md:bottom-7 md:right-7">
+      <div className="fixed bottom-[calc(1.25rem+var(--atl-banner-h,0px))] right-5 z-[85] flex items-center gap-3 transition-[bottom] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:bottom-[calc(1.75rem+var(--atl-banner-h,0px))] md:right-7">
         <AnimatePresence>
           {nudge && !open && (
-            <motion.button
+            <motion.div
               initial={{ opacity: 0, x: 12, scale: 0.96 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 12, scale: 0.96 }}
               transition={{ duration: 0.6, ease: EASE }}
-              onClick={() => setOpen(true)}
-              className="hidden max-w-[15rem] border border-paper-edge bg-paper px-4 py-3 text-left text-[0.78rem] leading-snug text-ink-800 shadow-[0_8px_30px_rgba(4,16,31,0.12)] sm:block"
+              className="relative hidden max-w-[15rem] border border-paper-edge bg-paper shadow-[0_8px_30px_rgba(4,16,31,0.12)] sm:block"
             >
-              {chat.nudge}{" "}
-              <span className="text-gold-700">{chat.nudgeCta}</span>
-            </motion.button>
+              <button
+                onClick={() => {
+                  dismissNudge();
+                  setOpen(true);
+                }}
+                className="block px-4 py-3 pr-8 text-left text-[0.78rem] leading-snug text-ink-800"
+              >
+                {chat.nudge}{" "}
+                <span className="text-gold-700">{chat.nudgeCta}</span>
+              </button>
+              <button
+                onClick={dismissNudge}
+                aria-label={chat.nudgeDismiss}
+                className="absolute right-1.5 top-1.5 p-1 text-ink-300 transition-colors hover:text-ink-800"
+              >
+                <svg width="9" height="9" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2.4">
+                  <path d="M2 2l14 14M16 2L2 16" />
+                </svg>
+              </button>
+            </motion.div>
           )}
         </AnimatePresence>
 
@@ -166,7 +233,7 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
             transition={{ duration: 0.45, ease: EASE }}
             role="dialog"
             aria-label={chat.dialogAria}
-            className="fixed inset-0 z-[86] flex flex-col bg-paper sm:inset-auto sm:bottom-24 sm:right-7 sm:h-[min(34rem,calc(100vh-9rem))] sm:w-[24rem] sm:border sm:border-paper-edge sm:shadow-[0_24px_70px_rgba(4,16,31,0.24)]"
+            className="fixed inset-0 z-[86] flex flex-col bg-paper sm:inset-auto sm:bottom-[calc(6rem+var(--atl-banner-h,0px))] sm:right-7 sm:h-[min(34rem,calc(100vh-9rem-var(--atl-banner-h,0px)))] sm:w-[24rem] sm:border sm:border-paper-edge sm:shadow-[0_24px_70px_rgba(4,16,31,0.24)]"
           >
             {/* Header */}
             <div className="grain relative flex items-center justify-between bg-ink-950 px-5 py-4">

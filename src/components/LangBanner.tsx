@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { alternatePath } from "@/lib/content";
 import { LANG_PREF_KEY, LANG_PROMPT_KEY, type Lang } from "@/lib/i18n";
 
@@ -28,7 +28,23 @@ export default function LangBanner({
 }) {
   const pathname = usePathname() || "/";
   const [show, setShow] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
   const other: Lang = lang === "en" ? "es" : "en";
+
+  /**
+   * Publish the bar's height as a custom property. The chat launcher lives
+   * in the same bottom-right corner and would otherwise sit underneath this
+   * bar; it reads the variable and lifts itself clear.
+   */
+  useEffect(() => {
+    const root = document.documentElement;
+    if (!show) {
+      root.style.setProperty("--atl-banner-h", "0px");
+      return;
+    }
+    root.style.setProperty("--atl-banner-h", `${barRef.current?.offsetHeight ?? 0}px`);
+    return () => root.style.setProperty("--atl-banner-h", "0px");
+  }, [show]);
 
   useEffect(() => {
     let asked = false;
@@ -68,6 +84,7 @@ export default function LangBanner({
           animate={{ y: "0%" }}
           exit={{ y: "100%" }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          ref={barRef}
           role="region"
           aria-label={question}
           className="fixed inset-x-0 bottom-0 z-[88] border-t border-gold-500/40 bg-ink-950/95 backdrop-blur-md"
