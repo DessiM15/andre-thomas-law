@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { firm, SITE_URL } from "@/lib/firm";
-import { areaPath, ogLocale, path, routes, type Lang, type RouteKey } from "@/lib/i18n";
+import { areaPath, ogLocale, path, routes, teamPath, type Lang, type RouteKey } from "@/lib/i18n";
 
 /**
  * Canonical + hreflang for one page.
@@ -66,6 +66,29 @@ export function areaMetadata(
     alternates: alternates(lang, enPath, esPath),
     openGraph: {
       type: "website",
+      locale: ogLocale[lang],
+      url: `${SITE_URL}${lang === "en" ? enPath : esPath}`,
+      siteName: firm.name,
+      title,
+      description,
+    },
+  };
+}
+
+/** Same, for one person's bio. The slug is a name, so it doesn't localize. */
+export function teamMemberMetadata(
+  lang: Lang,
+  { title, description, id }: { title: string; description: string; id: string }
+): Metadata {
+  const enPath = teamPath(id, "en");
+  const esPath = teamPath(id, "es");
+
+  return {
+    title,
+    description,
+    alternates: alternates(lang, enPath, esPath),
+    openGraph: {
+      type: "profile",
       locale: ogLocale[lang],
       url: `${SITE_URL}${lang === "en" ? enPath : esPath}`,
       siteName: firm.name,

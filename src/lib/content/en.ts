@@ -5,6 +5,14 @@ import type { Content } from "./types";
  * English copy. Drawn from andrethomaslaw.com — no outcomes, figures, or
  * credentials are asserted here that the firm does not already publish.
  */
+/** Shared by the About page and Andre's entry on the team page. */
+const andreParagraphs = [
+      "With licensure in both Tennessee and Texas, Andre Thomas is a seasoned attorney with a formidable presence. Andre's legal journey is marked by high-profile trials that underscore his exceptional skills and dedication to justice.",
+      "His passion for law was cultivated at the University of Memphis. He further honed his legal acumen at Texas Southern University's Thurgood Marshall School of Law.",
+      "Andre's career has seen him serve as a prosecutor at the Shelby County, TN District Attorney's Office, where he adeptly handled felonies and misdemeanors. He then devoted many years to the State of Tennessee Department of Safety and Homeland Security, defending the state in intricate asset forfeiture matters.",
+      "Now in private practice, Andre has emerged as a champion for justice. He represents plaintiffs in personal injury cases and defends clients facing felony and misdemeanor charges. His unwavering commitment shines through in his successful advocacy, including jury trials.",
+];
+
 export const en: Content = {
   tagline: "Empowering Your Voice, Ensuring Justice",
   subTagline: "A Compassionate Advocate for Justice",
@@ -14,12 +22,7 @@ export const en: Content = {
 
   bio: {
     heading: "Meet Andre Thomas: Committed to Justice",
-    paragraphs: [
-      "With licensure in both Tennessee and Texas, Andre Thomas is a seasoned attorney with a formidable presence. Andre's legal journey is marked by high-profile trials that underscore his exceptional skills and dedication to justice.",
-      "His passion for law was cultivated at the University of Memphis. He further honed his legal acumen at Texas Southern University's Thurgood Marshall School of Law.",
-      "Andre's career has seen him serve as a prosecutor at the Shelby County, TN District Attorney's Office, where he adeptly handled felonies and misdemeanors. He then devoted many years to the State of Tennessee Department of Safety and Homeland Security, defending the state in intricate asset forfeiture matters.",
-      "Now in private practice, Andre has emerged as a champion for justice. He represents plaintiffs in personal injury cases and defends clients facing felony and misdemeanor charges. His unwavering commitment shines through in his successful advocacy, including jury trials.",
-    ],
+    paragraphs: andreParagraphs,
     education: [
       { school: "Texas Southern University", detail: "Thurgood Marshall School of Law" },
       { school: "University of Memphis", detail: "Undergraduate studies" },
@@ -473,6 +476,230 @@ export const en: Content = {
     "serious-injury-wrongful-death": "An empty hospital corridor",
   },
 
+  /**
+   * ⚠ PLACEHOLDER — see the notice at the top of `lib/team.ts`. Only Andre
+   * Thomas's entry is factual. Maria Hernandez-Castillo is a real person with
+   * a drafted bio; the remaining five people do not exist.
+   */
+  team: [
+    {
+      id: "andre-thomas",
+      role: "Founding Attorney",
+      credential: "Licensed in Texas and Tennessee",
+      preview:
+        "A former Shelby County prosecutor who now represents the injured. Two bar admissions, high-profile trials argued to verdict, and a practice built on being the attorney you actually speak to.",
+      bio: andreParagraphs,
+      highlights: [
+        { label: "Bar admissions", value: "Texas and Tennessee" },
+        {
+          label: "Law",
+          value: "Thurgood Marshall School of Law, Texas Southern University",
+        },
+        { label: "Undergraduate", value: "University of Memphis" },
+        {
+          label: "Formerly",
+          value:
+            "Assistant District Attorney, Shelby County, TN — and counsel to the Tennessee Department of Safety & Homeland Security",
+        },
+        {
+          label: "Notable trials",
+          value:
+            "State of Tennessee v. Billy Ray Turner · State of Tennessee v. Tedarrius Bean",
+        },
+      ],
+      focus: [
+        "Personal injury and catastrophic injury claims",
+        "Wrongful death",
+        "Felony and misdemeanor criminal defense",
+        "Jury trials in Texas and Tennessee",
+      ],
+      alt: "Andre Thomas, founding attorney, on the courthouse steps",
+    },
+    {
+      id: "rachel-kim",
+      role: "Associate Attorney",
+      credential: "Licensed in Texas · Trucking and commercial vehicle claims",
+      preview:
+        "Spent four years defending motor carriers before she switched sides. She knows the log books, the ECM data, and the deadlines a trucking company is quietly hoping you will miss.",
+      bio: [
+        "Rachel Kim represents people hurt by commercial vehicles — tractor-trailers, delivery fleets, and the companies that put them on Texas highways. She came to the firm from the defense bar, where she spent four years handling catastrophic-loss claims for motor carriers and their insurers.",
+        "That background changes how a case gets built. She sends the spoliation letter within days rather than weeks, because she knows exactly how quickly electronic control module data, dash-camera footage, and driver logs stop existing. She reads a carrier's safety file the way its own risk managers read it.",
+        "Rachel earned her J.D. from the University of Houston Law Center, where she served as an editor of the Houston Law Review and competed on the national trial advocacy team. She is admitted in Texas and before the U.S. District Court for the Southern District of Texas.",
+      ],
+      highlights: [
+        {
+          label: "Bar admissions",
+          value: "Texas · U.S. District Court, Southern District of Texas",
+        },
+        { label: "Law", value: "University of Houston Law Center, J.D." },
+        {
+          label: "Honors",
+          value: "Houston Law Review, editor · National Trial Advocacy Team",
+        },
+        {
+          label: "Formerly",
+          value: "Associate, commercial transportation defense",
+        },
+        { label: "Recognition", value: "Texas Rising Stars, Super Lawyers" },
+      ],
+      focus: [
+        "Tractor-trailer and 18-wheeler collisions",
+        "Delivery and commercial fleet crashes",
+        "Federal motor carrier safety violations",
+        "Uninsured and underinsured motorist claims",
+      ],
+      alt: "Rachel Kim, associate attorney",
+    },
+    {
+      id: "michael-sorensen",
+      role: "Associate Attorney",
+      credential: "Licensed in Texas · Premises liability and insurance disputes",
+      preview:
+        "Nine years adjusting claims before he ever tried one. Michael reads a policy the way the carrier reads it, then argues the parts they were hoping nobody would find.",
+      bio: [
+        "Michael Sorensen handles premises liability and the insurance fights that follow a serious injury — the denials, the lowball offers, and the delays that arrive dressed up as paperwork.",
+        "Before law school he spent nine years as a claims adjuster for two national property and casualty carriers, evaluating the same kinds of files he now litigates. He knows what a reserve gets set at, what an adjuster is actually authorized to pay, and what has to land on the desk before that number moves.",
+        "He earned his J.D. from South Texas College of Law Houston, graduating in the top fifteen percent of his class, and has since tried cases to verdict in Harris, Fort Bend, and Montgomery counties.",
+      ],
+      highlights: [
+        { label: "Bar admissions", value: "Texas" },
+        {
+          label: "Law",
+          value: "South Texas College of Law Houston, J.D., top 15%",
+        },
+        {
+          label: "Formerly",
+          value:
+            "Senior claims adjuster, national property and casualty carriers — nine years",
+        },
+        {
+          label: "Trial experience",
+          value: "Jury verdicts in Harris, Fort Bend, and Montgomery counties",
+        },
+        {
+          label: "Member",
+          value: "Texas Trial Lawyers Association · Houston Bar Association",
+        },
+      ],
+      focus: [
+        "Slip, trip, and fall injuries",
+        "Negligent security and inadequate maintenance",
+        "Insurance bad faith and delayed claims",
+        "Policy-limits and coverage disputes",
+      ],
+      alt: "Michael Sorensen, associate attorney",
+    },
+    {
+      id: "nadia-haddad",
+      role: "Of Counsel",
+      credential: "Licensed in Texas and Louisiana · Maritime and offshore injury",
+      preview:
+        "Twelve years of Jones Act and offshore platform work along the Gulf. She takes the cases that turn on which body of law applies — and settles that question early, not on the eve of trial.",
+      bio: [
+        "Nadia Haddad works with the firm on maritime and offshore matters: Jones Act seaman claims, cases under the Longshore and Harbor Workers' Compensation Act, and injuries on platforms, jack-up rigs, and supply vessels across the Gulf of Mexico.",
+        "Maritime cases are won and lost on threshold questions — whether an injured worker qualifies as a seaman, which vessel he was assigned to, whether general maritime law or a state statute governs the claim. Nadia has spent twelve years on those questions, and she raises them at the outset, when the answer can still shape the case.",
+        "She earned her J.D. from Tulane University Law School with a certificate in Maritime Law, and is admitted in both Texas and Louisiana. She practices in English and Arabic.",
+      ],
+      highlights: [
+        { label: "Bar admissions", value: "Texas · Louisiana" },
+        {
+          label: "Law",
+          value: "Tulane University Law School, J.D., Certificate in Maritime Law",
+        },
+        {
+          label: "Experience",
+          value: "Twelve years in Jones Act and offshore injury litigation",
+        },
+        { label: "Languages", value: "English and Arabic" },
+        {
+          label: "Member",
+          value: "Maritime Law Association of the United States",
+        },
+      ],
+      focus: [
+        "Jones Act seaman injury claims",
+        "Longshore and Harbor Workers' Compensation Act (LHWCA)",
+        "Offshore platform and drilling rig accidents",
+        "Unseaworthiness, and maintenance and cure",
+      ],
+      alt: "Nadia Haddad, of counsel",
+    },
+    {
+      id: "maria-hernandez-castillo",
+      role: "Senior Paralegal",
+      credential: "Bilingual — English and Spanish",
+      preview:
+        "The firm's senior paralegal, and for most clients the person they speak with most. She keeps the record complete and the file moving while the case is being built.",
+      bio: [
+        "Maria Hernandez-Castillo is the senior paralegal at Andre Thomas Law, PLLC. She manages case files from intake through resolution — gathering medical records and billing, tracking treatment, assembling demand packages, and keeping the documentary record complete enough that nothing has to be reconstructed under deadline later.",
+        "For most clients, Maria is the person on the other end of the phone. She works in English and Spanish.",
+      ],
+      highlights: [
+        { label: "Role", value: "Senior Paralegal" },
+        { label: "Languages", value: "English and Spanish" },
+      ],
+      focus: [
+        "Medical records and billing collection",
+        "Client communication and case status",
+        "Demand package preparation",
+        "Litigation support and discovery",
+      ],
+      alt: "Maria Hernandez-Castillo, senior paralegal",
+    },
+    {
+      id: "amara-whitfield",
+      role: "Client Case Manager",
+      credential: "Certified Paralegal (NALA) · Bilingual — English and Spanish",
+      preview:
+        "The person who calls you back. Amara handles treatment scheduling and lien resolution so clients are not left guessing where their case stands.",
+      bio: [
+        "Amara Whitfield manages the client side of every file. She coordinates medical treatment, tracks appointments and gaps in care, negotiates hospital and health-insurance liens, and makes sure clients know what is happening with their case without having to ask twice.",
+        "Gaps in treatment are one of the first things a defense adjuster looks for, and lien negotiation is often the difference between a settlement figure and what a client actually takes home. Amara works both, from the first week of a case to the last.",
+        "She holds the Certified Paralegal credential from NALA and has spent eight years in personal injury practice, the last four focused entirely on case management and lien resolution. She works in English and Spanish.",
+      ],
+      highlights: [
+        { label: "Credential", value: "Certified Paralegal (CP), NALA" },
+        { label: "Experience", value: "Eight years in personal injury practice" },
+        {
+          label: "Focus",
+          value: "Lien resolution and medical treatment coordination",
+        },
+        { label: "Languages", value: "English and Spanish" },
+      ],
+      focus: [
+        "Medical treatment coordination",
+        "Hospital and health-insurance lien negotiation",
+        "Client updates and case status",
+        "Settlement disbursement support",
+      ],
+      alt: "Amara Whitfield, client case manager",
+    },
+    {
+      id: "tyler-nguyen",
+      role: "Intake Coordinator",
+      credential: "Trilingual — English, Vietnamese, and Spanish",
+      preview:
+        "The first person you reach. Tyler takes the call, gets the facts down while they are fresh, and makes sure the deadlines that matter are calendared from day one.",
+      bio: [
+        "Tyler Nguyen handles intake — the first conversation after a crash or an injury, which usually happens while the client is still working out what just happened to them.",
+        "He takes the statement while the details are fresh, identifies the deadlines that start running immediately, and gets the file in front of an attorney the same day. Notice requirements against a governmental unit in Texas are the ones that catch people out; some are as short as six months, and they do not forgive a late start.",
+        "Tyler works in English, Vietnamese, and Spanish — which is why a caller who is not comfortable in English does not have to wait for a callback.",
+      ],
+      highlights: [
+        { label: "Role", value: "Intake Coordinator" },
+        { label: "Languages", value: "English, Vietnamese, and Spanish" },
+        { label: "Availability", value: "Same-day attorney review on every intake" },
+      ],
+      focus: [
+        "New client intake and statements",
+        "Deadline and notice-period screening",
+        "Evidence preservation in the first week",
+        "Referrals and case triage",
+      ],
+      alt: "Tyler Nguyen, intake coordinator",
+    },
+  ],
+
   reviews: [
     {
       quote: "Was in an accident and the lawyer was fair",
@@ -755,6 +982,34 @@ export const en: Content = {
       nextTitle: "No one should have to guess what comes next.",
       formNote:
         "Submitting this form does not create an attorney–client relationship, and the information you send is not privileged until such a relationship is established in writing. Please do not send confidential or time-sensitive information through this form.",
+    },
+
+    team: {
+      title: "Our Team",
+      description: `The attorneys and staff of ${firm.name} — personal injury and criminal defense in Houston, Texas. Free consultation, ${firm.phone}.`,
+      eyebrow: "The People",
+      titleLines: ["The people", "on your file"],
+      lede: "A case is not handled by a logo. It is handled by the attorney who tries it, the paralegal who builds the record, and the person who picks up when you call. Here they are.",
+      heroAlt: "Attorneys and staff standing together in the firm's office",
+      attorneysEyebrow: "Attorneys",
+      attorneysTitle: "Who argues your case",
+      staffEyebrow: "Paralegals and Staff",
+      staffTitle: "Who builds it",
+      readBio: "Full biography",
+      draftNotice:
+        "Draft page — not for publication. Only Andre Thomas's biography is verified. Every other profile here is placeholder content for layout review and must be replaced with real people before this page goes live.",
+      member: {
+        crumb: "Our Team",
+        highlightsEyebrow: "Credentials",
+        focusEyebrow: "What they handle",
+        bioEyebrow: "Background",
+        contactEyebrow: "Next step",
+        contactTitle: "Bring us the case.",
+        contactBody: `The consultation is free, and you will speak with someone at the firm rather than a call centre. Call ${firm.phone} or send a message and we will come back to you the same day.`,
+        othersEyebrow: "Also at the firm",
+        othersTitle: "The rest of the team",
+        seeAll: "See the whole team",
+      },
     },
 
     privacy: {

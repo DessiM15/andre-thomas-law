@@ -27,6 +27,7 @@ export const routes = {
   home: { en: "/", es: "/es" },
   practiceAreas: { en: "/practice-areas", es: "/es/areas-de-practica" },
   about: { en: "/about", es: "/es/nosotros" },
+  team: { en: "/team", es: "/es/equipo" },
   reviews: { en: "/reviews", es: "/es/resenas" },
   contact: { en: "/contact", es: "/es/contacto" },
   privacy: { en: "/privacy", es: "/es/privacidad" },
@@ -37,6 +38,10 @@ export type RouteKey = keyof typeof routes;
 
 /** The path for a named route in a given language. */
 export const path = (key: RouteKey, lang: Lang): string => routes[key][lang];
+
+/** The path for one person's bio. Slugs are names, so they don't localize. */
+export const teamPath = (id: string, lang: Lang): string =>
+  `${routes.team[lang]}/${id}`;
 
 /** The path for a practice area, given that language's own slug. */
 export const areaPath = (slug: string, lang: Lang): string =>
