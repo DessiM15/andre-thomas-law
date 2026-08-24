@@ -71,8 +71,8 @@ export default function Nav({ lang }: { lang: Lang }) {
             aria-label={`${firm.name} — ${c.ui.homeAria}`}
             className={`group relative block aspect-[1699/870] shrink-0 transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
               solid
-                ? "w-[8rem] md:w-[9.5rem] lg:w-[9rem] xl:w-[10.5rem] 2xl:w-[11rem]"
-                : "w-[10.5rem] md:w-[13rem] lg:w-[11rem] xl:w-[13rem] 2xl:w-[15.5rem]"
+                ? "w-[8rem] md:w-[9.5rem] lg:w-[8.25rem] xl:w-[10.5rem] 2xl:w-[11rem]"
+                : "w-[10.5rem] md:w-[13rem] lg:w-[10rem] xl:w-[13rem] 2xl:w-[15.5rem]"
             }`}
           >
             {/* Both variants ship; opacity cross-fades them as the bar solidifies,
@@ -100,7 +100,7 @@ export default function Nav({ lang }: { lang: Lang }) {
           </Link>
 
           {/* Desktop links */}
-          <nav className="hidden items-center gap-4 lg:flex xl:gap-6 2xl:gap-8">
+          <nav className="hidden items-center gap-3 lg:flex xl:gap-6 2xl:gap-8">
             {items.slice(1).map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + "/");
