@@ -6,7 +6,7 @@ import PageHeader from "@/components/PageHeader";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { teamPath, type Lang } from "@/lib/i18n";
-import { team, TEAM_PLACEHOLDER, type TeamKind } from "@/lib/team";
+import { team, SHOW_DRAFT_BANNER, TEAM_PLACEHOLDER, type TeamKind } from "@/lib/team";
 import type { TeamBio } from "@/lib/content/types";
 
 /**
@@ -132,7 +132,7 @@ export default function TeamView({ lang }: { lang: Lang }) {
         tall
       />
 
-      {TEAM_PLACEHOLDER && <DraftNotice>{p.draftNotice}</DraftNotice>}
+      {TEAM_PLACEHOLDER && SHOW_DRAFT_BANNER && <DraftNotice>{p.draftNotice}</DraftNotice>}
 
       <section className="bg-paper py-20 md:py-28">
         <div className="container-x space-y-24 md:space-y-32">
