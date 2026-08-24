@@ -52,7 +52,13 @@ export type TeamBio = {
 export type Panel = { n: string; title: string; body: string; alt: string };
 export type Pillar = { n: string; title: string; body: string };
 export type Step = { n: string; title: string; body: string };
-export type NavKey = "home" | "practiceAreas" | "about" | "reviews" | "contact";
+export type NavKey =
+  | "home"
+  | "practiceAreas"
+  | "about"
+  | "team"
+  | "reviews"
+  | "contact";
 export type NavItem = { key: NavKey; label: string };
 
 export type Meta = { title: string; description: string };

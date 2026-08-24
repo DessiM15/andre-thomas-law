@@ -748,6 +748,7 @@ export const en: Content = {
     { key: "home", label: "Home" },
     { key: "practiceAreas", label: "Practice Areas" },
     { key: "about", label: "About" },
+    { key: "team", label: "Team" },
     { key: "reviews", label: "Reviews" },
     { key: "contact", label: "Contact" },
   ],

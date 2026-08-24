@@ -761,6 +761,7 @@ export const es: Content = {
     { key: "home", label: "Inicio" },
     { key: "practiceAreas", label: "Áreas de Práctica" },
     { key: "about", label: "El Abogado" },
+    { key: "team", label: "Equipo" },
     { key: "reviews", label: "Reseñas" },
     { key: "contact", label: "Contacto" },
   ],
