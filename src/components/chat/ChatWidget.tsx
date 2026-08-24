@@ -249,12 +249,19 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
 
     turns.current += 1;
 
-    // The advice guardrail is the strongest possible moment to offer: the
-    // visitor just asked something only an attorney can answer, and the bot
-    // has already said it cannot. Otherwise wait until they're invested.
+    // Three moments are worth offering at, in descending order of strength:
+    //
+    //   hot     — they described being hurt, or asked to be represented.
+    //             Waiting three turns on someone who opened with "I got hit
+    //             and need an attorney" is leaving the lead on the floor.
+    //   advice  — they asked something only an attorney can answer, and the
+    //             bot has just said it cannot. The most honest moment to
+    //             offer a person instead.
+    //   turns   — no strong signal, but they're clearly engaged.
+    const hot = reply.intent === "hot";
     const offer =
       step.current === "idle" &&
-      (reply.guarded === "advice" || turns.current >= OFFER_AFTER_TURNS);
+      (hot || reply.guarded === "advice" || turns.current >= OFFER_AFTER_TURNS);
 
     // A beat of "thinking" — instant replies read as canned.
     const delay = Math.min(400 + reply.text.length * 6, 1400);
@@ -267,7 +274,11 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
       if (offer) {
         step.current = "offered";
         setTimeout(
-          () => botSay(chat.lead.offer, [chat.lead.offerYes, chat.lead.offerNo]),
+          () =>
+            botSay(hot ? chat.lead.offerHot : chat.lead.offer, [
+              chat.lead.offerYes,
+              chat.lead.offerNo,
+            ]),
           650
         );
       }

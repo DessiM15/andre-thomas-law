@@ -237,6 +237,8 @@ export type Content = {
       /** The callback-capture flow inside the widget. */
       lead: {
         offer: string;
+        /** Used when the visitor has described an injury, rather than merely asked. */
+        offerHot: string;
         offerYes: string;
         offerNo: string;
         askName: string;

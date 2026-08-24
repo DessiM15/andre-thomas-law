@@ -919,6 +919,8 @@ export const es: Content = {
       lead: {
         offer:
           "No puedo dar asesoría legal, pero sí puedo pedir que alguien de la firma lo llame. ¿Le tomo sus datos?",
+        offerHot:
+          "Lamento que le haya pasado eso. Lo más rápido que puedo hacer es pedir que un abogado lo llame — ¿le tomo unos datos?",
         offerYes: "Sí, llámenme",
         offerNo: "No, gracias",
         askName: "Muy bien. ¿Cuál es su nombre?",
