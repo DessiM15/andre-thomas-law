@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { content, getPracticeAreaByKey } from "@/lib/content";
 import { SITE_URL } from "@/lib/firm";
-import { areaPath, routes, type RouteKey } from "@/lib/i18n";
+import { areaPath, routes, teamPath, type RouteKey } from "@/lib/i18n";
+import { team, TEAM_PLACEHOLDER } from "@/lib/team";
 
 /**
  * Both languages, with `alternates.languages` on every entry — the sitemap
@@ -20,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { key: "reviews", priority: 0.7, changeFrequency: "monthly" },
     { key: "contact", priority: 0.9, changeFrequency: "yearly" },
   ];
+
+  // The team pages carry placeholder people until `TEAM_PLACEHOLDER` is
+  // cleared, and a draft roster has no business being submitted for indexing.
+  if (!TEAM_PLACEHOLDER) {
+    core.push({ key: "team", priority: 0.7, changeFrequency: "yearly" });
+  }
 
   const corePages = core.flatMap(({ key, priority, changeFrequency }) => {
     const languages = {
@@ -68,5 +75,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
   });
 
-  return [...corePages, ...areaPages];
+  // One URL per person, both languages, sharing a slug.
+  const teamPages = TEAM_PLACEHOLDER
+    ? []
+    : team.flatMap((person) => {
+        const languages = {
+          "en-US": abs(teamPath(person.id, "en")),
+          "es-US": abs(teamPath(person.id, "es")),
+        };
+        return [
+          {
+            url: languages["en-US"],
+            lastModified: now,
+            changeFrequency: "yearly" as const,
+            priority: 0.6,
+            alternates: { languages },
+          },
+          {
+            url: languages["es-US"],
+            lastModified: now,
+            changeFrequency: "yearly" as const,
+            priority: 0.6,
+            alternates: { languages },
+          },
+        ];
+      });
+
+  return [...corePages, ...areaPages, ...teamPages];
 }

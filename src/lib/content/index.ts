@@ -2,9 +2,9 @@ import { DEFAULT_LANG, langFromPath, routes, type Lang } from "@/lib/i18n";
 import type { AreaKey } from "@/lib/media";
 import { en } from "./en";
 import { es } from "./es";
-import type { Content, PracticeArea } from "./types";
+import type { Content, PracticeArea, TeamBio } from "./types";
 
-export type { Content, PracticeArea, PracticeGroup } from "./types";
+export type { Content, PracticeArea, PracticeGroup, TeamBio } from "./types";
 
 const dictionaries: Record<Lang, Content> = { en, es };
 
@@ -16,6 +16,9 @@ export const getPracticeArea = (slug: string, lang: Lang): PracticeArea | undefi
 
 export const getPracticeAreaByKey = (key: AreaKey, lang: Lang): PracticeArea | undefined =>
   content(lang).practiceAreas.find((a) => a.key === key);
+
+export const getTeamBio = (id: string, lang: Lang): TeamBio | undefined =>
+  content(lang).team.find((m) => m.id === id);
 
 /** Areas not featured on the homepage — the ticker's contents. */
 export const tickerAreas = (lang: Lang, featured: readonly AreaKey[]): PracticeArea[] =>
@@ -37,6 +40,13 @@ export function alternatePath(pathname: string, target: Lang): string {
   // Static routes: find the key whose path matches, then read the other side.
   for (const key of Object.keys(routes) as (keyof typeof routes)[]) {
     if (routes[key][current] === clean) return routes[key][target];
+  }
+
+  // Team bios. The slug is a person's name, so it's the same on both sides
+  // and only the prefix changes.
+  const teamPrefix = routes.team[current];
+  if (clean.startsWith(teamPrefix + "/")) {
+    return `${routes.team[target]}/${clean.slice(teamPrefix.length + 1)}`;
   }
 
   // Practice area detail pages.

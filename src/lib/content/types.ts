@@ -1,4 +1,5 @@
 import type { AreaKey, GroupId } from "@/lib/media";
+import type { TeamId } from "@/lib/team";
 
 /**
  * The shape of one language's copy. Both `en.ts` and `es.ts` are typed
@@ -24,6 +25,27 @@ export type PracticeGroup = {
   label: string;
   n: string;
   blurb: string;
+  alt: string;
+};
+
+/**
+ * One person's language-specific copy. The photograph, name, and slug live in
+ * `lib/team.ts`; this is only what changes between English and Spanish, keyed
+ * back to that person by `id`.
+ */
+export type TeamBio = {
+  id: TeamId;
+  role: string;
+  /** The single line under the name — bar admissions, or a certification. */
+  credential: string;
+  /** The two-line teaser on the list page. Kept short enough to clamp cleanly. */
+  preview: string;
+  /** Full biography, on the detail page. */
+  bio: string[];
+  /** Accolades and accomplishments, as label/value pairs. */
+  highlights: { label: string; value: string }[];
+  /** What this person actually handles, day to day. */
+  focus: string[];
   alt: string;
 };
 
@@ -59,6 +81,9 @@ export type Content = {
   practiceGroups: PracticeGroup[];
   practiceAreas: PracticeArea[];
   featuredAlts: Partial<Record<AreaKey, string>>;
+
+  /** Ordered by `lib/team.ts`, not by this array. */
+  team: TeamBio[];
 
   /** Quotes are reproduced exactly as clients published them and are never
    *  translated; only the surrounding labels and date format change. */
@@ -260,6 +285,31 @@ export type Content = {
       nextEyebrow: string;
       nextTitle: string;
       formNote: string;
+    };
+    team: Meta & {
+      eyebrow: string;
+      titleLines: string[];
+      lede: string;
+      heroAlt: string;
+      attorneysEyebrow: string;
+      attorneysTitle: string;
+      staffEyebrow: string;
+      staffTitle: string;
+      readBio: string;
+      /** Shown only while `TEAM_PLACEHOLDER` is true. */
+      draftNotice: string;
+      member: {
+        crumb: string;
+        highlightsEyebrow: string;
+        focusEyebrow: string;
+        bioEyebrow: string;
+        contactEyebrow: string;
+        contactTitle: string;
+        contactBody: string;
+        othersEyebrow: string;
+        othersTitle: string;
+        seeAll: string;
+      };
     };
     privacy: Meta & { eyebrow: string; heading: string; sections: LegalSection[] };
     disclaimer: Meta & {

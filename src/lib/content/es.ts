@@ -16,6 +16,14 @@ import type { Content } from "./types";
  * clients published them on Google. Translating a real person's words and
  * presenting them as a quotation would misrepresent them.
  */
+/** Compartidos por la página Nosotros y la entrada de Andre en el equipo. */
+const andreParrafos = [
+      "Con licencia para ejercer en Tennessee y en Texas, Andre Thomas es un abogado experimentado y de presencia formidable. Su trayectoria está marcada por juicios de alto perfil que reflejan su capacidad excepcional y su dedicación a la justicia.",
+      "Su pasión por el derecho se formó en la Universidad de Memphis. Perfeccionó después su criterio jurídico en la Facultad de Derecho Thurgood Marshall de Texas Southern University.",
+      "Andre se desempeñó como fiscal en la Oficina del Fiscal de Distrito del Condado de Shelby, Tennessee, donde manejó delitos graves y menores. Dedicó luego varios años al Departamento de Seguridad y Seguridad Nacional del Estado de Tennessee, defendiendo al estado en complejos casos de decomiso de bienes.",
+      "Hoy, en la práctica privada, Andre se ha consolidado como un defensor de la justicia. Representa a demandantes en casos de lesiones personales y defiende a clientes acusados de delitos graves y menores. Su compromiso inquebrantable se refleja en su labor, incluidos los juicios ante jurado.",
+];
+
 export const es: Content = {
   tagline: "Damos Fuerza a Su Voz, Garantizamos Justicia",
   subTagline: "Un Defensor Compasivo de la Justicia",
@@ -25,12 +33,7 @@ export const es: Content = {
 
   bio: {
     heading: "Conozca a Andre Thomas: comprometido con la justicia",
-    paragraphs: [
-      "Con licencia para ejercer en Tennessee y en Texas, Andre Thomas es un abogado experimentado y de presencia formidable. Su trayectoria está marcada por juicios de alto perfil que reflejan su capacidad excepcional y su dedicación a la justicia.",
-      "Su pasión por el derecho se formó en la Universidad de Memphis. Perfeccionó después su criterio jurídico en la Facultad de Derecho Thurgood Marshall de Texas Southern University.",
-      "Andre se desempeñó como fiscal en la Oficina del Fiscal de Distrito del Condado de Shelby, Tennessee, donde manejó delitos graves y menores. Dedicó luego varios años al Departamento de Seguridad y Seguridad Nacional del Estado de Tennessee, defendiendo al estado en complejos casos de decomiso de bienes.",
-      "Hoy, en la práctica privada, Andre se ha consolidado como un defensor de la justicia. Representa a demandantes en casos de lesiones personales y defiende a clientes acusados de delitos graves y menores. Su compromiso inquebrantable se refleja en su labor, incluidos los juicios ante jurado.",
-    ],
+    paragraphs: andreParrafos,
     education: [
       { school: "Texas Southern University", detail: "Facultad de Derecho Thurgood Marshall" },
       { school: "Universidad de Memphis", detail: "Estudios de licenciatura" },
@@ -484,6 +487,231 @@ export const es: Content = {
     "serious-injury-wrongful-death": "Un pasillo de hospital vacío",
   },
 
+  /**
+   * ⚠ CONTENIDO DE MARCADOR DE POSICIÓN — vea el aviso al inicio de
+   * `lib/team.ts`. Solo la entrada de Andre Thomas es factual. Maria
+   * Hernandez-Castillo es una persona real con biografía provisional; las
+   * cinco personas restantes no existen.
+   */
+  team: [
+    {
+      id: "andre-thomas",
+      role: "Abogado Fundador",
+      credential: "Con licencia en Texas y Tennessee",
+      preview:
+        "Exfiscal del Condado de Shelby que hoy representa a los lesionados. Dos licencias estatales, juicios de alto perfil llevados hasta el veredicto, y una práctica construida sobre ser el abogado con quien usted realmente habla.",
+      bio: andreParrafos,
+      highlights: [
+        { label: "Licencias", value: "Texas y Tennessee" },
+        {
+          label: "Derecho",
+          value: "Facultad de Derecho Thurgood Marshall, Texas Southern University",
+        },
+        { label: "Licenciatura", value: "Universidad de Memphis" },
+        {
+          label: "Antes",
+          value:
+            "Fiscal Auxiliar de Distrito, Condado de Shelby, TN — y abogado del Departamento de Seguridad y Seguridad Nacional de Tennessee",
+        },
+        {
+          label: "Juicios destacados",
+          value:
+            "State of Tennessee v. Billy Ray Turner · State of Tennessee v. Tedarrius Bean",
+        },
+      ],
+      focus: [
+        "Lesiones personales y lesiones catastróficas",
+        "Muerte por negligencia",
+        "Defensa penal por delitos graves y menores",
+        "Juicios ante jurado en Texas y Tennessee",
+      ],
+      alt: "Andre Thomas, abogado fundador, en las escalinatas del tribunal",
+    },
+    {
+      id: "rachel-kim",
+      role: "Abogada Asociada",
+      credential: "Con licencia en Texas · Accidentes de camiones y vehículos comerciales",
+      preview:
+        "Pasó cuatro años defendiendo a empresas de transporte antes de cambiar de lado. Conoce las bitácoras, los datos del ECM y los plazos que una empresa de camiones espera en silencio que usted deje pasar.",
+      bio: [
+        "Rachel Kim representa a personas lesionadas por vehículos comerciales: tráileres, flotas de reparto y las empresas que los ponen en las carreteras de Texas. Llegó a la firma desde el lado de la defensa, donde pasó cuatro años manejando reclamos de pérdida catastrófica para transportistas y sus aseguradoras.",
+        "Esa trayectoria cambia la forma en que se construye un caso. Envía la carta de preservación de pruebas en días, no en semanas, porque sabe con exactitud qué tan rápido desaparecen los datos del módulo de control electrónico, las grabaciones de cámara y las bitácoras del conductor. Lee el expediente de seguridad de un transportista igual que lo leen sus propios gerentes de riesgo.",
+        "Rachel obtuvo su J.D. en el University of Houston Law Center, donde fue editora del Houston Law Review y compitió en el equipo nacional de litigación. Está admitida en Texas y ante el Tribunal de Distrito de los EE. UU. para el Distrito Sur de Texas.",
+      ],
+      highlights: [
+        {
+          label: "Licencias",
+          value: "Texas · Tribunal de Distrito de EE. UU., Distrito Sur de Texas",
+        },
+        { label: "Derecho", value: "University of Houston Law Center, J.D." },
+        {
+          label: "Distinciones",
+          value: "Houston Law Review, editora · Equipo Nacional de Litigación",
+        },
+        {
+          label: "Antes",
+          value: "Asociada, defensa de transporte comercial",
+        },
+        { label: "Reconocimiento", value: "Texas Rising Stars, Super Lawyers" },
+      ],
+      focus: [
+        "Choques con tráileres y camiones de 18 ruedas",
+        "Accidentes con flotas comerciales y de reparto",
+        "Violaciones federales de seguridad de transportistas",
+        "Reclamos por conductores sin seguro o con seguro insuficiente",
+      ],
+      alt: "Rachel Kim, abogada asociada",
+    },
+    {
+      id: "michael-sorensen",
+      role: "Abogado Asociado",
+      credential: "Con licencia en Texas · Responsabilidad de locales y disputas con aseguradoras",
+      preview:
+        "Nueve años ajustando reclamos antes de litigar el primero. Michael lee una póliza como la lee la aseguradora, y luego argumenta las partes que esperaban que nadie encontrara.",
+      bio: [
+        "Michael Sorensen maneja casos de responsabilidad de locales y las peleas con aseguradoras que siguen a una lesión grave: las negativas, las ofertas bajas y las demoras que llegan disfrazadas de trámite.",
+        "Antes de estudiar derecho pasó nueve años como ajustador de reclamos para dos aseguradoras nacionales, evaluando los mismos expedientes que hoy litiga. Sabe en cuánto se fija una reserva, cuánto está realmente autorizado a pagar un ajustador, y qué tiene que llegar a su escritorio para que esa cifra se mueva.",
+        "Obtuvo su J.D. en South Texas College of Law Houston, graduándose en el quince por ciento superior de su generación, y desde entonces ha llevado casos hasta el veredicto en los condados de Harris, Fort Bend y Montgomery.",
+      ],
+      highlights: [
+        { label: "Licencias", value: "Texas" },
+        {
+          label: "Derecho",
+          value: "South Texas College of Law Houston, J.D., 15% superior",
+        },
+        {
+          label: "Antes",
+          value:
+            "Ajustador sénior de reclamos, aseguradoras nacionales de daños y responsabilidad — nueve años",
+        },
+        {
+          label: "Experiencia en juicio",
+          value: "Veredictos de jurado en los condados de Harris, Fort Bend y Montgomery",
+        },
+        {
+          label: "Miembro",
+          value: "Texas Trial Lawyers Association · Houston Bar Association",
+        },
+      ],
+      focus: [
+        "Resbalones, tropiezos y caídas",
+        "Seguridad negligente y mantenimiento inadecuado",
+        "Mala fe de la aseguradora y reclamos demorados",
+        "Disputas de cobertura y de límites de póliza",
+      ],
+      alt: "Michael Sorensen, abogado asociado",
+    },
+    {
+      id: "nadia-haddad",
+      role: "Abogada Consultora (Of Counsel)",
+      credential: "Con licencia en Texas y Luisiana · Lesiones marítimas y costa afuera",
+      preview:
+        "Doce años de trabajo bajo la Jones Act y en plataformas costa afuera en el Golfo. Toma los casos que dependen de cuál ley aplica, y resuelve esa pregunta al inicio, no en la víspera del juicio.",
+      bio: [
+        "Nadia Haddad colabora con la firma en asuntos marítimos y costa afuera: reclamos de marinos bajo la Jones Act, casos bajo la Ley de Compensación para Trabajadores Portuarios y Marítimos (LHWCA), y lesiones en plataformas, equipos autoelevables y buques de suministro en todo el Golfo de México.",
+        "Los casos marítimos se ganan y se pierden en las preguntas de umbral: si un trabajador lesionado califica como marino, a qué embarcación estaba asignado, si rige el derecho marítimo general o una ley estatal. Nadia lleva doce años en esas preguntas, y las plantea desde el principio, cuando la respuesta todavía puede darle forma al caso.",
+        "Obtuvo su J.D. en Tulane University Law School con un certificado en Derecho Marítimo, y está admitida tanto en Texas como en Luisiana. Ejerce en inglés y en árabe.",
+      ],
+      highlights: [
+        { label: "Licencias", value: "Texas · Luisiana" },
+        {
+          label: "Derecho",
+          value: "Tulane University Law School, J.D., Certificado en Derecho Marítimo",
+        },
+        {
+          label: "Experiencia",
+          value: "Doce años en litigios bajo la Jones Act y por lesiones costa afuera",
+        },
+        { label: "Idiomas", value: "Inglés y árabe" },
+        {
+          label: "Miembro",
+          value: "Maritime Law Association of the United States",
+        },
+      ],
+      focus: [
+        "Reclamos de marinos bajo la Jones Act",
+        "Ley de Compensación para Trabajadores Portuarios y Marítimos (LHWCA)",
+        "Accidentes en plataformas y equipos de perforación costa afuera",
+        "Innavegabilidad, y manutención y curación",
+      ],
+      alt: "Nadia Haddad, abogada consultora",
+    },
+    {
+      id: "maria-hernandez-castillo",
+      role: "Asistente Legal Sénior",
+      credential: "Bilingüe — inglés y español",
+      preview:
+        "La asistente legal sénior de la firma y, para la mayoría de los clientes, la persona con quien más hablan. Mantiene el expediente completo y el caso avanzando mientras se construye.",
+      bio: [
+        "Maria Hernandez-Castillo es la asistente legal sénior de Andre Thomas Law, PLLC. Maneja los expedientes desde la admisión hasta la resolución: reúne expedientes médicos y facturación, da seguimiento al tratamiento, arma los paquetes de reclamación y mantiene el registro documental lo bastante completo como para que nada tenga que reconstruirse después, contra reloj.",
+        "Para la mayoría de los clientes, Maria es la persona al otro lado del teléfono. Trabaja en inglés y en español.",
+      ],
+      highlights: [
+        { label: "Cargo", value: "Asistente Legal Sénior" },
+        { label: "Idiomas", value: "Inglés y español" },
+      ],
+      focus: [
+        "Recopilación de expedientes médicos y facturación",
+        "Comunicación con el cliente y estado del caso",
+        "Preparación del paquete de reclamación",
+        "Apoyo en litigio y descubrimiento de pruebas",
+      ],
+      alt: "Maria Hernandez-Castillo, asistente legal sénior",
+    },
+    {
+      id: "amara-whitfield",
+      role: "Coordinadora de Casos",
+      credential: "Asistente Legal Certificada (NALA) · Bilingüe — inglés y español",
+      preview:
+        "La persona que le devuelve la llamada. Amara maneja la coordinación del tratamiento y la negociación de gravámenes para que los clientes no se queden adivinando en qué va su caso.",
+      bio: [
+        "Amara Whitfield maneja el lado del cliente en cada expediente. Coordina el tratamiento médico, da seguimiento a las citas y a las interrupciones en la atención, negocia los gravámenes de hospitales y aseguradoras de salud, y se asegura de que los clientes sepan qué está pasando con su caso sin tener que preguntar dos veces.",
+        "Las interrupciones en el tratamiento son de lo primero que busca un ajustador de la defensa, y la negociación de gravámenes suele ser la diferencia entre la cifra del acuerdo y lo que el cliente realmente recibe. Amara trabaja ambas cosas, desde la primera semana del caso hasta la última.",
+        "Tiene la credencial de Asistente Legal Certificada (CP) de NALA y ha pasado ocho años en la práctica de lesiones personales, los últimos cuatro dedicados por completo a la gestión de casos y la resolución de gravámenes. Trabaja en inglés y en español.",
+      ],
+      highlights: [
+        { label: "Credencial", value: "Asistente Legal Certificada (CP), NALA" },
+        { label: "Experiencia", value: "Ocho años en la práctica de lesiones personales" },
+        {
+          label: "Enfoque",
+          value: "Resolución de gravámenes y coordinación de tratamiento médico",
+        },
+        { label: "Idiomas", value: "Inglés y español" },
+      ],
+      focus: [
+        "Coordinación del tratamiento médico",
+        "Negociación de gravámenes hospitalarios y de seguros de salud",
+        "Actualizaciones al cliente y estado del caso",
+        "Apoyo en el desembolso del acuerdo",
+      ],
+      alt: "Amara Whitfield, coordinadora de casos",
+    },
+    {
+      id: "tyler-nguyen",
+      role: "Coordinador de Admisión",
+      credential: "Trilingüe — inglés, vietnamita y español",
+      preview:
+        "La primera persona con quien usted habla. Tyler toma la llamada, deja los hechos por escrito mientras están frescos y se asegura de que los plazos importantes queden en el calendario desde el primer día.",
+      bio: [
+        "Tyler Nguyen maneja la admisión: la primera conversación después de un choque o una lesión, que normalmente ocurre mientras el cliente todavía está entendiendo qué acaba de pasarle.",
+        "Toma la declaración mientras los detalles están frescos, identifica los plazos que empiezan a correr de inmediato y pone el expediente frente a un abogado el mismo día. Los requisitos de notificación contra una entidad gubernamental en Texas son los que más sorprenden a la gente; algunos son de apenas seis meses, y no perdonan un comienzo tardío.",
+        "Tyler trabaja en inglés, vietnamita y español, y por eso quien no se siente cómodo en inglés no tiene que esperar a que le devuelvan la llamada.",
+      ],
+      highlights: [
+        { label: "Cargo", value: "Coordinador de Admisión" },
+        { label: "Idiomas", value: "Inglés, vietnamita y español" },
+        { label: "Disponibilidad", value: "Revisión de un abogado el mismo día en cada admisión" },
+      ],
+      focus: [
+        "Admisión de nuevos clientes y declaraciones",
+        "Revisión de plazos y períodos de notificación",
+        "Preservación de pruebas en la primera semana",
+        "Referencias y clasificación de casos",
+      ],
+      alt: "Tyler Nguyen, coordinador de admisión",
+    },
+  ],
+
   // Reproduced exactly as published on Google, in the language the client wrote.
   reviews: [
     {
@@ -766,6 +994,34 @@ export const es: Content = {
       nextTitle: "Nadie debería tener que adivinar qué sigue.",
       formNote:
         "Enviar este formulario no crea una relación abogado–cliente, y la información que envíe no está protegida por el secreto profesional hasta que dicha relación se establezca por escrito. Por favor no envíe información confidencial ni urgente a través de este formulario.",
+    },
+
+    team: {
+      title: "Nuestro Equipo",
+      description: `Los abogados y el personal de ${firm.name} — lesiones personales y defensa penal en Houston, Texas. Consulta gratuita, ${firm.phone}.`,
+      eyebrow: "Las Personas",
+      titleLines: ["Quiénes llevan", "su caso"],
+      lede: "Un caso no lo lleva un logotipo. Lo lleva el abogado que lo litiga, la asistente legal que arma el expediente y la persona que contesta cuando usted llama. Aquí están.",
+      heroAlt: "Abogados y personal de la firma de pie juntos en la oficina",
+      attorneysEyebrow: "Abogados",
+      attorneysTitle: "Quiénes argumentan su caso",
+      staffEyebrow: "Asistentes Legales y Personal",
+      staffTitle: "Quiénes lo construyen",
+      readBio: "Biografía completa",
+      draftNotice:
+        "Página en borrador — no para publicación. Solo la biografía de Andre Thomas está verificada. Todos los demás perfiles son contenido de marcador de posición para revisar el diseño y deben reemplazarse por personas reales antes de publicar esta página.",
+      member: {
+        crumb: "Nuestro Equipo",
+        highlightsEyebrow: "Credenciales",
+        focusEyebrow: "Qué maneja",
+        bioEyebrow: "Trayectoria",
+        contactEyebrow: "Siguiente paso",
+        contactTitle: "Tráiganos el caso.",
+        contactBody: `La consulta es gratuita, y hablará con alguien de la firma y no con un centro de llamadas. Llame al ${firm.phone} o envíe un mensaje y le respondemos el mismo día.`,
+        othersEyebrow: "También en la firma",
+        othersTitle: "El resto del equipo",
+        seeAll: "Ver todo el equipo",
+      },
     },
 
     privacy: {
