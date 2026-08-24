@@ -912,9 +912,32 @@ export const es: Content = {
       inputAria: "Escriba su pregunta",
       sendAria: "Enviar",
       dialogAria: "Asistente del despacho",
-      confidential: "No comparta datos confidenciales.",
+      confidential: "Comparta datos de contacto, no detalles del caso — este chat no es privado.",
       unreachable: "No pude conectarme al servidor en este momento. Siempre puede llamar al",
       nudgeDismiss: "Cerrar",
+
+      lead: {
+        offer:
+          "No puedo dar asesoría legal, pero sí puedo pedir que alguien de la firma lo llame. ¿Le tomo sus datos?",
+        offerYes: "Sí, llámenme",
+        offerNo: "No, gracias",
+        askName: "Muy bien. ¿Cuál es su nombre?",
+        askPhone: "Gracias. ¿A qué número lo podemos llamar?",
+        askEmail:
+          "Y un correo electrónico, si desea respuesta por escrito. Puede omitirlo.",
+        skip: "Omitir",
+        badName: "Disculpe — ¿me da su nombre completo?",
+        badPhone:
+          "Ese número parece incompleto. ¿Puede incluir la clave de área?",
+        badEmail: "Ese correo no parece correcto — ¿lo puede revisar?",
+        sending: "Enviando sus datos…",
+        done:
+          "Listo — alguien de la firma lo llamará. Si es urgente, llame al 713-212-3003 y hablará con nosotros directamente.",
+        failed:
+          "Disculpe — no pude enviar sus datos. Por favor llame al 713-212-3003 para que esto no se pierda.",
+        declined:
+          "Sin problema. Pregúnteme lo que necesite, o llame al 713-212-3003 cuando guste.",
+      },
     },
   },
 

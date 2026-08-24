@@ -233,6 +233,24 @@ export type Content = {
       confidential: string;
       unreachable: string;
       nudgeDismiss: string;
+
+      /** The callback-capture flow inside the widget. */
+      lead: {
+        offer: string;
+        offerYes: string;
+        offerNo: string;
+        askName: string;
+        askPhone: string;
+        askEmail: string;
+        skip: string;
+        badName: string;
+        badPhone: string;
+        badEmail: string;
+        sending: string;
+        done: string;
+        failed: string;
+        declined: string;
+      };
     };
   };
 

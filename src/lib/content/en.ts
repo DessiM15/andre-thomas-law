@@ -899,9 +899,35 @@ export const en: Content = {
       inputAria: "Type your question",
       sendAria: "Send",
       dialogAria: "Firm assistant",
-      confidential: "Don't share confidential details.",
+      // Reworded once the widget started asking for a name and a number:
+      // "don't share details" immediately followed by "what's your number?"
+      // reads as a contradiction.
+      confidential: "Share contact details, not case details — this chat isn't private.",
       unreachable: "I couldn't reach the server just then. You can always call",
       nudgeDismiss: "Dismiss",
+
+      lead: {
+        offer:
+          "I can't give legal advice, but I can have someone from the firm call you. Want me to take your details?",
+        offerYes: "Yes, call me back",
+        offerNo: "No thanks",
+        askName: "Good. What's your name?",
+        askPhone: "Thanks. What's the best number to reach you on?",
+        askEmail:
+          "And an email address, if you'd like a written follow-up. You can skip this.",
+        skip: "Skip",
+        badName: "Sorry — could you give me your full name?",
+        badPhone:
+          "That doesn't look like a complete number. Could you include the area code?",
+        badEmail: "That email doesn't look right — mind checking it?",
+        sending: "Sending that over…",
+        done:
+          "Got it — someone from the firm will call you. If it's urgent, call 713-212-3003 and you'll reach us directly.",
+        failed:
+          "Sorry — I couldn't send that. Please call 713-212-3003 so this doesn't get lost.",
+        declined:
+          "No problem. Ask me anything else, or call 713-212-3003 whenever you're ready.",
+      },
     },
   },
 

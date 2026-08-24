@@ -22,6 +22,24 @@ type Msg = {
 
 const NUDGE_KEY = "atl-chat-nudge";
 
+/**
+ * The callback-capture flow. `idle` is ordinary Q&A; everything between
+ * `offered` and `sending` means the next thing the visitor types is an
+ * answer to a question the widget asked, not a question for the widget.
+ */
+type LeadStep =
+  | "idle"
+  | "offered"
+  | "name"
+  | "phone"
+  | "email"
+  | "sending"
+  | "closed";
+
+/** Ask only after the visitor has actually engaged. Opening with "what's your
+ *  number?" reads as a bot demanding payment before it will help. */
+const OFFER_AFTER_TURNS = 3;
+
 let uid = 0;
 
 export default function ChatWidget({ lang }: { lang: Lang }) {
@@ -36,6 +54,12 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
   const nudged = useRef(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Refs rather than state: `send` reads these from inside async callbacks,
+  // where a state value captured at render time would be a turn stale.
+  const step = useRef<LeadStep>("idle");
+  const lead = useRef({ name: "", phone: "", email: "" });
+  const turns = useRef(0);
 
   // Seed the conversation the first time it opens.
   useEffect(() => {
@@ -119,12 +143,96 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  async function send(text: string) {
-    const trimmed = text.trim();
-    if (!trimmed || typing) return;
+  const botSay = (text: string, chips?: string[]) =>
+    setMessages((m) => [...m, { id: uid++, role: "bot", text, chips }]);
 
-    setMessages((m) => [...m, { id: uid++, role: "user", text: trimmed }]);
-    setInput("");
+  /** Deliver the captured lead through the same endpoint the web form uses,
+   *  so there is one pipeline, one validation path, and one inbox format. */
+  async function submitLead() {
+    step.current = "sending";
+    botSay(chat.lead.sending);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...lead.current,
+          source: "chat",
+          matter: "Chat enquiry",
+          lang,
+        }),
+      });
+      const json = await res.json().catch(() => null);
+      botSay(res.ok && json?.ok ? chat.lead.done : chat.lead.failed);
+    } catch {
+      botSay(chat.lead.failed);
+    }
+    step.current = "closed";
+  }
+
+  /** One turn of the capture flow. Returns false if the visitor said
+   *  something that isn't an answer, so the caller can treat it as a
+   *  question instead — nobody should get trapped in a form. */
+  function handleLeadReply(text: string): boolean {
+    const L = chat.lead;
+
+    switch (step.current) {
+      case "offered":
+        if (text === L.offerYes) {
+          step.current = "name";
+          botSay(L.askName);
+          return true;
+        }
+        if (text === L.offerNo) {
+          step.current = "closed";
+          botSay(L.declined);
+          return true;
+        }
+        // They ignored the offer and asked something else. Drop it and answer.
+        step.current = "idle";
+        return false;
+
+      case "name":
+        if (text.length < 2) {
+          botSay(L.badName);
+          return true;
+        }
+        lead.current.name = text;
+        step.current = "phone";
+        botSay(L.askPhone);
+        return true;
+
+      case "phone":
+        if (text.replace(/\D/g, "").length < 10) {
+          botSay(L.badPhone);
+          return true;
+        }
+        lead.current.phone = text;
+        step.current = "email";
+        botSay(L.askEmail, [L.skip]);
+        return true;
+
+      case "email":
+        if (text === L.skip) {
+          lead.current.email = "";
+          void submitLead();
+          return true;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(text)) {
+          botSay(L.badEmail);
+          return true;
+        }
+        lead.current.email = text;
+        void submitLead();
+        return true;
+
+      default:
+        return false;
+    }
+  }
+
+  /** Ordinary question and answer, against the knowledge base. */
+  async function ask(trimmed: string) {
     setTyping(true);
 
     let reply: Reply;
@@ -139,6 +247,15 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
       reply = { text: `${chat.unreachable} ${firm.phone}.` };
     }
 
+    turns.current += 1;
+
+    // The advice guardrail is the strongest possible moment to offer: the
+    // visitor just asked something only an attorney can answer, and the bot
+    // has already said it cannot. Otherwise wait until they're invested.
+    const offer =
+      step.current === "idle" &&
+      (reply.guarded === "advice" || turns.current >= OFFER_AFTER_TURNS);
+
     // A beat of "thinking" — instant replies read as canned.
     const delay = Math.min(400 + reply.text.length * 6, 1400);
     setTimeout(() => {
@@ -147,7 +264,28 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
         ...m,
         { id: uid++, role: "bot", text: reply.text, link: reply.link, chips: reply.chips },
       ]);
+      if (offer) {
+        step.current = "offered";
+        setTimeout(
+          () => botSay(chat.lead.offer, [chat.lead.offerYes, chat.lead.offerNo]),
+          650
+        );
+      }
     }, delay);
+  }
+
+  async function send(text: string) {
+    const trimmed = text.trim();
+    if (!trimmed || typing || step.current === "sending") return;
+
+    setMessages((m) => [...m, { id: uid++, role: "user", text: trimmed }]);
+    setInput("");
+
+    if (step.current !== "idle" && step.current !== "closed") {
+      if (handleLeadReply(trimmed)) return;
+    }
+
+    void ask(trimmed);
   }
 
   return (
