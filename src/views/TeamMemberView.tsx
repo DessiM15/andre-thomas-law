@@ -7,7 +7,7 @@ import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { firm, fullAddress, SITE_URL } from "@/lib/firm";
 import { path, teamPath, type Lang } from "@/lib/i18n";
-import { team, TEAM_PLACEHOLDER, type TeamPerson } from "@/lib/team";
+import { team, SHOW_DRAFT_BANNER, TEAM_PLACEHOLDER, type TeamPerson } from "@/lib/team";
 import type { TeamBio } from "@/lib/content/types";
 
 /** "Maria Hernandez-Castillo" → ["Maria", "Hernandez-Castillo"], so the display
@@ -90,7 +90,7 @@ export default function TeamMemberView({
         crumb={{ label: m.crumb, href: path("team", lang) }}
       />
 
-      {TEAM_PLACEHOLDER && <DraftNotice>{p.draftNotice}</DraftNotice>}
+      {TEAM_PLACEHOLDER && SHOW_DRAFT_BANNER && <DraftNotice>{p.draftNotice}</DraftNotice>}
 
       {/* Portrait + background. Mirrors the About page so a visitor moving
           between the two is reading the same layout, not learning a new one. */}
