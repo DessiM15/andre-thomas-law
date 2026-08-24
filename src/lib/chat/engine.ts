@@ -7,6 +7,16 @@ export type Reply = {
   chips?: string[];
   /** Set when a guardrail fired rather than the knowledge base answering. */
   guarded?: "advice" | "emergency" | "sensitive";
+  /**
+   * The visitor has described being injured, or asked to be represented.
+   * The widget uses this to offer a callback immediately rather than
+   * waiting for them to work through several questions first.
+   *
+   * Never set on the emergency or sensitive paths: someone in crisis, or
+   * someone who has just pasted a social security number, is not a prospect
+   * to be converted.
+   */
+  intent?: "hot";
 };
 
 /**
@@ -49,17 +59,23 @@ export function answer(input: string, lang: Lang = DEFAULT_LANG): Reply {
   if (bundle.sensitive.patterns.some((p) => p.test(raw)))
     return { text: bundle.sensitive.response, guarded: "sensitive" };
 
+  // Past the two hard stops, so this is safe to compute.
+  const intent = bundle.hot.patterns.some((p) => p.test(raw))
+    ? ("hot" as const)
+    : undefined;
+
   if (bundle.advice.patterns.some((p) => p.test(raw)))
     return {
       text: bundle.advice.response,
       link: { label: bundle.advice.linkLabel, href: contactLink(lang).href },
       guarded: "advice",
+      intent,
     };
 
   // ── Retrieval ──────────────────────────────────────────────────
   const queryTokens = tokenize(raw, bundle.stopwords);
   const normalized = normalize(raw);
-  if (queryTokens.length === 0) return { text: bundle.fallback };
+  if (queryTokens.length === 0) return { text: bundle.fallback, intent };
 
   let best: { entry: Entry; score: number } | null = null;
 
@@ -94,6 +110,7 @@ export function answer(input: string, lang: Lang = DEFAULT_LANG): Reply {
       text: bundle.fallback,
       link: contactLink(lang),
       chips: bundle.openers.slice(0, 2),
+      intent,
     };
   }
 
@@ -101,5 +118,6 @@ export function answer(input: string, lang: Lang = DEFAULT_LANG): Reply {
     text: best.entry.answer,
     link: best.entry.link,
     chips: best.entry.next,
+    intent,
   };
 }

@@ -780,6 +780,24 @@ export const es: Content = {
     switchLangLabel: "English",
     switchLangAria: "View this site in English",
 
+    qualify: {
+      when: "¿Cuándo ocurrió?",
+      whenPlaceholder: "Seleccione un periodo",
+      whenOptions: [
+        { key: "month", label: "En el último mes" },
+        { key: "6mo", label: "Hace 1 a 6 meses" },
+        { key: "2yr", label: "Hace 6 meses a 2 años" },
+        { key: "over2yr", label: "Hace más de 2 años" },
+      ],
+      doctor: "¿Ha visto a un médico?",
+      doctorPlaceholder: "Seleccione una respuesta",
+      doctorOptions: [
+        { key: "yes", label: "Sí, he visto a un médico" },
+        { key: "er", label: "Fui a la sala de emergencias" },
+        { key: "no", label: "Todavía no" },
+      ],
+    },
+
     banner: {
       question: "Would you rather read this site in English?",
       action: "View in English",
@@ -912,9 +930,36 @@ export const es: Content = {
       inputAria: "Escriba su pregunta",
       sendAria: "Enviar",
       dialogAria: "Asistente del despacho",
-      confidential: "No comparta datos confidenciales.",
+      confidential: "Comparta datos de contacto, no detalles del caso — este chat no es privado.",
       unreachable: "No pude conectarme al servidor en este momento. Siempre puede llamar al",
       nudgeDismiss: "Cerrar",
+
+      lead: {
+        offer:
+          "No puedo dar asesoría legal, pero sí puedo pedir que alguien de la firma lo llame. ¿Le tomo sus datos?",
+        hotOpener:
+          "Lamento que le haya pasado eso — vale la pena hablarlo con un abogado. Le tomo unos datos y pedimos que alguien lo llame. ¿Cuál es su nombre?",
+        offerYes: "Sí, llámenme",
+        offerNo: "No, gracias",
+        askName: "Muy bien. ¿Cuál es su nombre?",
+        askPhone: "Gracias. ¿A qué número lo podemos llamar?",
+        askWhen: "Entendido. ¿Aproximadamente cuándo ocurrió?",
+        askDoctor: "¿Y ha visto a un médico por esto?",
+        askEmail:
+          "Y un correo electrónico, si desea respuesta por escrito. Puede omitirlo.",
+        skip: "Omitir",
+        badName: "Disculpe — ¿me da su nombre completo?",
+        badPhone:
+          "Ese número parece incompleto. ¿Puede incluir la clave de área?",
+        badEmail: "Ese correo no parece correcto — ¿lo puede revisar?",
+        sending: "Enviando sus datos…",
+        done:
+          "Listo — alguien de la firma lo llamará. Si es urgente, llame al 713-212-3003 y hablará con nosotros directamente.",
+        failed:
+          "Disculpe — no pude enviar sus datos. Por favor llame al 713-212-3003 para que esto no se pierda.",
+        declined:
+          "Sin problema. Pregúnteme lo que necesite, o llame al 713-212-3003 cuando guste.",
+      },
     },
   },
 

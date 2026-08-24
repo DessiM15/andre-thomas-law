@@ -20,6 +20,8 @@ export type Bundle = {
   advice: { patterns: RegExp[]; response: string; linkLabel: string };
   emergency: { patterns: RegExp[]; response: string };
   sensitive: { patterns: RegExp[]; response: string };
+  /** Someone describing an injury or asking to be represented. */
+  hot: { patterns: RegExp[] };
   /** Words carrying no retrieval signal in this language. */
   stopwords: Set<string>;
 };
@@ -135,6 +137,51 @@ const EMERGENCY_PATTERNS: Record<Lang, RegExp[]> = {
   ],
   es: [
     /\b(emergencia|me estoy muriendo|no puedo respirar|inconsciente|suicid|matarme|sangrando mucho|est(a|á) pasando ahora)\b/i,
+  ],
+};
+
+/* ─────────────────────────────────────────────────────────────
+   Hot intent — not a guardrail, a signal.
+
+   The advice patterns catch "do I need an attorney?". They do not catch
+   "I got hit and need an attorney", which is a far stronger buying signal:
+   the visitor is describing what happened to them and asking to be
+   represented. Someone who says this and then hands over a phone number
+   has qualified themselves about as clearly as a stranger can.
+
+   Deliberately narrow. It must match a person describing their own
+   situation, not someone browsing — "do you handle car accidents" is a
+   question about the firm and should stay a question about the firm.
+   ───────────────────────────────────────────────────────────── */
+
+const HOT_PATTERNS: Record<Lang, RegExp[]> = {
+  en: [
+    // Something happened to me or mine.
+    /\b(i|we|my (wife|husband|son|daughter|mom|mother|dad|father|brother|sister|kid))\b.{0,32}\b(was|were|got|been|just)\b.{0,18}\b(hit|struck|injured|hurt|rear[- ]?ended|t[- ]?boned|run over|knocked down|bitten|attacked|burned)\b/i,
+    /\b(i|we)\b.{0,24}\b(was|were|got)\b.{0,12}\bin (a|an)\b.{0,18}\b(accident|crash|wreck|collision)\b/i,
+    /\bhit (me|us|my (car|truck|vehicle|motorcycle))\b/i,
+    /\b(rear[- ]?ended|t[- ]?boned|hit and run|run over)\b/i,
+    /\bi (slipped|tripped|fell)\b/i,
+    /\b(i'?m|i am|i've been|i have been) (hurt|injured|in pain)\b/i,
+    /\bi (broke|fractured|dislocated)\b/i,
+    // I want representation.
+    /\bi (need|want|am looking for|'?m looking for)\b.{0,24}\b(attorney|lawyer|legal help|representation)\b/i,
+    /\b(need|want|looking for) (an?|some) (attorney|lawyer)\b/i,
+    /\b(can|will|would) you (take|handle|look at) my (case|claim)\b/i,
+    /\bi want to (sue|file a (claim|lawsuit)|press charges)\b/i,
+    /\bhire (an?|you)\b.{0,12}\b(attorney|lawyer)?\b/i,
+  ],
+  es: [
+    /\bme (chocaron|pegaron|atropellaron|golpearon|mordi(o|ó)|mordieron|quemaron|lastimaron|lesionaron)(?![a-záéíóúñ])/i,
+    /\b(tuve|tuvimos|sufr(i|í)) un accidente\b/i,
+    /\bme (ca(i|í)|resbal(e|é)|tropec(e|é))(?![a-záéíóúñ])/i,
+    /\b(estoy|qued(e|é)) (lastimad|lesionad|herid)[oa]\b/i,
+    /\b(mi )?(esposo|esposa|hijo|hija|mam(a|á)|pap(a|á)|hermano|hermana)\b.{0,24}\b(choc|atropell|lastim|lesion|muri(o|ó)|falleci(o|ó))/i,
+    /\bnecesito (un|una) ?(abogad[oa]|ayuda legal|representaci(o|ó)n)\b/i,
+    /\b(busco|quiero) (un|una) ?abogad[oa]\b/i,
+    /\bquiero (demandar|presentar una demanda)\b/i,
+    /\b(puede|pueden|podr(i|í)a)n? (tomar|llevar|ver) mi caso\b/i,
+    /\bcontratar (un|una) ?abogad[oa]\b/i,
   ],
 };
 
@@ -426,6 +473,7 @@ export function getBundle(lang: Lang): Bundle {
         patterns: SENSITIVE_PATTERNS.es,
         response: `Por favor no comparta datos personales ni confidenciales aquí — este chat no es un canal seguro ni privado, y todavía no existe una relación abogado–cliente. Llame al ${firm.phone} o use el formulario de contacto para hablar directamente con el despacho.`,
       },
+      hot: { patterns: HOT_PATTERNS.es },
       stopwords: STOPWORDS.es,
     };
   }
@@ -455,6 +503,7 @@ export function getBundle(lang: Lang): Bundle {
       patterns: SENSITIVE_PATTERNS.en,
       response: `Please don't share personal or confidential details here — this chat isn't a secure or private channel, and no attorney–client relationship exists yet. Call ${firm.phone} or use the contact form to speak with the firm directly.`,
     },
+    hot: { patterns: HOT_PATTERNS.en },
     stopwords: STOPWORDS.en,
   };
 }
