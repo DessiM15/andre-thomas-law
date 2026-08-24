@@ -767,6 +767,24 @@ export const en: Content = {
     switchLangLabel: "Español",
     switchLangAria: "Ver este sitio en español",
 
+    qualify: {
+      when: "When did it happen?",
+      whenPlaceholder: "Select a timeframe",
+      whenOptions: [
+        { key: "month", label: "Within the last month" },
+        { key: "6mo", label: "1–6 months ago" },
+        { key: "2yr", label: "6 months to 2 years ago" },
+        { key: "over2yr", label: "More than 2 years ago" },
+      ],
+      doctor: "Have you seen a doctor?",
+      doctorPlaceholder: "Select an answer",
+      doctorOptions: [
+        { key: "yes", label: "Yes, I've seen a doctor" },
+        { key: "er", label: "I went to the ER" },
+        { key: "no", label: "Not yet" },
+      ],
+    },
+
     banner: {
       question: "¿Prefiere leer este sitio en español?",
       action: "Ver en español",
@@ -909,12 +927,14 @@ export const en: Content = {
       lead: {
         offer:
           "I can't give legal advice, but I can have someone from the firm call you. Want me to take your details?",
-        offerHot:
-          "I'm sorry that happened. The fastest thing I can do is have an attorney call you — can I take a few details?",
+        hotOpener:
+          "I'm sorry that happened — that's worth talking to an attorney about. Let me take a few details and have someone call you. What's your name?",
         offerYes: "Yes, call me back",
         offerNo: "No thanks",
         askName: "Good. What's your name?",
         askPhone: "Thanks. What's the best number to reach you on?",
+        askWhen: "Got it. Roughly when did this happen?",
+        askDoctor: "And have you seen a doctor about it?",
         askEmail:
           "And an email address, if you'd like a written follow-up. You can skip this.",
         skip: "Skip",

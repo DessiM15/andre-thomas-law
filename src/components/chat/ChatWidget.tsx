@@ -32,9 +32,19 @@ type LeadStep =
   | "offered"
   | "name"
   | "phone"
+  | "when"
+  | "doctor"
   | "email"
   | "sending"
   | "closed";
+
+/** Contact details come before the screening questions on purpose: if the
+ *  visitor drops out halfway, a name and a number is still a lead, and an
+ *  answer about treatment without one is nothing. */
+const CAPTURE_STEPS: LeadStep[] = ["name", "phone", "when", "doctor", "email"];
+
+/** How long a half-finished capture sits before it is sent anyway. */
+const ABANDON_MS = 90_000;
 
 /** Ask only after the visitor has actually engaged. Opening with "what's your
  *  number?" reads as a bot demanding payment before it will help. */
@@ -58,8 +68,11 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
   // Refs rather than state: `send` reads these from inside async callbacks,
   // where a state value captured at render time would be a turn stale.
   const step = useRef<LeadStep>("idle");
-  const lead = useRef({ name: "", phone: "", email: "" });
+  const lead = useRef({ name: "", phone: "", email: "", when: "", doctor: "" });
   const turns = useRef(0);
+  /** Set the moment anything is sent, so a partial can never double up. */
+  const sent = useRef(false);
+  const abandonTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Seed the conversation the first time it opens.
   useEffect(() => {
@@ -143,13 +156,71 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  /**
+   * Closing the tab mid-capture should not throw the lead away. `pagehide`
+   * rather than `beforeunload`: it fires on mobile Safari's back-forward
+   * cache path, which `beforeunload` does not, and that is most of this
+   * audience.
+   */
+  useEffect(() => {
+    const flush = () => sendPartial();
+    window.addEventListener("pagehide", flush);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") flush();
+    });
+    return () => {
+      window.removeEventListener("pagehide", flush);
+      if (abandonTimer.current) clearTimeout(abandonTimer.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const botSay = (text: string, chips?: string[]) =>
     setMessages((m) => [...m, { id: uid++, role: "bot", text, chips }]);
+
+  /**
+   * Send what we have when someone walks away mid-capture.
+   *
+   * Uses sendBeacon because a normal fetch is cancelled the moment the tab
+   * goes; a beacon is handed to the browser to deliver on its own. Requires
+   * a name and a number — anything less is not a lead, and mailing the firm
+   * a fragment they cannot act on just trains them to ignore the inbox.
+   */
+  const sendPartial = () => {
+    if (sent.current) return;
+    if (!lead.current.name || !lead.current.phone) return;
+    if (!CAPTURE_STEPS.includes(step.current)) return;
+    sent.current = true;
+
+    const body = JSON.stringify({
+      ...lead.current,
+      source: "chat",
+      matter: "Chat enquiry",
+      partial: true,
+      lang,
+    });
+    try {
+      navigator.sendBeacon(
+        "/api/contact",
+        new Blob([body], { type: "application/json" })
+      );
+    } catch {
+      /* Nothing further to try — the visitor is already gone. */
+    }
+  };
+
+  /** Restart the abandonment clock after every answer they give. */
+  const touch = () => {
+    if (abandonTimer.current) clearTimeout(abandonTimer.current);
+    abandonTimer.current = setTimeout(sendPartial, ABANDON_MS);
+  };
 
   /** Deliver the captured lead through the same endpoint the web form uses,
    *  so there is one pipeline, one validation path, and one inbox format. */
   async function submitLead() {
     step.current = "sending";
+    sent.current = true;
+    if (abandonTimer.current) clearTimeout(abandonTimer.current);
     botSay(chat.lead.sending);
     try {
       const res = await fetch("/api/contact", {
@@ -175,11 +246,16 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
    *  question instead — nobody should get trapped in a form. */
   function handleLeadReply(text: string): boolean {
     const L = chat.lead;
+    const Q = c.ui.qualify;
+    /** Screening answers arrive as labels from a chip; store the stable key. */
+    const keyFor = (opts: { key: string; label: string }[], v: string) =>
+      opts.find((o) => o.label === v)?.key ?? "";
 
     switch (step.current) {
       case "offered":
         if (text === L.offerYes) {
           step.current = "name";
+          touch();
           botSay(L.askName);
           return true;
         }
@@ -199,6 +275,7 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
         }
         lead.current.name = text;
         step.current = "phone";
+        touch();
         botSay(L.askPhone);
         return true;
 
@@ -208,7 +285,28 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
           return true;
         }
         lead.current.phone = text;
+        step.current = "when";
+        touch();
+        botSay(
+          L.askWhen,
+          Q.whenOptions.map((o) => o.label)
+        );
+        return true;
+
+      case "when":
+        lead.current.when = keyFor(Q.whenOptions, text);
+        step.current = "doctor";
+        touch();
+        botSay(
+          L.askDoctor,
+          Q.doctorOptions.map((o) => o.label)
+        );
+        return true;
+
+      case "doctor":
+        lead.current.doctor = keyFor(Q.doctorOptions, text);
         step.current = "email";
+        touch();
         botSay(L.askEmail, [L.skip]);
         return true;
 
@@ -272,15 +370,23 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
         { id: uid++, role: "bot", text: reply.text, link: reply.link, chips: reply.chips },
       ]);
       if (offer) {
-        step.current = "offered";
-        setTimeout(
-          () =>
-            botSay(hot ? chat.lead.offerHot : chat.lead.offer, [
-              chat.lead.offerYes,
-              chat.lead.offerNo,
-            ]),
-          650
-        );
+        // Hot intent skips the "shall I?" entirely. Someone who just said
+        // they were hurt and want an attorney has already answered it, and
+        // making them confirm is a step to drop out on. A visitor who only
+        // asked a question still gets the choice.
+        if (hot) {
+          step.current = "name";
+          setTimeout(() => {
+            touch();
+            botSay(chat.lead.hotOpener);
+          }, 650);
+        } else {
+          step.current = "offered";
+          setTimeout(
+            () => botSay(chat.lead.offer, [chat.lead.offerYes, chat.lead.offerNo]),
+            650
+          );
+        }
       }
     }, delay);
   }

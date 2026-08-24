@@ -780,6 +780,24 @@ export const es: Content = {
     switchLangLabel: "English",
     switchLangAria: "View this site in English",
 
+    qualify: {
+      when: "¿Cuándo ocurrió?",
+      whenPlaceholder: "Seleccione un periodo",
+      whenOptions: [
+        { key: "month", label: "En el último mes" },
+        { key: "6mo", label: "Hace 1 a 6 meses" },
+        { key: "2yr", label: "Hace 6 meses a 2 años" },
+        { key: "over2yr", label: "Hace más de 2 años" },
+      ],
+      doctor: "¿Ha visto a un médico?",
+      doctorPlaceholder: "Seleccione una respuesta",
+      doctorOptions: [
+        { key: "yes", label: "Sí, he visto a un médico" },
+        { key: "er", label: "Fui a la sala de emergencias" },
+        { key: "no", label: "Todavía no" },
+      ],
+    },
+
     banner: {
       question: "Would you rather read this site in English?",
       action: "View in English",
@@ -919,12 +937,14 @@ export const es: Content = {
       lead: {
         offer:
           "No puedo dar asesoría legal, pero sí puedo pedir que alguien de la firma lo llame. ¿Le tomo sus datos?",
-        offerHot:
-          "Lamento que le haya pasado eso. Lo más rápido que puedo hacer es pedir que un abogado lo llame — ¿le tomo unos datos?",
+        hotOpener:
+          "Lamento que le haya pasado eso — vale la pena hablarlo con un abogado. Le tomo unos datos y pedimos que alguien lo llame. ¿Cuál es su nombre?",
         offerYes: "Sí, llámenme",
         offerNo: "No, gracias",
         askName: "Muy bien. ¿Cuál es su nombre?",
         askPhone: "Gracias. ¿A qué número lo podemos llamar?",
+        askWhen: "Entendido. ¿Aproximadamente cuándo ocurrió?",
+        askDoctor: "¿Y ha visto a un médico por esto?",
         askEmail:
           "Y un correo electrónico, si desea respuesta por escrito. Puede omitirlo.",
         skip: "Omitir",

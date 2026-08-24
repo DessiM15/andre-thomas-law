@@ -114,6 +114,21 @@ export type Content = {
 
     banner: { question: string; action: string; dismiss: string };
 
+    /**
+     * Intake screening, shared by the web form and the chat so a lead reads
+     * the same either way. `key` is stable across languages — the server maps
+     * it to an English label and a triage flag, because the firm reads the
+     * email in English however the visitor answered.
+     */
+    qualify: {
+      when: string;
+      whenPlaceholder: string;
+      whenOptions: { key: string; label: string }[];
+      doctor: string;
+      doctorPlaceholder: string;
+      doctorOptions: { key: string; label: string }[];
+    };
+
     preloader: { place: string; est: string };
 
     hero: {
@@ -237,12 +252,18 @@ export type Content = {
       /** The callback-capture flow inside the widget. */
       lead: {
         offer: string;
-        /** Used when the visitor has described an injury, rather than merely asked. */
-        offerHot: string;
+        /**
+         * Used when the visitor has described an injury rather than merely
+         * asked. Goes straight to the first question — someone who has just
+         * said they were hurt has already answered "do you want help?".
+         */
+        hotOpener: string;
         offerYes: string;
         offerNo: string;
         askName: string;
         askPhone: string;
+        askWhen: string;
+        askDoctor: string;
         askEmail: string;
         skip: string;
         badName: string;

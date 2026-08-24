@@ -8,6 +8,35 @@ export const runtime = "nodejs";
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 
 /**
+ * Intake screening, resolved server-side.
+ *
+ * The visitor answers in their own language but the firm reads the email in
+ * English, so the client sends a stable key and the label is looked up here.
+ * `flag` is what actually earns this feature its place: two answers change
+ * how urgently a file should be looked at, and saying so in the email beats
+ * hoping someone reads the whole thing.
+ *
+ * The Texas limitations period for personal injury is two years, which is why
+ * "more than 2 years ago" is called out. It is a prompt to check, not a
+ * conclusion — tolling, discovery, and minority all move that date.
+ */
+const WHEN_LABELS: Record<string, { label: string; flag?: string }> = {
+  month: { label: "Within the last month" },
+  "6mo": { label: "1-6 months ago" },
+  "2yr": { label: "6 months to 2 years ago" },
+  over2yr: {
+    label: "More than 2 years ago",
+    flag: "OVER 2 YEARS — check limitations before responding",
+  },
+};
+
+const DOCTOR_LABELS: Record<string, { label: string; flag?: string }> = {
+  yes: { label: "Yes, has seen a doctor" },
+  er: { label: "Went to the ER" },
+  no: { label: "No treatment yet", flag: "No medical treatment yet" },
+};
+
+/**
  * Lead intake — the web form and the chat widget both land here.
  *
  * Delivery goes through Web3Forms, which relays the submission to the firm's
@@ -30,7 +59,8 @@ export async function POST(req: Request) {
   const t = content(language).ui.form;
 
   try {
-    const { name, phone, email, matter, message, website, source } = data ?? {};
+    const { name, phone, email, matter, message, website, source, when, doctor, partial } =
+      data ?? {};
 
     // Honeypot — real people leave this hidden field empty.
     if (website) return NextResponse.json({ ok: true });
@@ -66,6 +96,15 @@ export async function POST(req: Request) {
       message: message ? String(message).trim() : "",
     };
 
+    const whenAnswer = WHEN_LABELS[String(when ?? "")];
+    const doctorAnswer = DOCTOR_LABELS[String(doctor ?? "")];
+    const flags = [whenAnswer?.flag, doctorAnswer?.flag].filter(Boolean);
+
+    // An abandoned capture that already has a name and a number is still a
+    // lead worth calling — it just needs to be obvious in the subject line
+    // that the person did not finish, so nobody reads the gaps as answers.
+    const incomplete = partial === true;
+
     const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
     if (!accessKey) {
       console.error(
@@ -87,17 +126,30 @@ export async function POST(req: Request) {
         access_key: accessKey,
         ...(process.env.LEAD_TO ? { ccemail: process.env.LEAD_TO } : {}),
         from_name: `${firm.shortName} website`,
-        subject: `${fromChat ? "Chat lead" : "Consultation request"} — ${lead.name}${
-          language === "es" ? " (Spanish)" : ""
+        subject: `${
+          incomplete
+            ? "Chat lead (INCOMPLETE)"
+            : fromChat
+              ? "Chat lead"
+              : "Consultation request"
+        } — ${lead.name}${language === "es" ? " (Spanish)" : ""}${
+          flags.length ? " ⚠" : ""
         }`,
         ...(lead.email ? { replyto: lead.email } : {}),
         Name: lead.name,
         Phone: lead.phone,
         Email: lead.email || "(not provided)",
         Matter: lead.matter,
+        When: whenAnswer?.label ?? "(not provided)",
+        Treatment: doctorAnswer?.label ?? "(not provided)",
+        ...(flags.length ? { Flags: flags.join(" · ") } : {}),
         Language:
           language === "es" ? "Spanish — call back in Spanish" : "English",
-        Source: fromChat ? "Website chat widget" : "Website contact form",
+        Source: incomplete
+          ? "Website chat widget — VISITOR DID NOT FINISH, details below are all we have"
+          : fromChat
+            ? "Website chat widget"
+            : "Website contact form",
         Message: lead.message || "(no message)",
         Received: lead.receivedAt,
       }),

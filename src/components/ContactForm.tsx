@@ -15,6 +15,13 @@ const field = (tone: Tone) =>
       : "border-paper-edge text-ink-900 placeholder:text-transparent focus:border-gold-600"
   }`;
 
+const select = (tone: Tone) =>
+  `w-full appearance-none border-0 border-b bg-transparent px-0 py-3 text-[0.98rem] outline-none transition-colors duration-300 ${
+    tone === "dark"
+      ? "border-ink-200/25 text-paper focus:border-gold-500 [&>option]:bg-ink-900"
+      : "border-paper-edge text-ink-900 focus:border-gold-600"
+  }`;
+
 const label = (tone: Tone) =>
   `pointer-events-none absolute left-0 top-3 origin-left text-[0.95rem] transition-all duration-300 peer-focus:-translate-y-5 peer-focus:scale-[0.78] peer-[:not(:placeholder-shown)]:-translate-y-5 peer-[:not(:placeholder-shown)]:scale-[0.78] ${
     tone === "dark"
@@ -31,6 +38,7 @@ export default function ContactForm({
 }) {
   const c = content(lang);
   const t = c.ui.form;
+  const q = c.ui.qualify;
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -131,14 +139,7 @@ export default function ContactForm({
         >
           {t.matter}
         </label>
-        <select
-          id="matter" name="matter" defaultValue=""
-          className={`w-full appearance-none border-0 border-b bg-transparent px-0 py-3 text-[0.98rem] outline-none transition-colors duration-300 ${
-            dark
-              ? "border-ink-200/25 text-paper focus:border-gold-500 [&>option]:bg-ink-900"
-              : "border-paper-edge text-ink-900 focus:border-gold-600"
-          }`}
-        >
+        <select id="matter" name="matter" defaultValue="" className={select(tone)}>
           <option value="">{t.matterPlaceholder}</option>
           {c.practiceAreas.map((a) => (
             <option key={a.key} value={a.name}>{a.name}</option>
@@ -146,6 +147,38 @@ export default function ContactForm({
           <option value={t.criminalDefense}>{t.criminalDefense}</option>
           <option value={t.somethingElse}>{t.somethingElse}</option>
         </select>
+      </div>
+
+      <div className="grid gap-9 sm:grid-cols-2">
+        <div className="relative">
+          <label
+            htmlFor="when"
+            className={`eyebrow mb-3 block ${dark ? "text-ink-300" : "text-ink-800/55"}`}
+          >
+            {q.when}
+          </label>
+          <select id="when" name="when" defaultValue="" className={select(tone)}>
+            <option value="">{q.whenPlaceholder}</option>
+            {q.whenOptions.map((o) => (
+              <option key={o.key} value={o.key}>{o.label}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="relative">
+          <label
+            htmlFor="doctor"
+            className={`eyebrow mb-3 block ${dark ? "text-ink-300" : "text-ink-800/55"}`}
+          >
+            {q.doctor}
+          </label>
+          <select id="doctor" name="doctor" defaultValue="" className={select(tone)}>
+            <option value="">{q.doctorPlaceholder}</option>
+            {q.doctorOptions.map((o) => (
+              <option key={o.key} value={o.key}>{o.label}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="relative">
