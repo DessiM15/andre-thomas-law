@@ -28,7 +28,15 @@ export default function Preloader({ lang }: { lang: Lang }) {
     setActive(true);
     document.body.style.overflow = "hidden";
 
-    const DURATION = 1900;
+    // 600ms, not the 1900 this used to hold for.
+    //
+    // Nothing in the hero paints until this lifts — the hero's own animations
+    // key off the curtain and then add their own delay on top — so this
+    // number *is* the site's Largest Contentful Paint. At 1900 plus a 1s lift
+    // the homepage could not reach a passing LCP no matter what else was
+    // optimised. The mark still assembles; it just stops being the critical
+    // path.
+    const DURATION = 600;
     const start = performance.now();
     let frame = 0;
 
@@ -62,17 +70,16 @@ export default function Preloader({ lang }: { lang: Lang }) {
         <motion.div
           className="grain fixed inset-0 z-[90] flex flex-col justify-between overflow-hidden bg-ink-950 px-6 py-8 md:px-12 md:py-10"
           exit={{ y: "-100%" }}
-          transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
           aria-hidden
         >
           {/* top rail */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="eyebrow flex justify-between text-ink-300"
+            transition={{ delay: 0.1, duration: 0.3 }}
+            className="eyebrow flex justify-end text-ink-300"
           >
-            <span>{c.ui.preloader.place}</span>
             <span className="hidden sm:block">{c.ui.preloader.est}</span>
           </motion.div>
 
@@ -81,12 +88,12 @@ export default function Preloader({ lang }: { lang: Lang }) {
             <motion.div
               initial={{ clipPath: "inset(0 50% 0 50%)", opacity: 0 }}
               animate={{ clipPath: "inset(0 0% 0 0%)", opacity: 1 }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="w-[86vw] max-w-[50rem]"
             >
               <Image
                 src="/logo-light.png"
-                alt={firm.name}
+                alt={c.ui.logoAlt}
                 width={1699}
                 height={870}
                 priority
@@ -97,9 +104,17 @@ export default function Preloader({ lang }: { lang: Lang }) {
             <motion.span
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ delay: 0.15, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
               className="mt-8 h-px w-[40vw] max-w-[16rem] origin-center bg-gold-500"
             />
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.25, duration: 0.35 }}
+              className="eyebrow mt-6 text-center text-ink-300"
+            >
+              {c.ui.preloader.strapline}
+            </motion.p>
           </div>
 
           {/* bottom rail + progress */}

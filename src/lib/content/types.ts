@@ -46,7 +46,11 @@ export type TeamBio = {
   highlights: { label: string; value: string }[];
   /** What this person actually handles, day to day. */
   focus: string[];
-  alt: string;
+  /**
+   * Second line of the person's `h1`, after their name. Usually their role;
+   * for the attorney it is the phrase people actually search for.
+   */
+  headline: string;
 };
 
 export type Panel = { n: string; title: string; body: string; alt: string };
@@ -93,7 +97,7 @@ export type Content = {
 
   /** Quotes are reproduced exactly as clients published them and are never
    *  translated; only the surrounding labels and date format change. */
-  reviews: { quote: string; author: string; date: string; truncated: boolean }[];
+  reviews: { quote: string; author: string; date: string }[];
 
   process: Step[];
   nav: NavItem[];
@@ -109,6 +113,7 @@ export type Content = {
     openMenu: string;
     closeMenu: string;
     instagram: string;
+    logoAlt: string;
     switchLangLabel: string;
     switchLangAria: string;
 
@@ -129,11 +134,17 @@ export type Content = {
       doctorOptions: { key: string; label: string }[];
     };
 
-    preloader: { place: string; est: string };
+    preloader: { place: string; est: string; strapline: string };
 
     hero: {
       place: string;
       licensed: string;
+      /** The keyword line under the headline. */
+      descriptor: string;
+      portraitAlt: string;
+      /** A named client's words. Never translated — see `es.ts`. */
+      quote: string;
+      quoteAuthor: string;
       titleLines: string[];
       ensuring: string;
       lede: string;

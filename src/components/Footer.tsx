@@ -17,7 +17,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           <div>
             <Image
               src="/logo-light.png"
-              alt={firm.name}
+              alt={c.ui.logoAlt}
               width={1699}
               height={870}
               sizes="(max-width: 768px) 304px, 448px"

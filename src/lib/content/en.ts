@@ -512,7 +512,7 @@ export const en: Content = {
         "Felony and misdemeanor criminal defense",
         "Jury trials in Texas and Tennessee",
       ],
-      alt: "Andre Thomas, founding attorney, on the courthouse steps",
+      headline: "Houston Personal Injury Attorney",
     },
     {
       id: "maria-hernandez-castillo",
@@ -539,7 +539,7 @@ export const en: Content = {
         "Demand package preparation",
         "Office management and firm operations",
       ],
-      alt: "Maria Hernandez-Castillo, senior paralegal and office manager",
+      headline: "Senior Paralegal & Office Manager",
     },
     {
       id: "marie-castillo-hernandez",
@@ -569,7 +569,7 @@ export const en: Content = {
         "Client guidance through the recovery process",
         "Bilingual communication with clients and providers",
       ],
-      alt: "Marie Castillo-Hernandez, personal injury medical coordinator",
+      headline: "Personal Injury Medical Coordinator",
     },
     {
       id: "milagro-rodriguez-mejia",
@@ -600,7 +600,7 @@ export const en: Content = {
         "Medical records and billing management",
         "Demand preparation and settlement support",
       ],
-      alt: "Milagro Rodriguez Mejia, case manager",
+      headline: "Case Manager",
     },
     {
       id: "nayla-mendez",
@@ -624,7 +624,7 @@ export const en: Content = {
         "Drafting settlement demands",
         "Negotiating offers and assisting with disbursements",
       ],
-      alt: "Nayla Mendez, medical coordinator and case manager",
+      headline: "Medical Coordinator & Case Manager",
     },
     {
       id: "marissa-lopez",
@@ -651,7 +651,7 @@ export const en: Content = {
         "Lien searches and subrogation",
         "Property damage claim support",
       ],
-      alt: "Marissa Lopez, case manager on the pre-investigation team",
+      headline: "Case Manager, Pre-Investigation Team",
     },
     {
       id: "itzel-tapia",
@@ -675,28 +675,82 @@ export const en: Content = {
         "Bilingual client communication",
         "Scheduling and first-call triage",
       ],
-      alt: "Itzel Tapia, client intake coordinator and receptionist",
+      headline: "Client Intake Coordinator & Receptionist",
     },
   ],
 
   reviews: [
     {
-      quote: "Was in an accident and the lawyer was fair",
-      author: "FalconSenpai89",
-      date: "July 14, 2026",
-      truncated: false,
+      quote:
+        "This team is dedicated to getting you the best outcome possible! I have now been represented twice by this firm and have been so incredibly grateful for them both times. It\u2019s terrible to need a lawyer, but incredibly important to have the right one! Thank you for everything!",
+      author: "Kim",
+      date: "July 2026",
     },
     {
-      quote: "Great Lawfirm got my business handled quickly as possible an…",
-      author: "Daylon Henry",
-      date: "July 6, 2026",
-      truncated: true,
+      quote:
+        "Maria and her staff were extremely helpful throughout this entire process. Got me into physical therapy immediately which really helped during my road to recovery! They kept me updated and made sure all my needs were taken care of!! Even though the five months felt longer it was extremely worth it in the end! Thank you Maria & staff for handling my case professionally & most importantly making sure I was fairly compensated.",
+      author: "TJ R",
+      date: "July 2026",
     },
     {
-      quote: "Great experience! Everything was very quick and efficient did…",
-      author: "Vampy Miau",
-      date: "June 25, 2026",
-      truncated: true,
+      quote:
+        "Thank you for taking one of the worst experiences we\u2019ve had as a family and making it one of the best! We\u2019ve never been in a collision and didn\u2019t know where to go but Andrew T Thomas and team worked everything out for us. Thank you so much!! And God bless you and your team!",
+      author: "Jose Angel",
+      date: "June 2026",
+    },
+    {
+      quote:
+        "They were very efficient. After treatment they moved quickly with the insurance company to retrieve the max settlement. Would highly recommend \uD83D\uDC4C\uD83C\uDFFD",
+      author: "BIG B SDS",
+      date: "June 2026",
+    },
+    {
+      quote:
+        "Absolutely amazing staff, talked me through every portion of the process and took care of me in the best possible way.",
+      author: "Andrea Lindsey",
+      date: "June 2026",
+    },
+    {
+      quote:
+        "This is one of the best law firms in all of Houston. The staff here is awesome. Everyone at this office is very knowledgeable. They handle cases here very thoroughly, and efficiently. I will recommend this law firm to anyone!!",
+      author: "Jacoby Hernandez",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "Calling Andre Thomas Law was by far the best decision I could have made. After my accident, I had no idea what to do. Insurance was handling the damage to my car, but what about my injuries? The days I missed work? They were able to help me right away and I was sent to be seen by a medical profesional the next day. From then on Andre\u2019s team took care of everything and kept me informed throughout the whole process. 10/10 would call again!",
+      author: "Aldo Amaya",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "Marie was incredibly knowledgeable and always kept me informed throughout the process, achieving an excellent outcome for my case. She always explained everything clearly, also was very responsive to my concerns, and made me feel confident throughout a difficult situation. I highly recommend The whole Andre Thomas Law firm they are a dedicated group who fought hard for my best interests and delivered great results. 10/10",
+      author: "Gianni Norales",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "This was my first time dealing with an attorney and Andre was really great and professional. They also keep me updated with my case. Highly recommend Andre Thomas Law to anyone that gets involved into an accident. They were very helpful! Than you Maria Hernandez-Castillo for helping me out and keeping me updated.",
+      author: "Reynaldo Martinez",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "Maria and her team handled my first auto accident with perfection! They were all very transparent and professional, and they help with understanding the entire process. The service was great, they\u2019ll treat you like family!",
+      author: "Christian Medina",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "This was my first Accident and I was referred by a friend about Andre Thomas Law. I spoke to Maria and she explained to me what needed to be done A very professional team and everyone there was very helpful in this process. I received more than was expected!! I am very happy of the outcome!!!",
+      author: "Carlos Saldana",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "Marie and Marissa were very helpful. I was able to get the help I needed medically and also financially. Everything they did helped me get the most out of my situation as possible. They are professional and very understanding.",
+      author: "Dinh Pham",
+      date: "September 2025",
     },
   ],
 
@@ -743,6 +797,7 @@ export const en: Content = {
     openMenu: "Open menu",
     closeMenu: "Close menu",
     instagram: "Instagram",
+    logoAlt: `${firm.name} — Houston Personal Injury Attorney`,
     switchLangLabel: "Español",
     switchLangAria: "Ver este sitio en español",
 
@@ -770,12 +825,27 @@ export const en: Content = {
       dismiss: "Dismiss",
     },
 
-    preloader: { place: "Houston, Texas", est: "Est. Texas & Tennessee" },
+    preloader: {
+      place: "Houston, Texas",
+      est: "Est. Texas & Tennessee",
+      strapline: "Houston, TX Personal Injury Attorney",
+    },
 
     hero: {
       place: "Houston, Texas",
       licensed: "Licensed in Texas & Tennessee",
-      titleLines: ["Empowering", "your voice,"],
+      // Sits under the headline. "Lawyer" leads the h1 and "attorney" leads
+      // this line deliberately — they are two separate searches, and a firm
+      // that only says one of them only shows up for one of them.
+      descriptor: "Houston, TX Personal Injury Attorney",
+      portraitAlt: "Houston Personal Injury Attorney",
+      quote: "This is one of the best law firms in all of Houston.",
+      quoteAuthor: "Jacoby Hernandez · Google review",
+      titleLines: [
+        "Houston, TX Personal",
+        "Injury Lawyer.",
+        "Empowering your voice,",
+      ],
       ensuring: "ensuring",
       lede: "A former prosecutor who now represents the injured. If someone else's negligence changed your life, you deserve an attorney who has argued to a jury — and an honest answer about where you stand.",
       reviewsSuffix: "Google reviews",
@@ -944,7 +1014,7 @@ export const en: Content = {
       description:
         "Andre Thomas is licensed in Texas and Tennessee. Former Shelby County prosecutor, Thurgood Marshall School of Law graduate, and trial attorney representing the injured.",
       eyebrow: "The attorney",
-      titleLines: ["Meet Andre Thomas:", "committed to justice."],
+      titleLines: ["Meet Andre Thomas,", "Houston Personal", "Injury Attorney"],
       lede: "Licensed in two states. A career that began by prosecuting cases and now spends itself taking them apart on behalf of the people they were built against.",
       skylineAlt: "The downtown Houston skyline at dusk",
       portraitAlt: "attorney at",
@@ -965,8 +1035,8 @@ export const en: Content = {
       title: "Practice Areas — Houston Personal Injury Attorney",
       description:
         "Car and truck accidents, workplace and industrial injuries, maritime and offshore, premises liability, product defects, insurance disputes, wrongful death, and more. Free consultation.",
-      eyebrow: "Practice areas",
-      titleLines: ["Sixteen ways", "a life gets interrupted."],
+      eyebrow: "",
+      titleLines: ["Practice Areas", "in Houston, TX"],
       lede: "Every one of these begins the same way — someone else was careless, and you are the one carrying it. Find yours below, or call and describe what happened.",
       heroAlt: "A wrecked car at the roadside in morning fog",
       alsoHandled: "Also handled",
@@ -981,7 +1051,7 @@ export const en: Content = {
       title: "Client Reviews — 4.9 Stars Across 60 Google Reviews",
       description:
         "Read what clients say about Andre Thomas Law, PLLC. Rated 4.9 stars across 60 Google reviews.",
-      eyebrow: "Client reviews",
+      eyebrow: `Client Reviews — ${firm.shortName}, Houston`,
       titleLines: ["What it's like", "to be represented."],
       lede: "These are published exactly as clients wrote them.",
       whyEyebrow: "Why clients stay",
@@ -1013,10 +1083,13 @@ export const en: Content = {
     },
 
     team: {
-      title: "Our Team",
+      title: "Our Staff | Andre Thomas Law, PLLC | Houston Personal Injury",
       description: `The attorneys and staff of ${firm.name} — personal injury and criminal defense in Houston, Texas. Free consultation, ${firm.phone}.`,
       eyebrow: "The People",
-      titleLines: ["The people", "on your file"],
+      titleLines: [
+        "Our Attorneys and Staff",
+        `— ${firm.shortName}, Houston`,
+      ],
       lede: "A case is not handled by a logo. It is handled by the attorney who tries it, the paralegal who builds the record, and the person who picks up when you call. Here they are.",
       heroAlt: "Attorneys and staff standing together in the firm's office",
       attorneysEyebrow: "Attorneys",

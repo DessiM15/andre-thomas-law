@@ -79,7 +79,7 @@ export default function Nav({ lang }: { lang: Lang }) {
                 so the mark never flashes the wrong colour mid-transition. */}
             <Image
               src="/logo-light.png"
-              alt={firm.name}
+              alt={c.ui.logoAlt}
               fill
               priority
               sizes="(max-width: 768px) 176px, 248px"
