@@ -17,6 +17,7 @@ export default function PageHeader({
   alt = "",
   focal = "center",
   tall = false,
+  h1 = "title",
 }: {
   eyebrow: string;
   n?: string;
@@ -27,6 +28,19 @@ export default function PageHeader({
   alt?: string;
   focal?: string;
   tall?: boolean;
+  /**
+   * Which line carries the page's `h1`.
+   *
+   * These headers rendered the display title through `MaskLines`, which
+   * emitted a div — so every page using this component shipped with no `h1`
+   * at all. "title" fixes that and is right almost everywhere.
+   *
+   * "eyebrow" is for the page whose display line is deliberately evocative
+   * rather than descriptive, and where the keyword heading belongs on the
+   * small line above it instead. Nothing about the rendering changes either
+   * way; only the tag does.
+   */
+  h1?: "title" | "eyebrow";
 }) {
   return (
     <header
@@ -67,13 +81,19 @@ export default function PageHeader({
           </Link>
         )}
 
-        <Eyebrow n={n} tone="light">
-          {eyebrow}
-        </Eyebrow>
+        {/* An empty eyebrow means the page has folded that line into its
+            display heading, so the rail — number included — is dropped
+            rather than left hanging above the title on its own. */}
+        {eyebrow && (
+          <Eyebrow n={n} tone="light" as={h1 === "eyebrow" ? "h1" : "div"}>
+            {eyebrow}
+          </Eyebrow>
+        )}
 
         <MaskLines
-          className="mt-7 font-display text-[clamp(2.4rem,7.5vw,5.6rem)] leading-[1.02] tracking-[-0.025em]"
+          className={`${eyebrow ? "mt-7" : ""} font-display text-[clamp(2.4rem,7.5vw,5.6rem)] leading-[1.02] tracking-[-0.025em]`}
           lines={title}
+          as={h1 === "title" ? "h1" : "div"}
         />
 
         {lede && (
