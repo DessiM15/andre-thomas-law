@@ -9,6 +9,7 @@ import type { Reply } from "@/lib/chat/engine";
 import { content } from "@/lib/content";
 import { firm } from "@/lib/firm";
 import type { Lang } from "@/lib/i18n";
+import { beaconLead, sendLead } from "@/lib/lead";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -192,21 +193,10 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
     if (!CAPTURE_STEPS.includes(step.current)) return;
     sent.current = true;
 
-    const body = JSON.stringify({
-      ...lead.current,
-      source: "chat",
-      matter: "Chat enquiry",
-      partial: true,
-      lang,
-    });
-    try {
-      navigator.sendBeacon(
-        "/api/contact",
-        new Blob([body], { type: "application/json" })
-      );
-    } catch {
-      /* Nothing further to try — the visitor is already gone. */
-    }
+    beaconLead(
+      { ...lead.current, source: "chat", matter: "Chat enquiry", partial: true },
+      lang
+    );
   };
 
   /** Restart the abandonment clock after every answer they give. */
@@ -222,22 +212,11 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
     sent.current = true;
     if (abandonTimer.current) clearTimeout(abandonTimer.current);
     botSay(chat.lead.sending);
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...lead.current,
-          source: "chat",
-          matter: "Chat enquiry",
-          lang,
-        }),
-      });
-      const json = await res.json().catch(() => null);
-      botSay(res.ok && json?.ok ? chat.lead.done : chat.lead.failed);
-    } catch {
-      botSay(chat.lead.failed);
-    }
+    const result = await sendLead(
+      { ...lead.current, source: "chat", matter: "Chat enquiry" },
+      lang
+    );
+    botSay(result.ok ? chat.lead.done : chat.lead.failed);
     step.current = "closed";
   }
 

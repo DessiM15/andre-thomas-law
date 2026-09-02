@@ -5,6 +5,7 @@ import { useState } from "react";
 import { content } from "@/lib/content";
 import { firm } from "@/lib/firm";
 import type { Lang } from "@/lib/i18n";
+import { sendLead, type LeadInput } from "@/lib/lead";
 
 type Tone = "light" | "dark";
 
@@ -48,25 +49,17 @@ export default function ContactForm({
     setErrors({});
 
     const fd = new FormData(e.currentTarget);
-    const payload = { ...Object.fromEntries(fd.entries()), lang };
+    const input = Object.fromEntries(fd.entries()) as LeadInput;
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const json = await res.json();
-      if (!res.ok || !json.ok) {
-        setErrors(json.errors ?? { form: t.checkDetails });
-        setStatus("error");
-        return;
-      }
-      setStatus("done");
-    } catch {
-      setErrors({ form: `${t.couldNotSend} ${firm.phone}.` });
+    // The browser hands the lead to Web3Forms directly — their free plan
+    // refuses server-side submissions, so there is no API route in between.
+    const result = await sendLead(input, lang);
+    if (!result.ok) {
+      setErrors(result.errors ?? { form: t.checkDetails });
       setStatus("error");
+      return;
     }
+    setStatus("done");
   }
 
   const dark = tone === "dark";

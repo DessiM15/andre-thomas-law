@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import CTABand from "@/components/CTABand";
 import DraftNotice from "@/components/DraftNotice";
 import PageHeader from "@/components/PageHeader";
+import Portrait from "@/components/Portrait";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { teamPath, type Lang } from "@/lib/i18n";
@@ -37,13 +37,12 @@ function Row({
         {/* Headshot. Square, hairline-framed, and it warms on hover — the
             same gold-edge treatment the portrait on the About page uses. */}
         <div className="relative aspect-square w-full overflow-hidden bg-paper-warm">
-          <Image
-            src={person.image}
+          <Portrait
+            person={person}
             alt={bio.alt}
-            fill
             sizes="(max-width: 768px) 88px, 136px"
-            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
-            style={person.focal ? { objectPosition: person.focal } : undefined}
+            zoomOnHover
+            monogramClass="text-[1.5rem] md:text-[2rem]"
           />
           <div className="pointer-events-none absolute inset-0 border border-ink-900/10 transition-colors duration-500 group-hover:border-gold-500/50" />
         </div>
@@ -155,7 +154,30 @@ export default function TeamView({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      <CTABand lang={lang} n="04" />
+      {/* The team, said plainly, once — after a visitor has read the names and
+          can attach the sentiment to actual people rather than to a stock line
+          of copy above the fold. */}
+      <section className="border-t border-paper-edge bg-paper-warm py-20 md:py-28">
+        <div className="container-x grid gap-10 md:grid-cols-12 md:gap-12">
+          <Reveal className="md:col-span-4">
+            <Eyebrow n="04">{p.tribute.eyebrow}</Eyebrow>
+            <h2 className="mt-6 font-display text-[clamp(1.9rem,3.8vw,2.9rem)] leading-[1.08] text-ink-900">
+              {p.tribute.title}
+            </h2>
+            <GoldRule className="mt-8 w-24" />
+          </Reveal>
+
+          <div className="space-y-6 text-[1.05rem] leading-relaxed text-ink-800/85 md:col-span-7 md:col-start-6">
+            {p.tribute.body.map((para, i) => (
+              <Reveal key={para.slice(0, 28)} delay={0.08 + i * 0.08}>
+                <p>{para}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CTABand lang={lang} n="05" />
     </>
   );
 }

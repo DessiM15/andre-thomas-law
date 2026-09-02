@@ -477,9 +477,8 @@ export const en: Content = {
   },
 
   /**
-   * ⚠ PLACEHOLDER — see the notice at the top of `lib/team.ts`. Only Andre
-   * Thomas's entry is factual. Maria Hernandez-Castillo is a real person with
-   * a drafted bio; the remaining five people do not exist.
+   * Every biography below was supplied by the firm and describes a real
+   * person. Kept in the running order set by `lib/team.ts`, not by this array.
    */
   team: [
     {
@@ -516,187 +515,167 @@ export const en: Content = {
       alt: "Andre Thomas, founding attorney, on the courthouse steps",
     },
     {
-      id: "rachel-kim",
-      role: "Associate Attorney",
-      credential: "Licensed in Texas · Trucking and commercial vehicle claims",
+      id: "maria-hernandez-castillo",
+      role: "Senior Paralegal & Office Manager",
+      credential: "25 years in personal injury practice",
       preview:
-        "Spent four years defending motor carriers before she switched sides. She knows the log books, the ECM data, and the deadlines a trucking company is quietly hoping you will miss.",
+        "Twenty-five years of files carried from intake to final resolution. Maria runs the office as well as the caseload, and she is the reason so little ever has to be reconstructed under deadline.",
       bio: [
-        "Rachel Kim represents people hurt by commercial vehicles — tractor-trailers, delivery fleets, and the companies that put them on Texas highways. She came to the firm from the defense bar, where she spent four years handling catastrophic-loss claims for motor carriers and their insurers.",
-        "That background changes how a case gets built. She sends the spoliation letter within days rather than weeks, because she knows exactly how quickly electronic control module data, dash-camera footage, and driver logs stop existing. She reads a carrier's safety file the way its own risk managers read it.",
-        "Rachel earned her J.D. from the University of Houston Law Center, where she served as an editor of the Houston Law Review and competed on the national trial advocacy team. She is admitted in Texas and before the U.S. District Court for the Southern District of Texas.",
+        "Maria Hernandez-Castillo brings 25 years of experience as a Senior Paralegal, skillfully managing files from initial intake through final resolution. Her extensive knowledge and attention to detail ensure that every case is handled with precision and care throughout its entire lifecycle.",
+        "Maria also wears several hats within the firm, serving as Office Manager in addition to her role as Senior Paralegal. She genuinely loves helping others and consistently goes above and beyond to ensure clients receive the compensation they deserve.",
+        "Her depth of experience, versatility, and steady, comprehensive approach make her an invaluable asset to the firm — one of the people who make Andre Thomas Law, PLLC the firm it is.",
       ],
       highlights: [
+        { label: "Experience", value: "25 years as a paralegal" },
+        { label: "Role", value: "Senior Paralegal and Office Manager" },
         {
-          label: "Bar admissions",
-          value: "Texas · U.S. District Court, Southern District of Texas",
-        },
-        { label: "Law", value: "University of Houston Law Center, J.D." },
-        {
-          label: "Honors",
-          value: "Houston Law Review, editor · National Trial Advocacy Team",
-        },
-        {
-          label: "Formerly",
-          value: "Associate, commercial transportation defense",
-        },
-        { label: "Recognition", value: "Texas Rising Stars, Super Lawyers" },
-      ],
-      focus: [
-        "Tractor-trailer and 18-wheeler collisions",
-        "Delivery and commercial fleet crashes",
-        "Federal motor carrier safety violations",
-        "Uninsured and underinsured motorist claims",
-      ],
-      alt: "Rachel Kim, associate attorney",
-    },
-    {
-      id: "michael-sorensen",
-      role: "Associate Attorney",
-      credential: "Licensed in Texas · Premises liability and insurance disputes",
-      preview:
-        "Nine years adjusting claims before he ever tried one. Michael reads a policy the way the carrier reads it, then argues the parts they were hoping nobody would find.",
-      bio: [
-        "Michael Sorensen handles premises liability and the insurance fights that follow a serious injury — the denials, the lowball offers, and the delays that arrive dressed up as paperwork.",
-        "Before law school he spent nine years as a claims adjuster for two national property and casualty carriers, evaluating the same kinds of files he now litigates. He knows what a reserve gets set at, what an adjuster is actually authorized to pay, and what has to land on the desk before that number moves.",
-        "He earned his J.D. from South Texas College of Law Houston, graduating in the top fifteen percent of his class, and has since tried cases to verdict in Harris, Fort Bend, and Montgomery counties.",
-      ],
-      highlights: [
-        { label: "Bar admissions", value: "Texas" },
-        {
-          label: "Law",
-          value: "South Texas College of Law Houston, J.D., top 15%",
-        },
-        {
-          label: "Formerly",
-          value:
-            "Senior claims adjuster, national property and casualty carriers — nine years",
-        },
-        {
-          label: "Trial experience",
-          value: "Jury verdicts in Harris, Fort Bend, and Montgomery counties",
-        },
-        {
-          label: "Member",
-          value: "Texas Trial Lawyers Association · Houston Bar Association",
+          label: "Scope",
+          value: "Files managed from initial intake through final resolution",
         },
       ],
       focus: [
-        "Slip, trip, and fall injuries",
-        "Negligent security and inadequate maintenance",
-        "Insurance bad faith and delayed claims",
-        "Policy-limits and coverage disputes",
+        "Case file management, intake through resolution",
+        "Medical records and billing collection",
+        "Demand package preparation",
+        "Office management and firm operations",
       ],
-      alt: "Michael Sorensen, associate attorney",
+      alt: "Maria Hernandez-Castillo, senior paralegal and office manager",
     },
     {
-      id: "nadia-haddad",
-      role: "Of Counsel",
-      credential: "Licensed in Texas and Louisiana · Maritime and offshore injury",
+      id: "marie-castillo-hernandez",
+      role: "Personal Injury Medical Coordinator",
+      credential: "Bilingual — English and Spanish · 10 years' experience",
       preview:
-        "Twelve years of Jones Act and offshore platform work along the Gulf. She takes the cases that turn on which body of law applies — and settles that question early, not on the eve of trial.",
+        "Ten years spent standing between clients, the legal team, and their doctors, so that treatment is a plan rather than a series of appointments nobody is tracking.",
       bio: [
-        "Nadia Haddad works with the firm on maritime and offshore matters: Jones Act seaman claims, cases under the Longshore and Harbor Workers' Compensation Act, and injuries on platforms, jack-up rigs, and supply vessels across the Gulf of Mexico.",
-        "Maritime cases are won and lost on threshold questions — whether an injured worker qualifies as a seaman, which vessel he was assigned to, whether general maritime law or a state statute governs the claim. Nadia has spent twelve years on those questions, and she raises them at the outset, when the answer can still shape the case.",
-        "She earned her J.D. from Tulane University Law School with a certificate in Maritime Law, and is admitted in both Texas and Louisiana. She practices in English and Arabic.",
+        "Marie Castillo-Hernandez brings 10 years of experience as a Personal Injury Medical Coordinator, dedicated to guiding clients through every step of their recovery journey. Bilingual in English and Spanish, she plays a pivotal role in bridging the gap between clients, legal teams, and healthcare providers, ensuring every individual receives a seamless, comprehensive treatment plan tailored to their recovery.",
+        "With meticulous attention to detail, Marie manages treatment schedules, oversees medical documentation, and provides compassionate, clear guidance to clients as they navigate their health journey. Her dedication to client well-being, paired with her ability to communicate effectively across languages, ensures that each person receives the highest standard of care while focusing on both their physical and emotional recovery.",
+        "That care is exactly what makes her an asset to this team, and part of what makes Andre Thomas Law, PLLC the firm it is.",
       ],
       highlights: [
-        { label: "Bar admissions", value: "Texas · Louisiana" },
-        {
-          label: "Law",
-          value: "Tulane University Law School, J.D., Certificate in Maritime Law",
-        },
         {
           label: "Experience",
-          value: "Twelve years in Jones Act and offshore injury litigation",
+          value: "10 years as a personal injury medical coordinator",
         },
-        { label: "Languages", value: "English and Arabic" },
-        {
-          label: "Member",
-          value: "Maritime Law Association of the United States",
-        },
-      ],
-      focus: [
-        "Jones Act seaman injury claims",
-        "Longshore and Harbor Workers' Compensation Act (LHWCA)",
-        "Offshore platform and drilling rig accidents",
-        "Unseaworthiness, and maintenance and cure",
-      ],
-      alt: "Nadia Haddad, of counsel",
-    },
-    {
-      id: "maria-hernandez-castillo",
-      role: "Senior Paralegal",
-      credential: "Bilingual — English and Spanish",
-      preview:
-        "The firm's senior paralegal, and for most clients the person they speak with most. She keeps the record complete and the file moving while the case is being built.",
-      bio: [
-        "Maria Hernandez-Castillo is the senior paralegal at Andre Thomas Law, PLLC. She manages case files from intake through resolution — gathering medical records and billing, tracking treatment, assembling demand packages, and keeping the documentary record complete enough that nothing has to be reconstructed under deadline later.",
-        "For most clients, Maria is the person on the other end of the phone. She works in English and Spanish.",
-      ],
-      highlights: [
-        { label: "Role", value: "Senior Paralegal" },
         { label: "Languages", value: "English and Spanish" },
-      ],
-      focus: [
-        "Medical records and billing collection",
-        "Client communication and case status",
-        "Demand package preparation",
-        "Litigation support and discovery",
-      ],
-      alt: "Maria Hernandez-Castillo, senior paralegal",
-    },
-    {
-      id: "amara-whitfield",
-      role: "Client Case Manager",
-      credential: "Certified Paralegal (NALA) · Bilingual — English and Spanish",
-      preview:
-        "The person who calls you back. Amara handles treatment scheduling and lien resolution so clients are not left guessing where their case stands.",
-      bio: [
-        "Amara Whitfield manages the client side of every file. She coordinates medical treatment, tracks appointments and gaps in care, negotiates hospital and health-insurance liens, and makes sure clients know what is happening with their case without having to ask twice.",
-        "Gaps in treatment are one of the first things a defense adjuster looks for, and lien negotiation is often the difference between a settlement figure and what a client actually takes home. Amara works both, from the first week of a case to the last.",
-        "She holds the Certified Paralegal credential from NALA and has spent eight years in personal injury practice, the last four focused entirely on case management and lien resolution. She works in English and Spanish.",
-      ],
-      highlights: [
-        { label: "Credential", value: "Certified Paralegal (CP), NALA" },
-        { label: "Experience", value: "Eight years in personal injury practice" },
         {
           label: "Focus",
-          value: "Lien resolution and medical treatment coordination",
+          value: "Treatment planning and medical documentation",
+        },
+      ],
+      focus: [
+        "Treatment scheduling and provider coordination",
+        "Medical documentation and records oversight",
+        "Client guidance through the recovery process",
+        "Bilingual communication with clients and providers",
+      ],
+      alt: "Marie Castillo-Hernandez, personal injury medical coordinator",
+    },
+    {
+      id: "milagro-rodriguez-mejia",
+      role: "Case Manager",
+      credential: "Bilingual — English and Spanish · 8+ years in the legal field",
+      preview:
+        "Eight years in the legal field, most of it in personal injury. Milagro moves a case forward on every front at once — providers, adjusters, records, billing, and the demand.",
+      bio: [
+        "Milagro Rodriguez Mejia is a bilingual Case Manager with over eight years of experience in the legal field, with a strong background in personal injury. She assists clients throughout the progression of their cases, coordinates with medical providers and insurance adjusters, manages medical records and billing, and supports the demand and settlement process.",
+        "Milagro earned her Bachelor of Arts in Spanish with a minor in Criminal Justice from the University of Houston–Downtown. Fluent in English and Spanish, she is committed to providing clear communication, organization, and dedicated support to clients throughout the legal process.",
+        "That commitment makes her an asset to this team and part of what makes Andre Thomas Law, PLLC the firm it is.",
+      ],
+      highlights: [
+        {
+          label: "Experience",
+          value: "Over eight years in the legal field, with a background in personal injury",
+        },
+        {
+          label: "Education",
+          value:
+            "B.A. in Spanish, minor in Criminal Justice — University of Houston–Downtown",
         },
         { label: "Languages", value: "English and Spanish" },
       ],
       focus: [
-        "Medical treatment coordination",
-        "Hospital and health-insurance lien negotiation",
-        "Client updates and case status",
-        "Settlement disbursement support",
+        "Case progression and client support",
+        "Coordination with medical providers and insurance adjusters",
+        "Medical records and billing management",
+        "Demand preparation and settlement support",
       ],
-      alt: "Amara Whitfield, client case manager",
+      alt: "Milagro Rodriguez Mejia, case manager",
     },
     {
-      id: "tyler-nguyen",
-      role: "Intake Coordinator",
-      credential: "Trilingual — English, Vietnamese, and Spanish",
+      id: "nayla-mendez",
+      role: "Medical Coordinator & Case Manager",
+      credential: "Bilingual — English and Spanish · 7 years' prior experience",
       preview:
-        "The first person you reach. Tyler takes the call, gets the facts down while they are fresh, and makes sure the deadlines that matter are calendared from day one.",
+        "She gets new clients into treatment quickly and keeps them there — then collects the bills and records, drafts the demand, and negotiates the offer that follows.",
       bio: [
-        "Tyler Nguyen handles intake — the first conversation after a crash or an injury, which usually happens while the client is still working out what just happened to them.",
-        "He takes the statement while the details are fresh, identifies the deadlines that start running immediately, and gets the file in front of an attorney the same day. Notice requirements against a governmental unit in Texas are the ones that catch people out; some are as short as six months, and they do not forgive a late start.",
-        "Tyler works in English, Vietnamese, and Spanish — which is why a caller who is not comfortable in English does not have to wait for a callback.",
+        "Nayla Mendez has been a valued member of the Andre Thomas Law team for nearly two years, serving as Medical Coordinator and Case Manager. She brings with her 7 years of prior experience in the field, along with a strong commitment to ensuring new clients are scheduled for treatment and remain compliant throughout the process to help strengthen their case.",
+        "Nayla is also responsible for collecting medical bills and records, drafting settlement demands, negotiating settlement offers, and assisting with case disbursements. She is fluent in both English and Spanish, allowing her to effectively communicate with and support a diverse range of clients.",
+        "She is an asset to this team, and one of the people who make Andre Thomas Law, PLLC the firm it is.",
       ],
       highlights: [
-        { label: "Role", value: "Intake Coordinator" },
-        { label: "Languages", value: "English, Vietnamese, and Spanish" },
-        { label: "Availability", value: "Same-day attorney review on every intake" },
+        { label: "At the firm", value: "Nearly two years with Andre Thomas Law" },
+        { label: "Experience", value: "Seven years in the field before joining" },
+        { label: "Languages", value: "English and Spanish" },
       ],
       focus: [
-        "New client intake and statements",
-        "Deadline and notice-period screening",
-        "Evidence preservation in the first week",
-        "Referrals and case triage",
+        "Treatment scheduling and compliance",
+        "Medical bills and records collection",
+        "Drafting settlement demands",
+        "Negotiating offers and assisting with disbursements",
       ],
-      alt: "Tyler Nguyen, intake coordinator",
+      alt: "Nayla Mendez, medical coordinator and case manager",
+    },
+    {
+      id: "marissa-lopez",
+      role: "Case Manager, Pre-Investigation Team",
+      credential: "7 years as a case manager · Pre-investigation",
+      preview:
+        "The first week of a claim decides a good deal of what follows. Marissa sets it up — the claim, liability, lien searches, subrogation, and the property damage nobody else is chasing.",
+      bio: [
+        "Marissa Lopez brings 7 years of experience as a Case Manager, playing a key role in the successful handling of each client's case from start to finish. As a member of the pre-investigation team, she is responsible for setting up claims, following up on liability with insurance companies, running lien searches, and setting up subrogation.",
+        "Marissa also assists clients with any property damage claim issues, ensuring every detail is handled efficiently and accurately on their behalf.",
+        "Her dedication and thorough approach make her a valuable asset to the team, and part of what makes Andre Thomas Law, PLLC the firm it is.",
+      ],
+      highlights: [
+        { label: "Experience", value: "Seven years as a case manager" },
+        { label: "Team", value: "Pre-investigation" },
+        {
+          label: "Focus",
+          value: "Claim setup, liability follow-up, liens, and subrogation",
+        },
+      ],
+      focus: [
+        "Claim setup and pre-investigation",
+        "Liability follow-up with insurance companies",
+        "Lien searches and subrogation",
+        "Property damage claim support",
+      ],
+      alt: "Marissa Lopez, case manager on the pre-investigation team",
+    },
+    {
+      id: "itzel-tapia",
+      role: "Client Intake Coordinator & Receptionist",
+      credential: "Bilingual — English and Spanish",
+      preview:
+        "The first voice you hear. Itzel handles new client intake and the front desk, in English and Spanish, and sets the tone for everything that comes after.",
+      bio: [
+        "Itzel Tapia serves as the first point of contact for the firm, handling all new client intake as well as front desk responsibilities as Receptionist. Fluent in both English and Spanish, she ensures every client feels welcomed and understood from their very first interaction with the firm.",
+        "Itzel's attention to detail and warm, professional demeanor make her an essential part of the client experience from day one.",
+        "She is an asset to this team, and one of the people who make Andre Thomas Law, PLLC the firm it is.",
+      ],
+      highlights: [
+        { label: "Role", value: "Client Intake Coordinator and Receptionist" },
+        { label: "Languages", value: "English and Spanish" },
+        { label: "First contact", value: "All new client intake" },
+      ],
+      focus: [
+        "New client intake",
+        "Front desk and reception",
+        "Bilingual client communication",
+        "Scheduling and first-call triage",
+      ],
+      alt: "Itzel Tapia, client intake coordinator and receptionist",
     },
   ],
 
@@ -1045,8 +1024,16 @@ export const en: Content = {
       staffEyebrow: "Paralegals and Staff",
       staffTitle: "Who builds it",
       readBio: "Full biography",
+      tribute: {
+        eyebrow: "The Team",
+        title: "Not one of them is optional.",
+        body: [
+          "Between them, the people on this page carry more than fifty years of personal injury experience — and, just as importantly, the habit of picking up the phone. They set up the claim, get clients into treatment, chase the records, argue with the adjuster, draft the demand, and stay on the file until the money is in the client's hands.",
+          "Every one of them is an asset to this firm, and every one of them is necessary. Andre Thomas Law, PLLC is not one attorney with a support staff; it is this team. They are the reason clients are called back, understood in their own language, and never left guessing where their case stands — and they are what makes this the firm it is.",
+        ],
+      },
       draftNotice:
-        "Draft page — not for publication. Only Andre Thomas's biography is verified. Every other profile here is placeholder content for layout review and must be replaced with real people before this page goes live.",
+        "Draft page — not for publication. Some biographies on this page are still awaiting verification.",
       member: {
         crumb: "Our Team",
         highlightsEyebrow: "Credentials",

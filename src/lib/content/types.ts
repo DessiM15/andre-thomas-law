@@ -343,6 +343,8 @@ export type Content = {
       staffEyebrow: string;
       staffTitle: string;
       readBio: string;
+      /** The closing note about the team as a whole, under the staff list. */
+      tribute: { eyebrow: string; title: string; body: string[] };
       /** Shown only while `TEAM_PLACEHOLDER` is true. */
       draftNotice: string;
       member: {

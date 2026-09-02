@@ -488,227 +488,205 @@ export const es: Content = {
   },
 
   /**
-   * ⚠ CONTENIDO DE MARCADOR DE POSICIÓN — vea el aviso al inicio de
-   * `lib/team.ts`. Solo la entrada de Andre Thomas es factual. Maria
-   * Hernandez-Castillo es una persona real con biografía provisional; las
-   * cinco personas restantes no existen.
+   * Cada biografía a continuación fue proporcionada por la firma y describe a
+   * una persona real. El orden lo fija `lib/team.ts`, no este arreglo.
    */
   team: [
     {
       id: "andre-thomas",
       role: "Abogado Fundador",
-      credential: "Con licencia en Texas y Tennessee",
+      credential: "Licenciado en Texas y Tennessee",
       preview:
-        "Exfiscal del Condado de Shelby que hoy representa a los lesionados. Dos licencias estatales, juicios de alto perfil llevados hasta el veredicto, y una práctica construida sobre ser el abogado con quien usted realmente habla.",
+        "Un ex fiscal del condado de Shelby que ahora representa a los lesionados. Dos licencias, juicios de alto perfil llevados a veredicto, y una práctica construida sobre ser el abogado con quien usted realmente habla.",
       bio: andreParrafos,
       highlights: [
         { label: "Licencias", value: "Texas y Tennessee" },
         {
           label: "Derecho",
-          value: "Facultad de Derecho Thurgood Marshall, Texas Southern University",
+          value: "Thurgood Marshall School of Law, Texas Southern University",
         },
-        { label: "Licenciatura", value: "Universidad de Memphis" },
+        { label: "Licenciatura", value: "University of Memphis" },
         {
-          label: "Antes",
+          label: "Anteriormente",
           value:
-            "Fiscal Auxiliar de Distrito, Condado de Shelby, TN — y abogado del Departamento de Seguridad y Seguridad Nacional de Tennessee",
+            "Fiscal Auxiliar de Distrito, condado de Shelby, TN — y asesor del Departamento de Seguridad y Seguridad Nacional de Tennessee",
         },
         {
-          label: "Juicios destacados",
+          label: "Juicios notables",
           value:
-            "State of Tennessee v. Billy Ray Turner · State of Tennessee v. Tedarrius Bean",
+            "Estado de Tennessee v. Billy Ray Turner · Estado de Tennessee v. Tedarrius Bean",
         },
       ],
       focus: [
         "Lesiones personales y lesiones catastróficas",
         "Muerte por negligencia",
-        "Defensa penal por delitos graves y menores",
-        "Juicios ante jurado en Texas y Tennessee",
+        "Defensa penal de delitos graves y menores",
+        "Juicios con jurado en Texas y Tennessee",
       ],
       alt: "Andre Thomas, abogado fundador, en las escalinatas del tribunal",
     },
     {
-      id: "rachel-kim",
-      role: "Abogada Asociada",
-      credential: "Con licencia en Texas · Accidentes de camiones y vehículos comerciales",
+      id: "maria-hernandez-castillo",
+      role: "Asistente Legal Sénior y Gerente de Oficina",
+      credential: "25 años en la práctica de lesiones personales",
       preview:
-        "Pasó cuatro años defendiendo a empresas de transporte antes de cambiar de lado. Conoce las bitácoras, los datos del ECM y los plazos que una empresa de camiones espera en silencio que usted deje pasar.",
+        "Veinticinco años llevando expedientes desde la admisión hasta la resolución final. Maria dirige la oficina además de los casos, y es la razón por la que casi nada tiene que rehacerse a última hora.",
       bio: [
-        "Rachel Kim representa a personas lesionadas por vehículos comerciales: tráileres, flotas de reparto y las empresas que los ponen en las carreteras de Texas. Llegó a la firma desde el lado de la defensa, donde pasó cuatro años manejando reclamos de pérdida catastrófica para transportistas y sus aseguradoras.",
-        "Esa trayectoria cambia la forma en que se construye un caso. Envía la carta de preservación de pruebas en días, no en semanas, porque sabe con exactitud qué tan rápido desaparecen los datos del módulo de control electrónico, las grabaciones de cámara y las bitácoras del conductor. Lee el expediente de seguridad de un transportista igual que lo leen sus propios gerentes de riesgo.",
-        "Rachel obtuvo su J.D. en el University of Houston Law Center, donde fue editora del Houston Law Review y compitió en el equipo nacional de litigación. Está admitida en Texas y ante el Tribunal de Distrito de los EE. UU. para el Distrito Sur de Texas.",
+        "Maria Hernandez-Castillo aporta 25 años de experiencia como Asistente Legal Sénior, manejando con destreza los expedientes desde la admisión inicial hasta la resolución final. Su amplio conocimiento y su atención al detalle aseguran que cada caso se maneje con precisión y cuidado durante todo su ciclo de vida.",
+        "Maria también desempeña varias funciones dentro de la firma, sirviendo como Gerente de Oficina además de su papel como Asistente Legal Sénior. Le encanta genuinamente ayudar a los demás y constantemente va más allá para asegurar que los clientes reciban la compensación que merecen.",
+        "Su profundidad de experiencia, su versatilidad y su enfoque constante e integral la convierten en un activo invaluable para la firma — una de las personas que hacen de Andre Thomas Law, PLLC la firma que es.",
       ],
       highlights: [
+        { label: "Experiencia", value: "25 años como asistente legal" },
+        { label: "Función", value: "Asistente Legal Sénior y Gerente de Oficina" },
         {
-          label: "Licencias",
-          value: "Texas · Tribunal de Distrito de EE. UU., Distrito Sur de Texas",
-        },
-        { label: "Derecho", value: "University of Houston Law Center, J.D." },
-        {
-          label: "Distinciones",
-          value: "Houston Law Review, editora · Equipo Nacional de Litigación",
-        },
-        {
-          label: "Antes",
-          value: "Asociada, defensa de transporte comercial",
-        },
-        { label: "Reconocimiento", value: "Texas Rising Stars, Super Lawyers" },
-      ],
-      focus: [
-        "Choques con tráileres y camiones de 18 ruedas",
-        "Accidentes con flotas comerciales y de reparto",
-        "Violaciones federales de seguridad de transportistas",
-        "Reclamos por conductores sin seguro o con seguro insuficiente",
-      ],
-      alt: "Rachel Kim, abogada asociada",
-    },
-    {
-      id: "michael-sorensen",
-      role: "Abogado Asociado",
-      credential: "Con licencia en Texas · Responsabilidad de locales y disputas con aseguradoras",
-      preview:
-        "Nueve años ajustando reclamos antes de litigar el primero. Michael lee una póliza como la lee la aseguradora, y luego argumenta las partes que esperaban que nadie encontrara.",
-      bio: [
-        "Michael Sorensen maneja casos de responsabilidad de locales y las peleas con aseguradoras que siguen a una lesión grave: las negativas, las ofertas bajas y las demoras que llegan disfrazadas de trámite.",
-        "Antes de estudiar derecho pasó nueve años como ajustador de reclamos para dos aseguradoras nacionales, evaluando los mismos expedientes que hoy litiga. Sabe en cuánto se fija una reserva, cuánto está realmente autorizado a pagar un ajustador, y qué tiene que llegar a su escritorio para que esa cifra se mueva.",
-        "Obtuvo su J.D. en South Texas College of Law Houston, graduándose en el quince por ciento superior de su generación, y desde entonces ha llevado casos hasta el veredicto en los condados de Harris, Fort Bend y Montgomery.",
-      ],
-      highlights: [
-        { label: "Licencias", value: "Texas" },
-        {
-          label: "Derecho",
-          value: "South Texas College of Law Houston, J.D., 15% superior",
-        },
-        {
-          label: "Antes",
-          value:
-            "Ajustador sénior de reclamos, aseguradoras nacionales de daños y responsabilidad — nueve años",
-        },
-        {
-          label: "Experiencia en juicio",
-          value: "Veredictos de jurado en los condados de Harris, Fort Bend y Montgomery",
-        },
-        {
-          label: "Miembro",
-          value: "Texas Trial Lawyers Association · Houston Bar Association",
+          label: "Alcance",
+          value: "Expedientes manejados desde la admisión inicial hasta la resolución final",
         },
       ],
       focus: [
-        "Resbalones, tropiezos y caídas",
-        "Seguridad negligente y mantenimiento inadecuado",
-        "Mala fe de la aseguradora y reclamos demorados",
-        "Disputas de cobertura y de límites de póliza",
+        "Manejo del expediente, de la admisión a la resolución",
+        "Recopilación de expedientes médicos y facturación",
+        "Preparación del paquete de demanda",
+        "Gerencia de oficina y operaciones de la firma",
       ],
-      alt: "Michael Sorensen, abogado asociado",
+      alt: "Maria Hernandez-Castillo, asistente legal sénior y gerente de oficina",
     },
     {
-      id: "nadia-haddad",
-      role: "Abogada Consultora (Of Counsel)",
-      credential: "Con licencia en Texas y Luisiana · Lesiones marítimas y costa afuera",
+      id: "marie-castillo-hernandez",
+      role: "Coordinadora Médica de Lesiones Personales",
+      credential: "Bilingüe — inglés y español · 10 años de experiencia",
       preview:
-        "Doce años de trabajo bajo la Jones Act y en plataformas costa afuera en el Golfo. Toma los casos que dependen de cuál ley aplica, y resuelve esa pregunta al inicio, no en la víspera del juicio.",
+        "Diez años haciendo de puente entre los clientes, el equipo legal y sus médicos, para que el tratamiento sea un plan y no una serie de citas que nadie está siguiendo.",
       bio: [
-        "Nadia Haddad colabora con la firma en asuntos marítimos y costa afuera: reclamos de marinos bajo la Jones Act, casos bajo la Ley de Compensación para Trabajadores Portuarios y Marítimos (LHWCA), y lesiones en plataformas, equipos autoelevables y buques de suministro en todo el Golfo de México.",
-        "Los casos marítimos se ganan y se pierden en las preguntas de umbral: si un trabajador lesionado califica como marino, a qué embarcación estaba asignado, si rige el derecho marítimo general o una ley estatal. Nadia lleva doce años en esas preguntas, y las plantea desde el principio, cuando la respuesta todavía puede darle forma al caso.",
-        "Obtuvo su J.D. en Tulane University Law School con un certificado en Derecho Marítimo, y está admitida tanto en Texas como en Luisiana. Ejerce en inglés y en árabe.",
+        "Marie Castillo-Hernandez aporta 10 años de experiencia como Coordinadora Médica de Lesiones Personales, dedicada a guiar a los clientes en cada paso de su recuperación. Bilingüe en inglés y español, desempeña un papel fundamental al cerrar la brecha entre los clientes, los equipos legales y los proveedores de salud, asegurando que cada persona reciba un plan de tratamiento integral y sin interrupciones, adaptado a su recuperación.",
+        "Con una atención meticulosa al detalle, Marie maneja los horarios de tratamiento, supervisa la documentación médica y ofrece a los clientes una orientación clara y compasiva mientras atraviesan su proceso de salud. Su dedicación al bienestar del cliente, unida a su capacidad de comunicarse eficazmente en ambos idiomas, asegura que cada persona reciba el más alto nivel de atención, con la mirada puesta tanto en su recuperación física como emocional.",
+        "Ese cuidado es exactamente lo que la hace un activo para este equipo, y parte de lo que hace de Andre Thomas Law, PLLC la firma que es.",
       ],
       highlights: [
-        { label: "Licencias", value: "Texas · Luisiana" },
-        {
-          label: "Derecho",
-          value: "Tulane University Law School, J.D., Certificado en Derecho Marítimo",
-        },
         {
           label: "Experiencia",
-          value: "Doce años en litigios bajo la Jones Act y por lesiones costa afuera",
+          value: "10 años como coordinadora médica de lesiones personales",
         },
-        { label: "Idiomas", value: "Inglés y árabe" },
-        {
-          label: "Miembro",
-          value: "Maritime Law Association of the United States",
-        },
-      ],
-      focus: [
-        "Reclamos de marinos bajo la Jones Act",
-        "Ley de Compensación para Trabajadores Portuarios y Marítimos (LHWCA)",
-        "Accidentes en plataformas y equipos de perforación costa afuera",
-        "Innavegabilidad, y manutención y curación",
-      ],
-      alt: "Nadia Haddad, abogada consultora",
-    },
-    {
-      id: "maria-hernandez-castillo",
-      role: "Asistente Legal Sénior",
-      credential: "Bilingüe — inglés y español",
-      preview:
-        "La asistente legal sénior de la firma y, para la mayoría de los clientes, la persona con quien más hablan. Mantiene el expediente completo y el caso avanzando mientras se construye.",
-      bio: [
-        "Maria Hernandez-Castillo es la asistente legal sénior de Andre Thomas Law, PLLC. Maneja los expedientes desde la admisión hasta la resolución: reúne expedientes médicos y facturación, da seguimiento al tratamiento, arma los paquetes de reclamación y mantiene el registro documental lo bastante completo como para que nada tenga que reconstruirse después, contra reloj.",
-        "Para la mayoría de los clientes, Maria es la persona al otro lado del teléfono. Trabaja en inglés y en español.",
-      ],
-      highlights: [
-        { label: "Cargo", value: "Asistente Legal Sénior" },
         { label: "Idiomas", value: "Inglés y español" },
-      ],
-      focus: [
-        "Recopilación de expedientes médicos y facturación",
-        "Comunicación con el cliente y estado del caso",
-        "Preparación del paquete de reclamación",
-        "Apoyo en litigio y descubrimiento de pruebas",
-      ],
-      alt: "Maria Hernandez-Castillo, asistente legal sénior",
-    },
-    {
-      id: "amara-whitfield",
-      role: "Coordinadora de Casos",
-      credential: "Asistente Legal Certificada (NALA) · Bilingüe — inglés y español",
-      preview:
-        "La persona que le devuelve la llamada. Amara maneja la coordinación del tratamiento y la negociación de gravámenes para que los clientes no se queden adivinando en qué va su caso.",
-      bio: [
-        "Amara Whitfield maneja el lado del cliente en cada expediente. Coordina el tratamiento médico, da seguimiento a las citas y a las interrupciones en la atención, negocia los gravámenes de hospitales y aseguradoras de salud, y se asegura de que los clientes sepan qué está pasando con su caso sin tener que preguntar dos veces.",
-        "Las interrupciones en el tratamiento son de lo primero que busca un ajustador de la defensa, y la negociación de gravámenes suele ser la diferencia entre la cifra del acuerdo y lo que el cliente realmente recibe. Amara trabaja ambas cosas, desde la primera semana del caso hasta la última.",
-        "Tiene la credencial de Asistente Legal Certificada (CP) de NALA y ha pasado ocho años en la práctica de lesiones personales, los últimos cuatro dedicados por completo a la gestión de casos y la resolución de gravámenes. Trabaja en inglés y en español.",
-      ],
-      highlights: [
-        { label: "Credencial", value: "Asistente Legal Certificada (CP), NALA" },
-        { label: "Experiencia", value: "Ocho años en la práctica de lesiones personales" },
         {
           label: "Enfoque",
-          value: "Resolución de gravámenes y coordinación de tratamiento médico",
+          value: "Planes de tratamiento y documentación médica",
+        },
+      ],
+      focus: [
+        "Programación de tratamiento y coordinación con proveedores",
+        "Supervisión de la documentación y los expedientes médicos",
+        "Orientación al cliente durante la recuperación",
+        "Comunicación bilingüe con clientes y proveedores",
+      ],
+      alt: "Marie Castillo-Hernandez, coordinadora médica de lesiones personales",
+    },
+    {
+      id: "milagro-rodriguez-mejia",
+      role: "Gerente de Casos",
+      credential: "Bilingüe — inglés y español · más de 8 años en el campo legal",
+      preview:
+        "Ocho años en el campo legal, la mayoría en lesiones personales. Milagro mueve el caso en todos los frentes a la vez: proveedores, ajustadores, expedientes, facturación y la demanda.",
+      bio: [
+        "Milagro Rodriguez Mejia es una Gerente de Casos bilingüe con más de ocho años de experiencia en el campo legal, con una sólida trayectoria en lesiones personales. Asiste a los clientes durante todo el avance de sus casos, coordina con proveedores médicos y ajustadores de seguros, maneja expedientes médicos y facturación, y apoya el proceso de demanda y acuerdo.",
+        "Milagro obtuvo su Licenciatura en Español con especialización secundaria en Justicia Penal por la Universidad de Houston–Downtown. Fluida en inglés y español, está comprometida a brindar comunicación clara, organización y apoyo dedicado a los clientes durante todo el proceso legal.",
+        "Ese compromiso la hace un activo para este equipo y parte de lo que hace de Andre Thomas Law, PLLC la firma que es.",
+      ],
+      highlights: [
+        {
+          label: "Experiencia",
+          value: "Más de ocho años en el campo legal, con trayectoria en lesiones personales",
+        },
+        {
+          label: "Educación",
+          value:
+            "Licenciatura en Español, especialización secundaria en Justicia Penal — Universidad de Houston–Downtown",
         },
         { label: "Idiomas", value: "Inglés y español" },
       ],
       focus: [
-        "Coordinación del tratamiento médico",
-        "Negociación de gravámenes hospitalarios y de seguros de salud",
-        "Actualizaciones al cliente y estado del caso",
-        "Apoyo en el desembolso del acuerdo",
+        "Avance del caso y apoyo al cliente",
+        "Coordinación con proveedores médicos y ajustadores de seguros",
+        "Manejo de expedientes médicos y facturación",
+        "Preparación de la demanda y apoyo en el acuerdo",
       ],
-      alt: "Amara Whitfield, coordinadora de casos",
+      alt: "Milagro Rodriguez Mejia, gerente de casos",
     },
     {
-      id: "tyler-nguyen",
-      role: "Coordinador de Admisión",
-      credential: "Trilingüe — inglés, vietnamita y español",
+      id: "nayla-mendez",
+      role: "Coordinadora Médica y Gerente de Casos",
+      credential: "Bilingüe — inglés y español · 7 años de experiencia previa",
       preview:
-        "La primera persona con quien usted habla. Tyler toma la llamada, deja los hechos por escrito mientras están frescos y se asegura de que los plazos importantes queden en el calendario desde el primer día.",
+        "Consigue que los clientes nuevos empiecen tratamiento pronto y que lo cumplan — y luego recopila las facturas y los expedientes, redacta la demanda y negocia la oferta que sigue.",
       bio: [
-        "Tyler Nguyen maneja la admisión: la primera conversación después de un choque o una lesión, que normalmente ocurre mientras el cliente todavía está entendiendo qué acaba de pasarle.",
-        "Toma la declaración mientras los detalles están frescos, identifica los plazos que empiezan a correr de inmediato y pone el expediente frente a un abogado el mismo día. Los requisitos de notificación contra una entidad gubernamental en Texas son los que más sorprenden a la gente; algunos son de apenas seis meses, y no perdonan un comienzo tardío.",
-        "Tyler trabaja en inglés, vietnamita y español, y por eso quien no se siente cómodo en inglés no tiene que esperar a que le devuelvan la llamada.",
+        "Nayla Mendez ha sido un miembro valioso del equipo de Andre Thomas Law durante casi dos años, sirviendo como Coordinadora Médica y Gerente de Casos. Trae consigo 7 años de experiencia previa en el campo, junto con un firme compromiso de asegurar que los clientes nuevos sean programados para tratamiento y se mantengan en cumplimiento durante todo el proceso, para fortalecer su caso.",
+        "Nayla también es responsable de recopilar facturas y expedientes médicos, redactar demandas de acuerdo, negociar ofertas de acuerdo y asistir con los desembolsos del caso. Es fluida tanto en inglés como en español, lo que le permite comunicarse y apoyar eficazmente a una clientela diversa.",
+        "Es un activo para este equipo y una de las personas que hacen de Andre Thomas Law, PLLC la firma que es.",
       ],
       highlights: [
-        { label: "Cargo", value: "Coordinador de Admisión" },
-        { label: "Idiomas", value: "Inglés, vietnamita y español" },
-        { label: "Disponibilidad", value: "Revisión de un abogado el mismo día en cada admisión" },
+        { label: "En la firma", value: "Casi dos años con Andre Thomas Law" },
+        { label: "Experiencia", value: "Siete años en el campo antes de unirse" },
+        { label: "Idiomas", value: "Inglés y español" },
       ],
       focus: [
-        "Admisión de nuevos clientes y declaraciones",
-        "Revisión de plazos y períodos de notificación",
-        "Preservación de pruebas en la primera semana",
-        "Referencias y clasificación de casos",
+        "Programación y cumplimiento del tratamiento",
+        "Recopilación de facturas y expedientes médicos",
+        "Redacción de demandas de acuerdo",
+        "Negociación de ofertas y apoyo en los desembolsos",
       ],
-      alt: "Tyler Nguyen, coordinador de admisión",
+      alt: "Nayla Mendez, coordinadora médica y gerente de casos",
+    },
+    {
+      id: "marissa-lopez",
+      role: "Gerente de Casos, Equipo de Pre-Investigación",
+      credential: "7 años como gerente de casos · Pre-investigación",
+      preview:
+        "La primera semana de un reclamo decide buena parte de lo que sigue. Marissa la arma: el reclamo, la responsabilidad, las búsquedas de gravámenes, la subrogación y el daño a la propiedad que nadie más persigue.",
+      bio: [
+        "Marissa Lopez aporta 7 años de experiencia como Gerente de Casos, desempeñando un papel clave en el manejo exitoso del caso de cada cliente de principio a fin. Como integrante del equipo de pre-investigación, es responsable de abrir los reclamos, dar seguimiento a la responsabilidad con las aseguradoras, realizar búsquedas de gravámenes y establecer la subrogación.",
+        "Marissa también asiste a los clientes con cualquier problema en su reclamo por daños a la propiedad, asegurando que cada detalle se maneje de manera eficiente y precisa en su nombre.",
+        "Su dedicación y su enfoque minucioso la convierten en un activo valioso para el equipo, y parte de lo que hace de Andre Thomas Law, PLLC la firma que es.",
+      ],
+      highlights: [
+        { label: "Experiencia", value: "Siete años como gerente de casos" },
+        { label: "Equipo", value: "Pre-investigación" },
+        {
+          label: "Enfoque",
+          value: "Apertura de reclamos, responsabilidad, gravámenes y subrogación",
+        },
+      ],
+      focus: [
+        "Apertura de reclamos y pre-investigación",
+        "Seguimiento de responsabilidad con las aseguradoras",
+        "Búsquedas de gravámenes y subrogación",
+        "Apoyo en reclamos por daños a la propiedad",
+      ],
+      alt: "Marissa Lopez, gerente de casos del equipo de pre-investigación",
+    },
+    {
+      id: "itzel-tapia",
+      role: "Coordinadora de Admisión y Recepcionista",
+      credential: "Bilingüe — inglés y español",
+      preview:
+        "La primera voz que usted escucha. Itzel maneja la admisión de clientes nuevos y la recepción, en inglés y en español, y marca el tono de todo lo que sigue.",
+      bio: [
+        "Itzel Tapia es el primer punto de contacto de la firma, encargándose de toda la admisión de clientes nuevos así como de las responsabilidades de recepción. Fluida tanto en inglés como en español, se asegura de que cada cliente se sienta bienvenido y comprendido desde su primera interacción con la firma.",
+        "La atención al detalle de Itzel y su trato cálido y profesional la hacen una parte esencial de la experiencia del cliente desde el primer día.",
+        "Es un activo para este equipo y una de las personas que hacen de Andre Thomas Law, PLLC la firma que es.",
+      ],
+      highlights: [
+        { label: "Función", value: "Coordinadora de Admisión y Recepcionista" },
+        { label: "Idiomas", value: "Inglés y español" },
+        { label: "Primer contacto", value: "Toda la admisión de clientes nuevos" },
+      ],
+      focus: [
+        "Admisión de clientes nuevos",
+        "Recepción y atención al público",
+        "Comunicación bilingüe con los clientes",
+        "Programación y clasificación de la primera llamada",
+      ],
+      alt: "Itzel Tapia, coordinadora de admisión y recepcionista",
     },
   ],
 
@@ -1054,8 +1032,16 @@ export const es: Content = {
       staffEyebrow: "Asistentes Legales y Personal",
       staffTitle: "Quiénes lo construyen",
       readBio: "Biografía completa",
+      tribute: {
+        eyebrow: "El Equipo",
+        title: "Ninguno de ellos sobra.",
+        body: [
+          "Entre todos, las personas de esta página suman más de cincuenta años de experiencia en lesiones personales — y, con la misma importancia, la costumbre de contestar el teléfono. Abren el reclamo, consiguen que el cliente entre a tratamiento, persiguen los expedientes, discuten con el ajustador, redactan la demanda y se quedan en el expediente hasta que el dinero está en manos del cliente.",
+          "Cada uno de ellos es un activo para esta firma, y cada uno de ellos es necesario. Andre Thomas Law, PLLC no es un abogado con personal de apoyo; es este equipo. Son la razón por la que a los clientes se les devuelve la llamada, se les entiende en su propio idioma y nunca se les deja adivinando en qué va su caso — y son lo que hace de esta la firma que es.",
+        ],
+      },
       draftNotice:
-        "Página en borrador — no para publicación. Solo la biografía de Andre Thomas está verificada. Todos los demás perfiles son contenido de marcador de posición para revisar el diseño y deben reemplazarse por personas reales antes de publicar esta página.",
+        "Página en borrador — no para publicación. Algunas biografías de esta página todavía están pendientes de verificación.",
       member: {
         crumb: "Nuestro Equipo",
         highlightsEyebrow: "Credenciales",
