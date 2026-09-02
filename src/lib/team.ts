@@ -23,6 +23,33 @@
  *  back into draft. */
 export const TEAM_PLACEHOLDER = false;
 
+/**
+ * Whether the draft banner is rendered.
+ *
+ * Split from `TEAM_PLACEHOLDER` so the page could be demonstrated to a client
+ * without weakening any actual publication guard: with this false and
+ * `TEAM_PLACEHOLDER` still true, the routes stayed noindex, stayed out of the
+ * sitemap, and emitted no `Person` schema. Only the visible warning went.
+ *
+ * Restored to true, per its own instruction: the demo is over and the roster
+ * is real, so there is nothing left to warn about. Left in place rather than
+ * deleted because if the page ever goes back into draft, this being false
+ * would mean a placeholder roster shipping with no visible warning — exactly
+ * the state it was written to make temporary.
+ */
+export const SHOW_DRAFT_BANNER = true;
+
+// Build-time reminder, so a temporary demo setting cannot quietly become
+// permanent: this prints on every `next build` and `next dev` until either
+// the banner comes back or the roster becomes real.
+if (TEAM_PLACEHOLDER && !SHOW_DRAFT_BANNER) {
+  console.warn(
+    "\n⚠  Team page: placeholder roster is live with the draft banner HIDDEN." +
+      "\n   Nothing on the page tells a reader the roster is not real." +
+      "\n   Restore SHOW_DRAFT_BANNER in src/lib/team.ts after the demo.\n"
+  );
+}
+
 export type TeamId =
   | "andre-thomas"
   | "maria-hernandez-castillo"
