@@ -3,9 +3,10 @@ import CTABand from "@/components/CTABand";
 import DraftNotice from "@/components/DraftNotice";
 import PageHeader from "@/components/PageHeader";
 import Portrait from "@/components/Portrait";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
-import { teamPath, type Lang } from "@/lib/i18n";
+import { path, teamPath, type Lang } from "@/lib/i18n";
 import { team, SHOW_DRAFT_BANNER, TEAM_PLACEHOLDER, type TeamKind } from "@/lib/team";
 import type { TeamBio } from "@/lib/content/types";
 
@@ -39,7 +40,7 @@ function Row({
         <div className="relative aspect-square w-full overflow-hidden bg-paper-warm">
           <Portrait
             person={person}
-            alt={bio.alt}
+            alt={`${person.name} — ${bio.role}`}
             sizes="(max-width: 768px) 88px, 136px"
             zoomOnHover
             monogramClass="text-[1.5rem] md:text-[2rem]"
@@ -120,6 +121,13 @@ export default function TeamView({ lang }: { lang: Lang }) {
 
   return (
     <>
+      <Breadcrumbs
+        trail={[
+          { name: c.schema.home, href: path("home", lang) },
+          { name: p.eyebrow, href: path("team", lang) },
+        ]}
+      />
+
       <PageHeader
         eyebrow={p.eyebrow}
         n="01"

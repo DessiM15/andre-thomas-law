@@ -13,7 +13,7 @@ export default function HomeView({ lang }: { lang: Lang }) {
       <WhyFirm lang={lang} />
       <FeaturedAreas lang={lang} />
       <AboutPreview lang={lang} />
-      <ReviewsBand lang={lang} n="04" />
+      <ReviewsBand lang={lang} n="04" limit={3} />
       <CTABand lang={lang} n="05" />
     </>
   );

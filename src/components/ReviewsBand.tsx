@@ -11,8 +11,22 @@ function Stars({ className = "" }: { className?: string }) {
   );
 }
 
-export default function ReviewsBand({ lang, n = "06" }: { lang: Lang; n?: string }) {
+export default function ReviewsBand({
+  lang,
+  n = "06",
+  /**
+   * How many quotes to show. The homepage carries a sample — three, one row of
+   * the grid — while `/reviews` is the page someone lands on to actually read
+   * them, so it passes the full set.
+   */
+  limit,
+}: {
+  lang: Lang;
+  n?: string;
+  limit?: number;
+}) {
   const c = content(lang);
+  const reviews = limit ? c.reviews.slice(0, limit) : c.reviews;
 
   return (
     <section className="border-t border-paper-edge bg-paper-warm py-24 md:py-32">
@@ -55,8 +69,12 @@ export default function ReviewsBand({ lang, n = "06" }: { lang: Lang; n?: string
         {/* Quotes. Reproduced in the language the client wrote them in —
             translating a real person's words would misrepresent them. */}
         <div className="grid gap-px bg-paper-edge md:grid-cols-3">
-          {c.reviews.map((r, i) => (
-            <Reveal key={r.author} delay={i * 0.08} className="bg-paper-warm p-8 md:p-10">
+          {reviews.map((r, i) => (
+            <Reveal
+              key={`${r.author}-${i}`}
+              delay={i * 0.08}
+              className="bg-paper-warm p-8 md:p-10"
+            >
               <Stars className="text-sm" />
               <blockquote
                 lang="en"
@@ -68,16 +86,6 @@ export default function ReviewsBand({ lang, n = "06" }: { lang: Lang; n?: string
                 <span className="font-medium text-ink-900">{r.author}</span>
                 <span className="mx-2 text-gold-600">·</span>
                 {r.date}
-                {r.truncated && (
-                  <a
-                    href={firm.reviews.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link-underline ml-2 text-gold-700"
-                  >
-                    {c.ui.reviewsBand.readFull}
-                  </a>
-                )}
               </footer>
             </Reveal>
           ))}

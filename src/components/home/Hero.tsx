@@ -42,7 +42,7 @@ export default function Hero({ lang }: { lang: Lang }) {
       <div className="absolute inset-0 md:left-auto md:w-[47%]">
         <Image
           src="/andre-standing.webp"
-          alt={`${firm.attorney}, ${c.pages.about.portraitAlt} ${firm.name}`}
+          alt={`${firm.attorney} — ${h.portraitAlt}`}
           fill
           priority
           sizes="(max-width: 768px) 100vw, 47vw"
@@ -60,17 +60,6 @@ export default function Hero({ lang }: { lang: Lang }) {
       {/* ── Content ─────────────────────────────────────────────── */}
       <div className="container-x relative z-10 my-auto w-full py-10">
         <div className="max-w-[46rem]">
-          <motion.div
-            initial="hidden"
-            animate={show}
-            variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: t(0) } }}
-            className="eyebrow mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-gold-500"
-          >
-            <span>{h.place}</span>
-            <span className="hidden h-px w-8 bg-gold-500/50 sm:block" />
-            <span className="text-ink-200">{h.licensed}</span>
-          </motion.div>
-
           <h1 className="display-xl font-display text-[clamp(2.6rem,7.6vw,5.9rem)] text-paper">
             {h.titleLines.map((text, i) => (
               <span key={text} className="block overflow-hidden pb-[0.04em]">
@@ -114,6 +103,17 @@ export default function Hero({ lang }: { lang: Lang }) {
             </span>
           </h1>
 
+          <motion.div
+            initial="hidden"
+            animate={show}
+            variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: t(0.42) } }}
+            className="eyebrow mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-gold-500"
+          >
+            <span>{h.descriptor}</span>
+            <span className="hidden h-px w-8 bg-gold-500/50 sm:block" />
+            <span className="text-ink-200">{h.licensed}</span>
+          </motion.div>
+
           <motion.p
             initial="hidden"
             animate={show}
@@ -122,6 +122,24 @@ export default function Hero({ lang }: { lang: Lang }) {
           >
             {h.lede}
           </motion.p>
+
+          {/* A client's words, attributed. Named and sourced on purpose: an
+              unattributed superlative reads as the firm's own claim about
+              itself, which is the thing Tex. Disciplinary R. Prof. Conduct
+              7.01 treats as an unsubstantiated comparison. */}
+          <motion.figure
+            initial="hidden"
+            animate={show}
+            variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: t(0.56) } }}
+            className="mt-7 max-w-[34rem] border-l border-gold-500/40 pl-5"
+          >
+            <blockquote lang="en" className="text-[1.02rem] italic leading-relaxed text-paper/90">
+              &ldquo;{h.quote}&rdquo;
+            </blockquote>
+            <figcaption className="mt-2 text-[0.78rem] text-ink-300">
+              {h.quoteAuthor}
+            </figcaption>
+          </motion.figure>
 
           <motion.div
             initial="hidden"

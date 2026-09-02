@@ -1,10 +1,11 @@
 import PageHeader from "@/components/PageHeader";
 import ReviewsBand from "@/components/ReviewsBand";
 import CTABand from "@/components/CTABand";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { firm } from "@/lib/firm";
-import type { Lang } from "@/lib/i18n";
+import { path, type Lang } from "@/lib/i18n";
 
 export default function ReviewsView({ lang }: { lang: Lang }) {
   const c = content(lang);
@@ -17,11 +18,22 @@ export default function ReviewsView({ lang }: { lang: Lang }) {
 
   return (
     <>
+      <Breadcrumbs
+        trail={[
+          { name: c.schema.home, href: path("home", lang) },
+          { name: p.eyebrow, href: path("reviews", lang) },
+        ]}
+      />
+
+      {/* The keyword heading sits on the eyebrow here, not on the display
+          line. "What it's like to be represented." is the better line and it
+          stays exactly as it renders; only the tag moved. */}
       <PageHeader
         eyebrow={p.eyebrow}
         n="01"
         title={p.titleLines}
         lede={`${rated} ${p.lede}`}
+        h1="eyebrow"
       />
 
       <ReviewsBand lang={lang} n="02" />

@@ -38,7 +38,16 @@ export const firm = {
   reviews: {
     rating: 4.9,
     count: 60,
-    url: "https://www.google.com/search?q=andre+thomas+law&sca_esv=a6e07816c90ab268&ei=mXJ1apriCZukqtsPtI3w-AY&gs_ssp=eJzj4tVP1zc0rDSuqjAqyK4wYLRSNaiwMDMxSEozsUhKM0lLNUo1tzKoMDE1SjI0MTUzTk4ztUw2S_YSSMxLKUpVKMnIz00sVshJLAcA-L8Vvg&oq=andre+&sclient=gws-wiz-serp",
+    /**
+     * Google's permanent CID for the firm's Business Profile, verified to
+     * resolve to "Andre Thomas Law, PLLC".
+     *
+     * Every previous version of this link was a copied search-results URL
+     * carrying `sca_esv`, `ei`, `gs_ssp` and `sclient` — session parameters
+     * that expire, so the "read them all on Google" links were always going
+     * to rot. A CID does not change for the life of the listing.
+     */
+    url: "https://www.google.com/maps?cid=4984099773238058092",
   },
 } as const;
 

@@ -3,6 +3,7 @@ import CTABand from "@/components/CTABand";
 import DraftNotice from "@/components/DraftNotice";
 import PageHeader from "@/components/PageHeader";
 import Portrait from "@/components/Portrait";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { firm, fullAddress, SITE_URL } from "@/lib/firm";
@@ -10,11 +11,13 @@ import { path, teamPath, type Lang } from "@/lib/i18n";
 import { team, SHOW_DRAFT_BANNER, TEAM_PLACEHOLDER, type TeamPerson } from "@/lib/team";
 import type { TeamBio } from "@/lib/content/types";
 
-/** "Maria Hernandez-Castillo" → ["Maria", "Hernandez-Castillo"], so the display
- *  face gets two lines to work with instead of one very long one. */
-function splitName(name: string): string[] {
-  const i = name.indexOf(" ");
-  return i === -1 ? [name] : [name.slice(0, i), name.slice(i + 1)];
+/**
+ * The page's `h1`, split into display lines: the person's name, then what
+ * they are. "Andre Thomas," / "Houston Personal Injury Attorney" — a name on
+ * its own tells a search engine nothing about why the page is relevant.
+ */
+function headingLines(name: string, headline: string): string[] {
+  return [`${name},`, headline];
 }
 
 /**
@@ -82,10 +85,18 @@ export default function TeamMemberView({
     <>
       <PersonSchema person={person} bio={bio} lang={lang} />
 
+      <Breadcrumbs
+        trail={[
+          { name: c.schema.home, href: path("home", lang) },
+          { name: m.crumb, href: path("team", lang) },
+          { name: person.name, href: teamPath(person.id, lang) },
+        ]}
+      />
+
       <PageHeader
         eyebrow={bio.role}
         n="01"
-        title={splitName(person.name)}
+        title={headingLines(person.name, bio.headline)}
         lede={bio.preview}
         crumb={{ label: m.crumb, href: path("team", lang) }}
       />
@@ -101,7 +112,7 @@ export default function TeamMemberView({
               <div className="relative aspect-square w-full overflow-hidden">
                 <Portrait
                   person={person}
-                  alt={bio.alt}
+                  alt={`${person.name} — ${bio.role}`}
                   sizes="(max-width: 768px) 100vw, 40vw"
                   priority
                   monogramClass="text-[5rem] md:text-[7rem]"
@@ -212,7 +223,7 @@ export default function TeamMemberView({
                   <div className="relative aspect-square w-full overflow-hidden bg-paper">
                     <Portrait
                       person={o.person}
-                      alt={o.bio.alt}
+                      alt={`${o.person.name} — ${o.bio.role}`}
                       sizes="(max-width: 640px) 33vw, 16vw"
                       zoomOnHover
                       monogramClass="text-[1.4rem]"

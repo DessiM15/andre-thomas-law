@@ -26,17 +26,18 @@ export const TEAM_PLACEHOLDER = false;
 /**
  * Whether the draft banner is rendered.
  *
- * Split from `TEAM_PLACEHOLDER` so the page can be demonstrated to a client
+ * Split from `TEAM_PLACEHOLDER` so the page could be demonstrated to a client
  * without weakening any actual publication guard: with this false and
- * `TEAM_PLACEHOLDER` still true, the routes stay noindex, stay out of the
- * sitemap, and still emit no `Person` schema. Only the visible warning goes.
+ * `TEAM_PLACEHOLDER` still true, the routes stayed noindex, stayed out of the
+ * sitemap, and emitted no `Person` schema. Only the visible warning went.
  *
- * ⚠ This is the one guard a human can see. With it off, nothing on the page
- * tells a reader that five of these seven people are invented. Turn it back
- * on the moment the demo is over — it is not a substitute for replacing the
- * placeholder roster, and it must never be false once the site is public.
+ * Restored to true, per its own instruction: the demo is over and the roster
+ * is real, so there is nothing left to warn about. Left in place rather than
+ * deleted because if the page ever goes back into draft, this being false
+ * would mean a placeholder roster shipping with no visible warning — exactly
+ * the state it was written to make temporary.
  */
-export const SHOW_DRAFT_BANNER = false;
+export const SHOW_DRAFT_BANNER = true;
 
 // Build-time reminder, so a temporary demo setting cannot quietly become
 // permanent: this prints on every `next build` and `next dev` until either
@@ -44,7 +45,7 @@ export const SHOW_DRAFT_BANNER = false;
 if (TEAM_PLACEHOLDER && !SHOW_DRAFT_BANNER) {
   console.warn(
     "\n⚠  Team page: placeholder roster is live with the draft banner HIDDEN." +
-      "\n   Five of seven people are invented and nothing on the page says so." +
+      "\n   Nothing on the page tells a reader the roster is not real." +
       "\n   Restore SHOW_DRAFT_BANNER in src/lib/team.ts after the demo.\n"
   );
 }

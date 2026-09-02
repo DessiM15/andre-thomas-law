@@ -54,13 +54,15 @@ export default function SiteShell({
       { "@type": "State", name: "Texas" },
       { "@type": "State", name: "Tennessee" },
     ],
-    sameAs: [firm.instagram],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: firm.reviews.rating,
-      reviewCount: firm.reviews.count,
-      bestRating: 5,
-    },
+    sameAs: [firm.instagram, firm.reviews.url],
+    // No `aggregateRating` here, deliberately.
+    //
+    // This schema ships on every page, so a star rating the firm asserts
+    // about itself on its own domain would be self-serving review markup on
+    // all of them. Google does not honour it for a business marking up its
+    // own reviews, and it carries manual-action risk. The real rating is on
+    // the Business Profile, which `sameAs` now points at, and Google reads it
+    // from there.
     founder: {
       "@type": "Person",
       name: firm.attorney,

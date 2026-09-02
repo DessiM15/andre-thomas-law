@@ -523,7 +523,7 @@ export const es: Content = {
         "Defensa penal de delitos graves y menores",
         "Juicios con jurado en Texas y Tennessee",
       ],
-      alt: "Andre Thomas, abogado fundador, en las escalinatas del tribunal",
+      headline: "Abogado de Lesiones Personales en Houston",
     },
     {
       id: "maria-hernandez-castillo",
@@ -550,7 +550,7 @@ export const es: Content = {
         "Preparación del paquete de demanda",
         "Gerencia de oficina y operaciones de la firma",
       ],
-      alt: "Maria Hernandez-Castillo, asistente legal sénior y gerente de oficina",
+      headline: "Asistente Legal Sénior y Gerente de Oficina",
     },
     {
       id: "marie-castillo-hernandez",
@@ -580,7 +580,7 @@ export const es: Content = {
         "Orientación al cliente durante la recuperación",
         "Comunicación bilingüe con clientes y proveedores",
       ],
-      alt: "Marie Castillo-Hernandez, coordinadora médica de lesiones personales",
+      headline: "Coordinadora Médica de Lesiones Personales",
     },
     {
       id: "milagro-rodriguez-mejia",
@@ -611,7 +611,7 @@ export const es: Content = {
         "Manejo de expedientes médicos y facturación",
         "Preparación de la demanda y apoyo en el acuerdo",
       ],
-      alt: "Milagro Rodriguez Mejia, gerente de casos",
+      headline: "Gerente de Casos",
     },
     {
       id: "nayla-mendez",
@@ -635,7 +635,7 @@ export const es: Content = {
         "Redacción de demandas de acuerdo",
         "Negociación de ofertas y apoyo en los desembolsos",
       ],
-      alt: "Nayla Mendez, coordinadora médica y gerente de casos",
+      headline: "Coordinadora Médica y Gerente de Casos",
     },
     {
       id: "marissa-lopez",
@@ -662,7 +662,7 @@ export const es: Content = {
         "Búsquedas de gravámenes y subrogación",
         "Apoyo en reclamos por daños a la propiedad",
       ],
-      alt: "Marissa Lopez, gerente de casos del equipo de pre-investigación",
+      headline: "Gerente de Casos, Equipo de Pre-Investigación",
     },
     {
       id: "itzel-tapia",
@@ -686,29 +686,83 @@ export const es: Content = {
         "Comunicación bilingüe con los clientes",
         "Programación y clasificación de la primera llamada",
       ],
-      alt: "Itzel Tapia, coordinadora de admisión y recepcionista",
+      headline: "Coordinadora de Admisión y Recepcionista",
     },
   ],
 
   // Reproduced exactly as published on Google, in the language the client wrote.
   reviews: [
     {
-      quote: "Was in an accident and the lawyer was fair",
-      author: "FalconSenpai89",
-      date: "14 de julio de 2026",
-      truncated: false,
+      quote:
+        "This team is dedicated to getting you the best outcome possible! I have now been represented twice by this firm and have been so incredibly grateful for them both times. It\u2019s terrible to need a lawyer, but incredibly important to have the right one! Thank you for everything!",
+      author: "Kim",
+      date: "July 2026",
     },
     {
-      quote: "Great Lawfirm got my business handled quickly as possible an…",
-      author: "Daylon Henry",
-      date: "6 de julio de 2026",
-      truncated: true,
+      quote:
+        "Maria and her staff were extremely helpful throughout this entire process. Got me into physical therapy immediately which really helped during my road to recovery! They kept me updated and made sure all my needs were taken care of!! Even though the five months felt longer it was extremely worth it in the end! Thank you Maria & staff for handling my case professionally & most importantly making sure I was fairly compensated.",
+      author: "TJ R",
+      date: "July 2026",
     },
     {
-      quote: "Great experience! Everything was very quick and efficient did…",
-      author: "Vampy Miau",
-      date: "25 de junio de 2026",
-      truncated: true,
+      quote:
+        "Thank you for taking one of the worst experiences we\u2019ve had as a family and making it one of the best! We\u2019ve never been in a collision and didn\u2019t know where to go but Andrew T Thomas and team worked everything out for us. Thank you so much!! And God bless you and your team!",
+      author: "Jose Angel",
+      date: "June 2026",
+    },
+    {
+      quote:
+        "They were very efficient. After treatment they moved quickly with the insurance company to retrieve the max settlement. Would highly recommend \uD83D\uDC4C\uD83C\uDFFD",
+      author: "BIG B SDS",
+      date: "June 2026",
+    },
+    {
+      quote:
+        "Absolutely amazing staff, talked me through every portion of the process and took care of me in the best possible way.",
+      author: "Andrea Lindsey",
+      date: "June 2026",
+    },
+    {
+      quote:
+        "This is one of the best law firms in all of Houston. The staff here is awesome. Everyone at this office is very knowledgeable. They handle cases here very thoroughly, and efficiently. I will recommend this law firm to anyone!!",
+      author: "Jacoby Hernandez",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "Calling Andre Thomas Law was by far the best decision I could have made. After my accident, I had no idea what to do. Insurance was handling the damage to my car, but what about my injuries? The days I missed work? They were able to help me right away and I was sent to be seen by a medical profesional the next day. From then on Andre\u2019s team took care of everything and kept me informed throughout the whole process. 10/10 would call again!",
+      author: "Aldo Amaya",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "Marie was incredibly knowledgeable and always kept me informed throughout the process, achieving an excellent outcome for my case. She always explained everything clearly, also was very responsive to my concerns, and made me feel confident throughout a difficult situation. I highly recommend The whole Andre Thomas Law firm they are a dedicated group who fought hard for my best interests and delivered great results. 10/10",
+      author: "Gianni Norales",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "This was my first time dealing with an attorney and Andre was really great and professional. They also keep me updated with my case. Highly recommend Andre Thomas Law to anyone that gets involved into an accident. They were very helpful! Than you Maria Hernandez-Castillo for helping me out and keeping me updated.",
+      author: "Reynaldo Martinez",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "Maria and her team handled my first auto accident with perfection! They were all very transparent and professional, and they help with understanding the entire process. The service was great, they\u2019ll treat you like family!",
+      author: "Christian Medina",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "This was my first Accident and I was referred by a friend about Andre Thomas Law. I spoke to Maria and she explained to me what needed to be done A very professional team and everyone there was very helpful in this process. I received more than was expected!! I am very happy of the outcome!!!",
+      author: "Carlos Saldana",
+      date: "September 2025",
+    },
+    {
+      quote:
+        "Marie and Marissa were very helpful. I was able to get the help I needed medically and also financially. Everything they did helped me get the most out of my situation as possible. They are professional and very understanding.",
+      author: "Dinh Pham",
+      date: "September 2025",
     },
   ],
 
@@ -755,6 +809,7 @@ export const es: Content = {
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
     instagram: "Instagram",
+    logoAlt: `${firm.name} — Abogado de Lesiones Personales en Houston`,
     switchLangLabel: "English",
     switchLangAria: "View this site in English",
 
@@ -782,12 +837,29 @@ export const es: Content = {
       dismiss: "Cerrar",
     },
 
-    preloader: { place: "Houston, Texas", est: "Texas y Tennessee" },
+    preloader: {
+      place: "Houston, Texas",
+      est: "Texas y Tennessee",
+      strapline: "Abogado de Lesiones Personales en Houston, TX",
+    },
 
     hero: {
       place: "Houston, Texas",
       licensed: "Con licencia en Texas y Tennessee",
-      titleLines: ["Damos fuerza", "a su voz,"],
+      // Houston's Spanish-speaking market searches "abogado de lesiones
+      // personales", not the English phrase — so this is a real translation,
+      // not the English keyword transliterated.
+      descriptor: "Abogado de Lesiones Personales en Houston, TX",
+      portraitAlt: "Abogado de Lesiones Personales en Houston",
+      // Client words are never translated — quoting someone in a language
+      // they did not use misrepresents them. Rendered with lang="en".
+      quote: "This is one of the best law firms in all of Houston.",
+      quoteAuthor: "Jacoby Hernandez · reseña de Google",
+      titleLines: [
+        "Abogado de Lesiones",
+        "Personales en Houston.",
+        "Damos fuerza a su voz,",
+      ],
       ensuring: "garantizamos",
       lede: "Un exfiscal que hoy representa a los lesionados. Si la negligencia de otra persona le cambió la vida, usted merece un abogado que ha argumentado ante un jurado — y una respuesta honesta sobre en qué posición está.",
       reviewsSuffix: "reseñas en Google",
@@ -953,7 +1025,11 @@ export const es: Content = {
       description:
         "Andre Thomas tiene licencia en Texas y Tennessee. Exfiscal del Condado de Shelby, egresado de la Facultad de Derecho Thurgood Marshall y abogado litigante que representa a los lesionados.",
       eyebrow: "El abogado",
-      titleLines: ["Conozca a Andre Thomas:", "comprometido con la justicia."],
+      titleLines: [
+        "Conozca a Andre Thomas,",
+        "Abogado de Lesiones",
+        "Personales en Houston",
+      ],
       lede: "Con licencia en dos estados. Una carrera que empezó construyendo casos como fiscal y que hoy se dedica a desarmarlos en favor de las personas contra quienes fueron construidos.",
       skylineAlt: "El horizonte del centro de Houston al atardecer",
       portraitAlt: "abogado en",
@@ -974,8 +1050,8 @@ export const es: Content = {
       title: "Áreas de Práctica — Abogado de Lesiones Personales en Houston",
       description:
         "Accidentes de auto y de camión, lesiones laborales e industriales, marítimas y costa afuera, responsabilidad del propietario, productos defectuosos, disputas de seguros, muerte por negligencia y más. Consulta gratis.",
-      eyebrow: "Áreas de práctica",
-      titleLines: ["Dieciséis maneras", "en que una vida se interrumpe."],
+      eyebrow: "",
+      titleLines: ["Áreas de Práctica", "en Houston, TX"],
       lede: "Todas empiezan igual — alguien más fue descuidado y usted es quien carga con las consecuencias. Encuentre la suya abajo, o llame y cuéntenos qué pasó.",
       heroAlt: "Un auto destrozado a la orilla de la carretera entre la niebla de la mañana",
       alsoHandled: "También manejamos",
@@ -989,7 +1065,7 @@ export const es: Content = {
     reviews: {
       title: "Reseñas de Clientes — 4.9 Estrellas en 60 Reseñas de Google",
       description: `Lea lo que dicen los clientes de ${firm.name}. Calificación de ${firm.reviews.rating} estrellas en ${firm.reviews.count} reseñas de Google.`,
-      eyebrow: "Reseñas de clientes",
+      eyebrow: `Reseñas de Clientes — ${firm.shortName}, Houston`,
       titleLines: ["Cómo se siente", "estar bien representado."],
       lede: "Se publican exactamente como las escribieron los clientes.",
       whyEyebrow: "Por qué los clientes se quedan",
@@ -1021,10 +1097,13 @@ export const es: Content = {
     },
 
     team: {
-      title: "Nuestro Equipo",
+      title: "Nuestro Personal | Andre Thomas Law, PLLC | Lesiones Personales en Houston",
       description: `Los abogados y el personal de ${firm.name} — lesiones personales y defensa penal en Houston, Texas. Consulta gratuita, ${firm.phone}.`,
       eyebrow: "Las Personas",
-      titleLines: ["Quiénes llevan", "su caso"],
+      titleLines: [
+        "Nuestros Abogados y Personal",
+        `— ${firm.shortName}, Houston`,
+      ],
       lede: "Un caso no lo lleva un logotipo. Lo lleva el abogado que lo litiga, la asistente legal que arma el expediente y la persona que contesta cuando usted llama. Aquí están.",
       heroAlt: "Abogados y personal de la firma de pie juntos en la oficina",
       attorneysEyebrow: "Abogados",
