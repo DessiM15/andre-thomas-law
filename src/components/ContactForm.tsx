@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { content } from "@/lib/content";
 import { firm } from "@/lib/firm";
+import { DEFAULT_STATE, todayISO, US_STATES } from "@/lib/incident";
 import type { Lang } from "@/lib/i18n";
 import { sendLead, type LeadInput } from "@/lib/lead";
 
@@ -20,6 +21,18 @@ const select = (tone: Tone) =>
   `w-full appearance-none border-0 border-b bg-transparent px-0 py-3 text-[0.98rem] outline-none transition-colors duration-300 ${
     tone === "dark"
       ? "border-ink-200/25 text-paper focus:border-gold-500 [&>option]:bg-ink-900"
+      : "border-paper-edge text-ink-900 focus:border-gold-600"
+  }`;
+
+/**
+ * The native date control, wearing the same underline as everything else.
+ * `color-scheme` is the part that matters on the dark form: without it the
+ * browser paints its own calendar icon near-black on a near-black field.
+ */
+const dateField = (tone: Tone) =>
+  `w-full border-0 border-b bg-transparent px-0 py-3 text-[0.98rem] outline-none transition-colors duration-300 ${
+    tone === "dark"
+      ? "border-ink-200/25 text-paper focus:border-gold-500 [color-scheme:dark]"
       : "border-paper-edge text-ink-900 focus:border-gold-600"
   }`;
 
@@ -43,6 +56,12 @@ export default function ContactForm({
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  // Set after mount rather than at render: the server's idea of "today" is not
+  // the visitor's, and an attribute that differs between the two is a
+  // hydration mismatch. The submit path re-checks the date regardless.
+  const [maxDate, setMaxDate] = useState("");
+  useEffect(() => setMaxDate(todayISO()), []);
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
@@ -63,6 +82,7 @@ export default function ContactForm({
   }
 
   const dark = tone === "dark";
+  const groupLabel = `eyebrow mb-3 block ${dark ? "text-ink-300" : "text-ink-800/55"}`;
 
   if (status === "done") {
     return (
@@ -144,25 +164,24 @@ export default function ContactForm({
 
       <div className="grid gap-9 sm:grid-cols-2">
         <div className="relative">
-          <label
-            htmlFor="when"
-            className={`eyebrow mb-3 block ${dark ? "text-ink-300" : "text-ink-800/55"}`}
-          >
-            {q.when}
+          <label htmlFor="incidentDate" className={groupLabel}>
+            {q.date}
           </label>
-          <select id="when" name="when" defaultValue="" className={select(tone)}>
-            <option value="">{q.whenPlaceholder}</option>
-            {q.whenOptions.map((o) => (
-              <option key={o.key} value={o.key}>{o.label}</option>
-            ))}
-          </select>
+          <input
+            id="incidentDate"
+            name="incidentDate"
+            type="date"
+            required
+            max={maxDate || undefined}
+            className={dateField(tone)}
+          />
+          {errors.incidentDate && (
+            <p className="mt-2 text-xs text-red-500">{errors.incidentDate}</p>
+          )}
         </div>
 
         <div className="relative">
-          <label
-            htmlFor="doctor"
-            className={`eyebrow mb-3 block ${dark ? "text-ink-300" : "text-ink-800/55"}`}
-          >
+          <label htmlFor="doctor" className={groupLabel}>
             {q.doctor}
           </label>
           <select id="doctor" name="doctor" defaultValue="" className={select(tone)}>
@@ -173,6 +192,40 @@ export default function ContactForm({
           </select>
         </div>
       </div>
+
+      {/* Where it happened. Grouped under one heading because the city and the
+          state are one answer, and a fieldset is what says so to a screen
+          reader as well as to the eye. */}
+      <fieldset>
+        <legend className={groupLabel}>{q.where}</legend>
+        <div className="grid gap-9 sm:grid-cols-2">
+          <div className="relative">
+            <input
+              id="city" name="city" type="text" required placeholder=" "
+              autoComplete="address-level2" className={field(tone)}
+            />
+            <label htmlFor="city" className={label(tone)}>{q.city}</label>
+            {errors.city && <p className="mt-2 text-xs text-red-500">{errors.city}</p>}
+          </div>
+
+          <div className="relative">
+            <label htmlFor="state" className="sr-only">{q.state}</label>
+            <select
+              id="state"
+              name="state"
+              defaultValue={DEFAULT_STATE}
+              autoComplete="address-level1"
+              className={select(tone)}
+            >
+              <option value="">{q.statePlaceholder}</option>
+              {US_STATES.map((st) => (
+                <option key={st.code} value={st.code}>{st.name}</option>
+              ))}
+            </select>
+            {errors.state && <p className="mt-2 text-xs text-red-500">{errors.state}</p>}
+          </div>
+        </div>
+      </fieldset>
 
       <div className="relative">
         <textarea

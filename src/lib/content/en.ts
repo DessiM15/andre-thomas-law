@@ -802,14 +802,11 @@ export const en: Content = {
     switchLangAria: "Ver este sitio en español",
 
     qualify: {
-      when: "When did it happen?",
-      whenPlaceholder: "Select a timeframe",
-      whenOptions: [
-        { key: "month", label: "Within the last month" },
-        { key: "6mo", label: "1–6 months ago" },
-        { key: "2yr", label: "6 months to 2 years ago" },
-        { key: "over2yr", label: "More than 2 years ago" },
-      ],
+      where: "Where did it happen?",
+      date: "Date of accident *",
+      city: "City *",
+      state: "State *",
+      statePlaceholder: "Select a state",
       doctor: "Have you seen a doctor?",
       doctorPlaceholder: "Select an answer",
       doctorOptions: [
@@ -916,6 +913,10 @@ export const en: Content = {
       errName: "Please enter your name.",
       errPhone: "Please enter a valid phone number.",
       errEmail: "Please enter a valid email address.",
+      errDate: "Please enter the date of the accident.",
+      errDateFuture: "That date is in the future — please check it.",
+      errCity: "Please enter the city where it happened.",
+      errState: "Please select a state.",
       errLong: "That message is too long.",
       errServer: "Something went wrong. Please call us.",
     },
@@ -982,7 +983,10 @@ export const en: Content = {
         offerNo: "No thanks",
         askName: "Good. What's your name?",
         askPhone: "Thanks. What's the best number to reach you on?",
-        askWhen: "Got it. Roughly when did this happen?",
+        askDate:
+          "Got it. What date did the accident happen? A date like 3/14/2025 is perfect — \"about 6 months ago\" works too.",
+        askLocation: "Thanks. What city and state did it happen in?",
+        askState: "And which state is that in?",
         askDoctor: "And have you seen a doctor about it?",
         askEmail:
           "And an email address, if you'd like a written follow-up. You can skip this.",
@@ -990,6 +994,12 @@ export const en: Content = {
         badName: "Sorry — could you give me your full name?",
         badPhone:
           "That doesn't look like a complete number. Could you include the area code?",
+        badDate:
+          "Sorry — I didn't catch that date. Could you put it as month/day/year, like 3/14/2025?",
+        badFutureDate: "That date is in the future — could you check it for me?",
+        badLocation: "Sorry — which city did it happen in?",
+        badState:
+          "I didn't recognise that state. Could you give me the state name or its two-letter code, like TX?",
         badEmail: "That email doesn't look right — mind checking it?",
         sending: "Sending that over…",
         done:

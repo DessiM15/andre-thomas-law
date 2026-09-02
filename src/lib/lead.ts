@@ -20,6 +20,14 @@
 import { content } from "@/lib/content";
 import { firm } from "@/lib/firm";
 import type { Lang } from "@/lib/i18n";
+import {
+  dateProblem,
+  elapsedLabel,
+  formatIncidentDate,
+  limitationsFlag,
+  locationLabel,
+  normalizeState,
+} from "@/lib/incident";
 
 export const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 
@@ -30,24 +38,15 @@ export const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
  *
  * The visitor answers in their own language but the firm reads the email in
  * English, so the widget stores a stable key and the label is looked up here.
- * `flag` is what actually earns this feature its place: two answers change
- * how urgently a file should be looked at, and saying so in the subject line
- * beats hoping someone reads the whole email.
+ * `flag` is what actually earns this feature its place: an answer that changes
+ * how urgently a file should be looked at belongs in the subject line, not
+ * buried where someone has to read the whole email to find it.
  *
- * The Texas limitations period for personal injury is two years, which is why
- * "more than 2 years ago" is called out. It is a prompt to check, not a
- * conclusion — tolling, discovery, and minority all move that date.
+ * The other flag — the limitations one — is no longer a fixed bucket. Both
+ * channels now collect the accident's actual date, so `limitationsFlag` works
+ * the Texas two-year period out from the day itself and can say how long is
+ * left rather than only that it has run.
  */
-const WHEN_LABELS: Record<string, { label: string; flag?: string }> = {
-  month: { label: "Within the last month" },
-  "6mo": { label: "1-6 months ago" },
-  "2yr": { label: "6 months to 2 years ago" },
-  over2yr: {
-    label: "More than 2 years ago",
-    flag: "OVER 2 YEARS — check limitations before responding",
-  },
-};
-
 const DOCTOR_LABELS: Record<string, { label: string; flag?: string }> = {
   yes: { label: "Yes, has seen a doctor" },
   er: { label: "Went to the ER" },
@@ -63,7 +62,11 @@ export type LeadInput = {
   /** Honeypot. Real people leave it empty. */
   website?: string;
   source?: string;
-  when?: string;
+  /** The day of the accident, as `YYYY-MM-DD`. */
+  incidentDate?: string;
+  city?: string;
+  /** Two-letter state code. */
+  state?: string;
   doctor?: string;
   /** A capture the visitor started and walked away from. */
   partial?: boolean;
@@ -110,6 +113,17 @@ export function validateLead(
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))
       errors.email = t.errEmail;
   }
+
+  // A date the firm cannot trust is worse than no date, because it will be
+  // used to work out the limitations position. A typo'd year in the picker is
+  // easy to make and expensive to believe.
+  const problem = dateProblem(input.incidentDate);
+  if (problem === "future") errors.incidentDate = t.errDateFuture;
+  else if (problem) errors.incidentDate = t.errDate;
+
+  if ((input.city ?? "").trim().length < 2) errors.city = t.errCity;
+  if (!normalizeState(input.state)) errors.state = t.errState;
+
   if (input.message && input.message.length > 4000) errors.message = t.errLong;
 
   return errors;
@@ -136,11 +150,19 @@ export function buildSubmission(
   const phone = (input.phone ?? "").trim();
   const email = (input.email ?? "").trim();
 
-  const whenAnswer = WHEN_LABELS[input.when ?? ""];
+  const incidentDate = (input.incidentDate ?? "").trim();
+  const dateIsUsable = !dateProblem(incidentDate);
   const doctorAnswer = DOCTOR_LABELS[input.doctor ?? ""];
-  const flags = [whenAnswer?.flag, doctorAnswer?.flag].filter(
-    (f): f is string => Boolean(f)
-  );
+  const flags = [
+    dateIsUsable ? limitationsFlag(incidentDate) : undefined,
+    doctorAnswer?.flag,
+  ].filter((f): f is string => Boolean(f));
+
+  // "March 14, 2025 (1 yr 5 mo ago)" — the date and how stale it is, together,
+  // because whoever picks this up is deciding how fast to move on it.
+  const dateLine = dateIsUsable
+    ? `${formatIncidentDate(incidentDate)} (${elapsedLabel(incidentDate)})`
+    : "(not provided)";
 
   // An abandoned capture that already has a name and a number is still a lead
   // worth calling — it just needs to be obvious in the subject line that the
@@ -165,7 +187,8 @@ export function buildSubmission(
     Phone: phone,
     Email: email || "(not provided)",
     Matter: input.matter || "Not specified",
-    When: whenAnswer?.label ?? "(not provided)",
+    "Date of accident": dateLine,
+    Location: locationLabel(input.city, input.state) || "(not provided)",
     Treatment: doctorAnswer?.label ?? "(not provided)",
     ...(flags.length ? { Flags: flags.join(" · ") } : {}),
     Language: lang === "es" ? "Spanish — call back in Spanish" : "English",

@@ -814,14 +814,11 @@ export const es: Content = {
     switchLangAria: "View this site in English",
 
     qualify: {
-      when: "¿Cuándo ocurrió?",
-      whenPlaceholder: "Seleccione un periodo",
-      whenOptions: [
-        { key: "month", label: "En el último mes" },
-        { key: "6mo", label: "Hace 1 a 6 meses" },
-        { key: "2yr", label: "Hace 6 meses a 2 años" },
-        { key: "over2yr", label: "Hace más de 2 años" },
-      ],
+      where: "¿Dónde ocurrió?",
+      date: "Fecha del accidente *",
+      city: "Ciudad *",
+      state: "Estado *",
+      statePlaceholder: "Seleccione un estado",
       doctor: "¿Ha visto a un médico?",
       doctorPlaceholder: "Seleccione una respuesta",
       doctorOptions: [
@@ -930,6 +927,10 @@ export const es: Content = {
       errName: "Por favor escriba su nombre.",
       errPhone: "Por favor escriba un número de teléfono válido.",
       errEmail: "Por favor escriba un correo electrónico válido.",
+      errDate: "Por favor indique la fecha del accidente.",
+      errDateFuture: "Esa fecha está en el futuro — por favor revísela.",
+      errCity: "Por favor escriba la ciudad donde ocurrió.",
+      errState: "Por favor seleccione un estado.",
       errLong: "Ese mensaje es demasiado largo.",
       errServer: "Algo salió mal. Por favor llámenos.",
     },
@@ -993,7 +994,10 @@ export const es: Content = {
         offerNo: "No, gracias",
         askName: "Muy bien. ¿Cuál es su nombre?",
         askPhone: "Gracias. ¿A qué número lo podemos llamar?",
-        askWhen: "Entendido. ¿Aproximadamente cuándo ocurrió?",
+        askDate:
+          "Entendido. ¿Qué día ocurrió el accidente? Una fecha como 3/14/2025 (mes/día/año) es perfecta — \"hace 6 meses\" también sirve.",
+        askLocation: "Gracias. ¿En qué ciudad y estado ocurrió?",
+        askState: "¿Y en qué estado queda?",
         askDoctor: "¿Y ha visto a un médico por esto?",
         askEmail:
           "Y un correo electrónico, si desea respuesta por escrito. Puede omitirlo.",
@@ -1001,6 +1005,12 @@ export const es: Content = {
         badName: "Disculpe — ¿me da su nombre completo?",
         badPhone:
           "Ese número parece incompleto. ¿Puede incluir la clave de área?",
+        badDate:
+          "Disculpe — no entendí esa fecha. ¿Me la puede dar como mes/día/año, por ejemplo 3/14/2025?",
+        badFutureDate: "Esa fecha está en el futuro — ¿la puede revisar?",
+        badLocation: "Disculpe — ¿en qué ciudad ocurrió?",
+        badState:
+          "No reconocí ese estado. ¿Me da el nombre del estado o sus dos letras, por ejemplo TX?",
         badEmail: "Ese correo no parece correcto — ¿lo puede revisar?",
         sending: "Enviando sus datos…",
         done:
