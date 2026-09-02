@@ -6,33 +6,31 @@
  * biographies *are* language-specific and live in `content/en.ts` / `es.ts`,
  * keyed by the `TeamId` below.
  *
- * ─────────────────────────────────────────────────────────────────────────
- * ⚠  PLACEHOLDER CONTENT — NOT FOR PUBLICATION
+ * Every person on this page is real, and every biography was supplied by the
+ * firm. The invented attorneys and staff that stood here during design have
+ * been removed — publishing them would have violated Tex. Disciplinary R.
+ * Prof. Conduct 7.01 and Tenn. Sup. Ct. R. 8, RPC 7.1, both of which prohibit
+ * false or misleading statements about who works at a firm.
  *
- * Only Andre Thomas and Maria Hernandez-Castillo are real. Every other person
- * on this page is invented: the name, the photograph, the credentials, the
- * accolades, and the case history. They exist so the page can be designed and
- * reviewed before real bios are collected.
- *
- * Publishing invented attorneys would violate Tex. Disciplinary R. Prof.
- * Conduct 7.01 and Tenn. Sup. Ct. R. 8, RPC 7.1, both of which prohibit false
- * or misleading statements about a firm's lawyers. While `TEAM_PLACEHOLDER`
- * is true the page is `noindex`, absent from the nav, and absent from the
- * sitemap. Flip it to `false` only once every entry below is a real person
- * with verified credentials.
- * ─────────────────────────────────────────────────────────────────────────
+ * Two people are still waiting on photographs. Rather than hold their bios
+ * back, they render as a monogram (see `Portrait` in `components/Portrait`),
+ * which is honest about the gap instead of borrowing a stock face. Drop a
+ * headshot into `public/team/` and set `image` to publish it.
  */
 
-export const TEAM_PLACEHOLDER = true;
+/** Was true while the roster was invented. Kept as the switch that gates
+ *  `noindex`, the nav entry, and the sitemap, in case the page ever goes
+ *  back into draft. */
+export const TEAM_PLACEHOLDER = false;
 
 export type TeamId =
   | "andre-thomas"
-  | "rachel-kim"
-  | "michael-sorensen"
-  | "nadia-haddad"
   | "maria-hernandez-castillo"
-  | "amara-whitfield"
-  | "tyler-nguyen";
+  | "milagro-rodriguez-mejia"
+  | "nayla-mendez"
+  | "marie-castillo-hernandez"
+  | "marissa-lopez"
+  | "itzel-tapia";
 
 export type TeamKind = "attorney" | "staff";
 
@@ -41,24 +39,21 @@ export type TeamPerson = {
   id: TeamId;
   name: string;
   kind: TeamKind;
-  image: string;
+  /** Omitted while someone's headshot is outstanding; they render as a monogram. */
+  image?: string;
   /** `object-position` for the headshot, when centre isn't the right crop. */
   focal?: string;
-  /** False only for the two real people. Drives the review banner. */
-  invented: boolean;
-  /**
-   * Whether the biography copy is factual. Maria is a real person whose bio
-   * is still placeholder, so this is a separate axis from `invented`.
-   */
-  bioVerified: boolean;
-  /** Photograph attribution, so the credits are traceable when these get replaced. */
-  credit?: string;
+  /** Initials for the monogram fallback. Only read when `image` is absent —
+   *  set by hand because a double-barrelled surname should still give two
+   *  letters: "Marie Castillo-Hernandez" is MC, not MCH. */
+  initials?: string;
 };
 
 /**
- * Display order: the founding attorney, then attorneys, then the staff who
- * carry the files day to day. Not alphabetical — seniority is the signal a
- * visitor is actually scanning for.
+ * Display order: the founding attorney, then the staff who carry the files day
+ * to day, by years in the field — 25, 10, 9, 8, 7, then Itzel, whose figure
+ * the firm has not given. Not alphabetical: a visitor scanning this page is
+ * reading for seniority and for who they are likely to speak to.
  */
 export const team: TeamPerson[] = [
   {
@@ -66,61 +61,42 @@ export const team: TeamPerson[] = [
     name: "Andre Thomas",
     kind: "attorney",
     image: "/team/andre-thomas.webp",
-    invented: false,
-    bioVerified: true,
-  },
-  {
-    id: "rachel-kim",
-    name: "Rachel Kim",
-    kind: "attorney",
-    image: "/team/rachel-kim.webp",
-    invented: true,
-    bioVerified: false,
-    credit: "Unsplash — photo-1581065178047",
-  },
-  {
-    id: "michael-sorensen",
-    name: "Michael Sorensen",
-    kind: "attorney",
-    image: "/team/michael-sorensen.webp",
-    invented: true,
-    bioVerified: false,
-    credit: "Unsplash — photo-1585846416120",
-  },
-  {
-    id: "nadia-haddad",
-    name: "Nadia Haddad",
-    kind: "attorney",
-    image: "/team/nadia-haddad.webp",
-    invented: true,
-    bioVerified: false,
-    credit: "Unsplash — photo-1666867540898",
   },
   {
     id: "maria-hernandez-castillo",
     name: "Maria Hernandez-Castillo",
     kind: "staff",
     image: "/team/maria-hernandez-castillo.webp",
-    invented: false,
-    bioVerified: false,
   },
   {
-    id: "amara-whitfield",
-    name: "Amara Whitfield",
+    id: "marie-castillo-hernandez",
+    name: "Marie Castillo-Hernandez",
     kind: "staff",
-    image: "/team/amara-whitfield.webp",
-    invented: true,
-    bioVerified: false,
-    credit: "Unsplash — photo-1573496527892",
+    initials: "MC",
   },
   {
-    id: "tyler-nguyen",
-    name: "Tyler Nguyen",
+    id: "nayla-mendez",
+    name: "Nayla Mendez",
     kind: "staff",
-    image: "/team/tyler-nguyen.webp",
-    invented: true,
-    bioVerified: false,
-    credit: "Unsplash — photo-1622902141397",
+    image: "/team/nayla-mendez.webp",
+  },
+  {
+    id: "milagro-rodriguez-mejia",
+    name: "Milagro Rodriguez Mejia",
+    kind: "staff",
+    image: "/team/milagro-rodriguez-mejia.webp",
+  },
+  {
+    id: "marissa-lopez",
+    name: "Marissa Lopez",
+    kind: "staff",
+    image: "/team/marissa-lopez.webp",
+  },
+  {
+    id: "itzel-tapia",
+    name: "Itzel Tapia",
+    kind: "staff",
+    initials: "IT",
   },
 ];
 

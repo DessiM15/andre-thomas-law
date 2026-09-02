@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import CTABand from "@/components/CTABand";
 import DraftNotice from "@/components/DraftNotice";
 import PageHeader from "@/components/PageHeader";
+import Portrait from "@/components/Portrait";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { firm, fullAddress, SITE_URL } from "@/lib/firm";
@@ -39,7 +39,7 @@ function PersonSchema({
     "@type": "Person",
     name: person.name,
     jobTitle: bio.role,
-    image: `${SITE_URL}${person.image}`,
+    ...(person.image ? { image: `${SITE_URL}${person.image}` } : {}),
     url: `${SITE_URL}${teamPath(person.id, lang)}`,
     description: bio.preview,
     knowsAbout: bio.focus,
@@ -99,14 +99,12 @@ export default function TeamMemberView({
           <Reveal className="md:col-span-5">
             <div className="md:sticky md:top-28">
               <div className="relative aspect-square w-full overflow-hidden">
-                <Image
-                  src={person.image}
+                <Portrait
+                  person={person}
                   alt={bio.alt}
-                  fill
-                  priority
                   sizes="(max-width: 768px) 100vw, 40vw"
-                  className="object-cover"
-                  style={person.focal ? { objectPosition: person.focal } : undefined}
+                  priority
+                  monogramClass="text-[5rem] md:text-[7rem]"
                 />
                 <div className="pointer-events-none absolute inset-0 border border-gold-500/25" />
               </div>
@@ -212,15 +210,12 @@ export default function TeamMemberView({
               <Reveal as="li" key={o.person.id} delay={i * 0.05}>
                 <Link href={teamPath(o.person.id, lang)} className="group block">
                   <div className="relative aspect-square w-full overflow-hidden bg-paper">
-                    <Image
-                      src={o.person.image}
+                    <Portrait
+                      person={o.person}
                       alt={o.bio.alt}
-                      fill
                       sizes="(max-width: 640px) 33vw, 16vw"
-                      className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
-                      style={
-                        o.person.focal ? { objectPosition: o.person.focal } : undefined
-                      }
+                      zoomOnHover
+                      monogramClass="text-[1.4rem]"
                     />
                     <div className="pointer-events-none absolute inset-0 border border-ink-900/10 transition-colors duration-500 group-hover:border-gold-500/50" />
                   </div>
