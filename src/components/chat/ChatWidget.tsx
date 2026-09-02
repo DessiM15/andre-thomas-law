@@ -8,6 +8,12 @@ import { getBundle } from "@/lib/chat/kb";
 import type { Reply } from "@/lib/chat/engine";
 import { content } from "@/lib/content";
 import { firm } from "@/lib/firm";
+import {
+  dateProblem,
+  normalizeState,
+  parseIncidentDate,
+  parseLocation,
+} from "@/lib/incident";
 import type { Lang } from "@/lib/i18n";
 import { beaconLead, sendLead } from "@/lib/lead";
 
@@ -33,7 +39,10 @@ type LeadStep =
   | "offered"
   | "name"
   | "phone"
-  | "when"
+  | "date"
+  | "location"
+  /** Only entered when the visitor gave a city but no state. */
+  | "state"
   | "doctor"
   | "email"
   | "sending"
@@ -42,7 +51,15 @@ type LeadStep =
 /** Contact details come before the screening questions on purpose: if the
  *  visitor drops out halfway, a name and a number is still a lead, and an
  *  answer about treatment without one is nothing. */
-const CAPTURE_STEPS: LeadStep[] = ["name", "phone", "when", "doctor", "email"];
+const CAPTURE_STEPS: LeadStep[] = [
+  "name",
+  "phone",
+  "date",
+  "location",
+  "state",
+  "doctor",
+  "email",
+];
 
 /** How long a half-finished capture sits before it is sent anyway. */
 const ABANDON_MS = 90_000;
@@ -69,7 +86,15 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
   // Refs rather than state: `send` reads these from inside async callbacks,
   // where a state value captured at render time would be a turn stale.
   const step = useRef<LeadStep>("idle");
-  const lead = useRef({ name: "", phone: "", email: "", when: "", doctor: "" });
+  const lead = useRef({
+    name: "",
+    phone: "",
+    email: "",
+    incidentDate: "",
+    city: "",
+    state: "",
+    doctor: "",
+  });
   const turns = useRef(0);
   /** Set the moment anything is sent, so a partial can never double up. */
   const sent = useRef(false);
@@ -264,16 +289,51 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
           return true;
         }
         lead.current.phone = text;
-        step.current = "when";
+        step.current = "date";
         touch();
-        botSay(
-          L.askWhen,
-          Q.whenOptions.map((o) => o.label)
-        );
+        botSay(L.askDate);
         return true;
 
-      case "when":
-        lead.current.when = keyFor(Q.whenOptions, text);
+      /** The form has a date picker; here the visitor types, so read
+       *  generously and only push back when there is genuinely nothing to
+       *  read. Being pedantic about format at this point in a conversation is
+       *  how a lead becomes a closed tab. */
+      case "date": {
+        const parsed = parseIncidentDate(text);
+        const problem = parsed ? dateProblem(parsed) : "unparseable";
+        if (problem === "future") {
+          botSay(L.badFutureDate);
+          return true;
+        }
+        if (problem) {
+          botSay(L.badDate);
+          return true;
+        }
+        lead.current.incidentDate = parsed;
+        step.current = "location";
+        touch();
+        botSay(L.askLocation);
+        return true;
+      }
+
+      /** "Houston, TX" answers both halves at once, which is what most people
+       *  type. Each half is kept as it arrives so a follow-up question never
+       *  throws away the part they already got right. */
+      case "location": {
+        const { city, state } = parseLocation(text);
+        if (city) lead.current.city = city;
+        if (state) lead.current.state = state;
+
+        if (lead.current.city.length < 2) {
+          botSay(L.badLocation);
+          return true;
+        }
+        if (!lead.current.state) {
+          step.current = "state";
+          touch();
+          botSay(L.askState);
+          return true;
+        }
         step.current = "doctor";
         touch();
         botSay(
@@ -281,6 +341,23 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
           Q.doctorOptions.map((o) => o.label)
         );
         return true;
+      }
+
+      case "state": {
+        const state = normalizeState(text) || parseLocation(text).state;
+        if (!state) {
+          botSay(L.badState);
+          return true;
+        }
+        lead.current.state = state;
+        step.current = "doctor";
+        touch();
+        botSay(
+          L.askDoctor,
+          Q.doctorOptions.map((o) => o.label)
+        );
+        return true;
+      }
 
       case "doctor":
         lead.current.doctor = keyFor(Q.doctorOptions, text);

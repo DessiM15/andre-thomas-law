@@ -126,9 +126,12 @@ export type Content = {
      * email in English however the visitor answered.
      */
     qualify: {
-      when: string;
-      whenPlaceholder: string;
-      whenOptions: { key: string; label: string }[];
+      /** Group heading over the city and state pair. */
+      where: string;
+      date: string;
+      city: string;
+      state: string;
+      statePlaceholder: string;
       doctor: string;
       doctorPlaceholder: string;
       doctorOptions: { key: string; label: string }[];
@@ -208,6 +211,10 @@ export type Content = {
       errName: string;
       errPhone: string;
       errEmail: string;
+      errDate: string;
+      errDateFuture: string;
+      errCity: string;
+      errState: string;
       errLong: string;
       errServer: string;
     };
@@ -273,12 +280,19 @@ export type Content = {
         offerNo: string;
         askName: string;
         askPhone: string;
-        askWhen: string;
+        askDate: string;
+        askLocation: string;
+        /** Only asked when the visitor named a city but no state. */
+        askState: string;
         askDoctor: string;
         askEmail: string;
         skip: string;
         badName: string;
         badPhone: string;
+        badDate: string;
+        badFutureDate: string;
+        badLocation: string;
+        badState: string;
         badEmail: string;
         sending: string;
         done: string;
