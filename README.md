@@ -22,22 +22,37 @@ Framer Motion · Bodoni Moda + Inter via `next/font`.
 | `src/lib/chat/kb.ts` | Chat assistant knowledge base + guardrail patterns. |
 | `src/lib/chat/engine.ts` | Retrieval and guardrail logic. |
 | `src/app/api/chat/route.ts` | Chat endpoint — the swap point for a real LLM. |
-| `src/app/api/contact/route.ts` | Lead intake. |
+| `src/lib/lead.ts` | Lead intake — screening, validation, and the Web3Forms submission. Runs in the browser. |
 | `src/components/` | Shared UI. `home/` holds homepage-only sections. |
 
 ## ⚠️ Before this goes live
 
-**1. Lead delivery is not wired up.** `src/app/api/contact/route.ts` validates
-and logs submissions but sends no email unless these are set:
+**1. Lead delivery needs its access key.** `src/lib/lead.ts` sends every lead
+— web form and chat widget alike — to [Web3Forms](https://web3forms.com). Set
+in the Vercel project settings:
 
 ```
-RESEND_API_KEY=...
-LEAD_TO=AT@andrethomaslaw.com
-LEAD_FROM=leads@andrethomaslaw.com
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=...
 ```
 
-Without them the visitor still sees a success message. Wire this up or swap in
-whatever handler the firm already uses.
+This runs in the **browser**, not on the server, so the key is visible in page
+source. That is Web3Forms' intended model — it is an *access key*, not a
+secret — but it means two things are not optional:
+
+1. **Lock the key to the domain.** Web3Forms dashboard → Settings → Domain
+   Restriction → `andrethomaslaw.com`. Without this, anyone who views source
+   can post to the firm's inbox from anywhere.
+2. **Leave their spam filtering on.**
+
+It is browser-side because Web3Forms' free plan refuses server-side
+submissions outright — *"Use our API in client side ... Pro plan is
+required."* A verified fact, not a guess: an all-zeros fake key returns that
+same error, so the rejection happens before the key is ever examined. Upgrading
+to their Pro plan is what would allow moving this back behind the server.
+
+Without the key the form returns a visible error rather than a false success —
+a misconfigured deploy should fail loudly, not swallow enquiries while showing
+"Message received."
 
 **2. Confirm the review excerpts.** Two of the three reviews in `site.ts` are
 truncated exactly as Google displays them. Pull the full text before launch.
