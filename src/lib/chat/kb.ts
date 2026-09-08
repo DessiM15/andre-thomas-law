@@ -445,8 +445,6 @@ function practiceEntries(lang: Lang): Entry[] {
 
 /** Everything the engine needs to answer in one language. */
 export function getBundle(lang: Lang): Bundle {
-  const contactHref = path("contact", lang);
-
   if (lang === "es") {
     return {
       entries: [...coreEntries("es"), ...practiceEntries("es")],
