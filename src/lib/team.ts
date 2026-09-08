@@ -12,10 +12,10 @@
  * Prof. Conduct 7.01 and Tenn. Sup. Ct. R. 8, RPC 7.1, both of which prohibit
  * false or misleading statements about who works at a firm.
  *
- * Two people are still waiting on photographs. Rather than hold their bios
- * back, they render as a monogram (see `Portrait` in `components/Portrait`),
- * which is honest about the gap instead of borrowing a stock face. Drop a
- * headshot into `public/team/` and set `image` to publish it.
+ * Everyone now has a photograph. Anyone added without one renders as a
+ * monogram (see `Portrait` in `components/Portrait`), which is honest about
+ * the gap instead of borrowing a stock face. Drop a headshot into
+ * `public/team/` and set `image` to publish it.
  */
 
 /** Was true while the roster was invented. Kept as the switch that gates
@@ -55,7 +55,7 @@ export type TeamId =
   | "maria-hernandez-castillo"
   | "milagro-rodriguez-mejia"
   | "nayla-mendez"
-  | "marie-castillo-hernandez"
+  | "marie-hernandez"
   | "marissa-lopez"
   | "itzel-tapia";
 
@@ -72,7 +72,7 @@ export type TeamPerson = {
   focal?: string;
   /** Initials for the monogram fallback. Only read when `image` is absent —
    *  set by hand because a double-barrelled surname should still give two
-   *  letters: "Marie Castillo-Hernandez" is MC, not MCH. */
+   *  letters: "Maria Hernandez-Castillo" would be MH, not MHC. */
   initials?: string;
 };
 
@@ -96,10 +96,10 @@ export const team: TeamPerson[] = [
     image: "/team/maria-hernandez-castillo.webp",
   },
   {
-    id: "marie-castillo-hernandez",
-    name: "Marie Castillo-Hernandez",
+    id: "marie-hernandez",
+    name: "Marie Hernandez",
     kind: "staff",
-    initials: "MC",
+    image: "/team/marie-hernandez.webp",
   },
   {
     id: "nayla-mendez",
@@ -123,7 +123,7 @@ export const team: TeamPerson[] = [
     id: "itzel-tapia",
     name: "Itzel Tapia",
     kind: "staff",
-    initials: "IT",
+    image: "/team/itzel-tapia.webp",
   },
 ];
 
