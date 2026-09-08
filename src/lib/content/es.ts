@@ -553,20 +553,20 @@ export const es: Content = {
       headline: "Asistente Legal Sénior y Gerente de Oficina",
     },
     {
-      id: "marie-castillo-hernandez",
-      role: "Coordinadora Médica de Lesiones Personales",
+      id: "marie-hernandez",
+      role: "Gerente de Casos",
       credential: "Bilingüe — inglés y español · 10 años de experiencia",
       preview:
         "Diez años haciendo de puente entre los clientes, el equipo legal y sus médicos, para que el tratamiento sea un plan y no una serie de citas que nadie está siguiendo.",
       bio: [
-        "Marie Castillo-Hernandez aporta 10 años de experiencia como Coordinadora Médica de Lesiones Personales, dedicada a guiar a los clientes en cada paso de su recuperación. Bilingüe en inglés y español, desempeña un papel fundamental al cerrar la brecha entre los clientes, los equipos legales y los proveedores de salud, asegurando que cada persona reciba un plan de tratamiento integral y sin interrupciones, adaptado a su recuperación.",
+        "Marie Hernandez aporta 10 años de experiencia como Gerente de Casos, dedicada a guiar a los clientes en cada paso de su recuperación. Bilingüe en inglés y español, desempeña un papel fundamental al cerrar la brecha entre los clientes, los equipos legales y los proveedores de salud, asegurando que cada persona reciba un plan de tratamiento integral y sin interrupciones, adaptado a su recuperación.",
         "Con una atención meticulosa al detalle, Marie maneja los horarios de tratamiento, supervisa la documentación médica y ofrece a los clientes una orientación clara y compasiva mientras atraviesan su proceso de salud. Su dedicación al bienestar del cliente, unida a su capacidad de comunicarse eficazmente en ambos idiomas, asegura que cada persona reciba el más alto nivel de atención, con la mirada puesta tanto en su recuperación física como emocional.",
         "Ese cuidado es exactamente lo que la hace un activo para este equipo, y parte de lo que hace de Andre Thomas Law, PLLC la firma que es.",
       ],
       highlights: [
         {
           label: "Experiencia",
-          value: "10 años como coordinadora médica de lesiones personales",
+          value: "10 años como gerente de casos",
         },
         { label: "Idiomas", value: "Inglés y español" },
         {
@@ -580,7 +580,7 @@ export const es: Content = {
         "Orientación al cliente durante la recuperación",
         "Comunicación bilingüe con clientes y proveedores",
       ],
-      headline: "Coordinadora Médica de Lesiones Personales",
+      headline: "Gerente de Casos",
     },
     {
       id: "milagro-rodriguez-mejia",

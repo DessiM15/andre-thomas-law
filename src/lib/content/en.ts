@@ -542,20 +542,20 @@ export const en: Content = {
       headline: "Senior Paralegal & Office Manager",
     },
     {
-      id: "marie-castillo-hernandez",
-      role: "Personal Injury Medical Coordinator",
+      id: "marie-hernandez",
+      role: "Case Manager",
       credential: "Bilingual — English and Spanish · 10 years' experience",
       preview:
         "Ten years spent standing between clients, the legal team, and their doctors, so that treatment is a plan rather than a series of appointments nobody is tracking.",
       bio: [
-        "Marie Castillo-Hernandez brings 10 years of experience as a Personal Injury Medical Coordinator, dedicated to guiding clients through every step of their recovery journey. Bilingual in English and Spanish, she plays a pivotal role in bridging the gap between clients, legal teams, and healthcare providers, ensuring every individual receives a seamless, comprehensive treatment plan tailored to their recovery.",
+        "Marie Hernandez brings 10 years of experience as a Case Manager, dedicated to guiding clients through every step of their recovery journey. Bilingual in English and Spanish, she plays a pivotal role in bridging the gap between clients, legal teams, and healthcare providers, ensuring every individual receives a seamless, comprehensive treatment plan tailored to their recovery.",
         "With meticulous attention to detail, Marie manages treatment schedules, oversees medical documentation, and provides compassionate, clear guidance to clients as they navigate their health journey. Her dedication to client well-being, paired with her ability to communicate effectively across languages, ensures that each person receives the highest standard of care while focusing on both their physical and emotional recovery.",
         "That care is exactly what makes her an asset to this team, and part of what makes Andre Thomas Law, PLLC the firm it is.",
       ],
       highlights: [
         {
           label: "Experience",
-          value: "10 years as a personal injury medical coordinator",
+          value: "10 years as a case manager",
         },
         { label: "Languages", value: "English and Spanish" },
         {
@@ -569,7 +569,7 @@ export const en: Content = {
         "Client guidance through the recovery process",
         "Bilingual communication with clients and providers",
       ],
-      headline: "Personal Injury Medical Coordinator",
+      headline: "Case Manager",
     },
     {
       id: "milagro-rodriguez-mejia",
