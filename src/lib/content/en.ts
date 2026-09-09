@@ -517,17 +517,18 @@ export const en: Content = {
     {
       id: "maria-hernandez-castillo",
       role: "Senior Paralegal & Office Manager",
-      credential: "25 years in personal injury practice",
+      credential: "Bilingual — English and Spanish · 25 years in personal injury practice",
       preview:
         "Twenty-five years of files carried from intake to final resolution. Maria runs the office as well as the caseload, and she is the reason so little ever has to be reconstructed under deadline.",
       bio: [
-        "Maria Hernandez-Castillo brings 25 years of experience as a Senior Paralegal, skillfully managing files from initial intake through final resolution. Her extensive knowledge and attention to detail ensure that every case is handled with precision and care throughout its entire lifecycle.",
+        "Maria Hernandez-Castillo brings 25 years of experience as a Senior Paralegal, skillfully managing files from initial intake through final resolution. Her extensive knowledge and attention to detail ensure that every case is handled with precision and care throughout its entire lifecycle. Bilingual in English and Spanish, she works with clients in whichever language they are most comfortable.",
         "Maria also wears several hats within the firm, serving as Office Manager in addition to her role as Senior Paralegal. She genuinely loves helping others and consistently goes above and beyond to ensure clients receive the compensation they deserve.",
         "Her depth of experience, versatility, and steady, comprehensive approach make her an invaluable asset to the firm — one of the people who make Andre Thomas Law, PLLC the firm it is.",
       ],
       highlights: [
         { label: "Experience", value: "25 years as a paralegal" },
         { label: "Role", value: "Senior Paralegal and Office Manager" },
+        { label: "Languages", value: "English and Spanish" },
         {
           label: "Scope",
           value: "Files managed from initial intake through final resolution",
@@ -538,8 +539,32 @@ export const en: Content = {
         "Medical records and billing collection",
         "Demand package preparation",
         "Office management and firm operations",
+        "Bilingual client communication",
       ],
       headline: "Senior Paralegal & Office Manager",
+    },
+    {
+      id: "guillermo-hernandez",
+      role: "Paralegal",
+      credential: "Bilingual — English and Spanish · 15 years in personal injury",
+      preview:
+        "Fifteen years of personal injury work, much of it at the negotiating table. Guillermo carries clients through the settlement process in English or Spanish, and works the offers alongside the attorneys.",
+      bio: [
+        "Guillermo Hernandez brings 15 years of personal injury experience as a Paralegal, playing a key role in supporting clients throughout the negotiation and settlement process. Bilingual in English and Spanish, he effectively communicates with a diverse range of clients, ensuring clear understanding at every stage of their case.",
+        "Guillermo assists with negotiating settlement offers and works closely with attorneys to help clients secure the compensation they deserve. His extensive experience and bilingual communication skills make him a valuable asset to the firm — and part of what makes Andre Thomas Law, PLLC the firm it is.",
+      ],
+      highlights: [
+        { label: "Experience", value: "15 years in personal injury" },
+        { label: "Languages", value: "English and Spanish" },
+        { label: "Focus", value: "Settlement negotiation and client support" },
+      ],
+      focus: [
+        "Negotiating settlement offers",
+        "Client support through negotiation and settlement",
+        "Working with the attorneys on case resolution",
+        "Bilingual client communication",
+      ],
+      headline: "Paralegal",
     },
     {
       id: "marie-hernandez",

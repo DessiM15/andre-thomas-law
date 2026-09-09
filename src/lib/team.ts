@@ -53,6 +53,7 @@ if (TEAM_PLACEHOLDER && !SHOW_DRAFT_BANNER) {
 export type TeamId =
   | "andre-thomas"
   | "maria-hernandez-castillo"
+  | "guillermo-hernandez"
   | "milagro-rodriguez-mejia"
   | "nayla-mendez"
   | "marie-hernandez"
@@ -78,9 +79,9 @@ export type TeamPerson = {
 
 /**
  * Display order: the founding attorney, then the staff who carry the files day
- * to day, by years in the field — 25, 10, 9, 8, 7, then Itzel, whose figure
- * the firm has not given. Not alphabetical: a visitor scanning this page is
- * reading for seniority and for who they are likely to speak to.
+ * to day, by years in the field — 25, 15, 10, 9, 8, 7, then Itzel, whose
+ * figure the firm has not given. Not alphabetical: a visitor scanning this
+ * page is reading for seniority and for who they are likely to speak to.
  */
 export const team: TeamPerson[] = [
   {
@@ -94,6 +95,12 @@ export const team: TeamPerson[] = [
     name: "Maria Hernandez-Castillo",
     kind: "staff",
     image: "/team/maria-hernandez-castillo.webp",
+  },
+  {
+    id: "guillermo-hernandez",
+    name: "Guillermo Hernandez",
+    kind: "staff",
+    image: "/team/guillermo-hernandez.webp",
   },
   {
     id: "marie-hernandez",
