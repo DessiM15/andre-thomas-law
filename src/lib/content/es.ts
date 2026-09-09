@@ -528,17 +528,18 @@ export const es: Content = {
     {
       id: "maria-hernandez-castillo",
       role: "Asistente Legal Sénior y Gerente de Oficina",
-      credential: "25 años en la práctica de lesiones personales",
+      credential: "Bilingüe — inglés y español · 25 años en la práctica de lesiones personales",
       preview:
         "Veinticinco años llevando expedientes desde la admisión hasta la resolución final. Maria dirige la oficina además de los casos, y es la razón por la que casi nada tiene que rehacerse a última hora.",
       bio: [
-        "Maria Hernandez-Castillo aporta 25 años de experiencia como Asistente Legal Sénior, manejando con destreza los expedientes desde la admisión inicial hasta la resolución final. Su amplio conocimiento y su atención al detalle aseguran que cada caso se maneje con precisión y cuidado durante todo su ciclo de vida.",
+        "Maria Hernandez-Castillo aporta 25 años de experiencia como Asistente Legal Sénior, manejando con destreza los expedientes desde la admisión inicial hasta la resolución final. Su amplio conocimiento y su atención al detalle aseguran que cada caso se maneje con precisión y cuidado durante todo su ciclo de vida. Bilingüe en inglés y español, atiende a los clientes en el idioma en el que se sientan más cómodos.",
         "Maria también desempeña varias funciones dentro de la firma, sirviendo como Gerente de Oficina además de su papel como Asistente Legal Sénior. Le encanta genuinamente ayudar a los demás y constantemente va más allá para asegurar que los clientes reciban la compensación que merecen.",
         "Su profundidad de experiencia, su versatilidad y su enfoque constante e integral la convierten en un activo invaluable para la firma — una de las personas que hacen de Andre Thomas Law, PLLC la firma que es.",
       ],
       highlights: [
         { label: "Experiencia", value: "25 años como asistente legal" },
         { label: "Función", value: "Asistente Legal Sénior y Gerente de Oficina" },
+        { label: "Idiomas", value: "Inglés y español" },
         {
           label: "Alcance",
           value: "Expedientes manejados desde la admisión inicial hasta la resolución final",
@@ -549,8 +550,32 @@ export const es: Content = {
         "Recopilación de expedientes médicos y facturación",
         "Preparación del paquete de demanda",
         "Gerencia de oficina y operaciones de la firma",
+        "Comunicación bilingüe con los clientes",
       ],
       headline: "Asistente Legal Sénior y Gerente de Oficina",
+    },
+    {
+      id: "guillermo-hernandez",
+      role: "Asistente Legal",
+      credential: "Bilingüe — inglés y español · 15 años en lesiones personales",
+      preview:
+        "Quince años en lesiones personales, buena parte de ellos en la mesa de negociación. Guillermo acompaña a los clientes durante el proceso de acuerdo, en inglés o en español, y trabaja las ofertas junto a los abogados.",
+      bio: [
+        "Guillermo Hernandez aporta 15 años de experiencia en lesiones personales como Asistente Legal, desempeñando un papel clave en el apoyo a los clientes durante todo el proceso de negociación y acuerdo. Bilingüe en inglés y español, se comunica eficazmente con una clientela diversa, asegurando una comprensión clara en cada etapa de su caso.",
+        "Guillermo asiste en la negociación de las ofertas de acuerdo y trabaja de cerca con los abogados para ayudar a los clientes a obtener la compensación que merecen. Su amplia experiencia y su capacidad de comunicación bilingüe lo convierten en un activo valioso para la firma — y en parte de lo que hace de Andre Thomas Law, PLLC la firma que es.",
+      ],
+      highlights: [
+        { label: "Experiencia", value: "15 años en lesiones personales" },
+        { label: "Idiomas", value: "Inglés y español" },
+        { label: "Enfoque", value: "Negociación de acuerdos y apoyo al cliente" },
+      ],
+      focus: [
+        "Negociación de ofertas de acuerdo",
+        "Acompañamiento al cliente durante la negociación y el acuerdo",
+        "Trabajo con los abogados en la resolución del caso",
+        "Comunicación bilingüe con los clientes",
+      ],
+      headline: "Asistente Legal",
     },
     {
       id: "marie-hernandez",

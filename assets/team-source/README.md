@@ -11,6 +11,7 @@ redone without asking anyone to dig out the file again.
 | `marissa-lopez-signature.png` | `public/team/marissa-lopez.webp` | **Email signature, not a headshot.** The embedded photo is only 193×202, cut out and upscaled to 800. Softest of the six. Replace with the original. |
 | `marie-hernandez-signature.png` | `public/team/marie-hernandez.webp` | **Email signature, not a headshot.** The embedded photo is 259×258 at +44+53, cut out and upscaled to 800. Soft. Replace with the original. The signature also gave her name ("Marie Hernandez") and title ("Case Manager"), which replaced "Marie Castillo-Hernandez / Personal Injury Medical Coordinator" on 2026-09-08. |
 | `itzel-tapia.png` | `public/team/itzel-tapia.webp` | 1103×1426 original. Cropped to 1000×1000 at +50+20, then scaled to 800. |
+| `guillermo-hernandez.jpg` | `public/team/guillermo-hernandez.webp` | 1013×1841 original, full length. Cropped to 640×640 at +186+0 (head and shoulders), then scaled to 800. |
 
 ## Adding someone
 
