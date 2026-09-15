@@ -27,7 +27,7 @@ const andreParrafos = [
 export const es: Content = {
   tagline: "Damos Fuerza a Su Voz, Garantizamos Justicia",
   subTagline: "Un Defensor Compasivo de la Justicia",
-  hours: "Lunes – Viernes · 9:00 am – 5:00 pm",
+  hours: "Lunes – Viernes · 8:00 am – 5:00 pm",
 
   heroWords: ["justicia", "recuperación", "dignidad", "respuestas"],
 
@@ -61,7 +61,7 @@ export const es: Content = {
     ],
     notableTrials: [
       { caption: "Estado de Tennessee vs. Billy Ray Turner" },
-      { caption: "Estado de Tennessee vs. Tedarrius Bean" },
+      { caption: "Estados Unidos vs. Tedarrius Bean" },
     ],
   },
 
@@ -80,7 +80,7 @@ export const es: Content = {
     {
       n: "02",
       title: "Experiencia y conocimiento",
-      body: "La especialización de Andre Thomas en lesiones personales refleja su dominio de un campo complejo. Su trabajo se hace evidente en casos como Estado de TN vs. Billy Ray Turner y Estado de TN vs. Tedarrius Bean. Casos así le han dado la reputación de aportar la dedicación y el criterio jurídico necesarios para conseguir justicia para sus clientes.",
+      body: "La especialización de Andre Thomas en lesiones personales refleja su dominio de un campo complejo. Su trabajo se hace evidente en casos como Estado de TN vs. Billy Ray Turner y Estados Unidos vs. Tedarrius Bean. Casos así le han dado la reputación de aportar la dedicación y el criterio jurídico necesarios para conseguir justicia para sus clientes.",
       alt: "La fachada con columnas y las escalinatas de un juzgado del condado",
     },
     {
@@ -514,7 +514,7 @@ export const es: Content = {
         {
           label: "Juicios notables",
           value:
-            "Estado de Tennessee v. Billy Ray Turner · Estado de Tennessee v. Tedarrius Bean",
+            "Estado de Tennessee v. Billy Ray Turner · Estados Unidos v. Tedarrius Bean",
         },
       ],
       focus: [

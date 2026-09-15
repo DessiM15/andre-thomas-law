@@ -28,7 +28,7 @@ export const firm = {
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=13201+Northwest+Freeway+Suite+485+Houston+TX+77040",
 
-  hoursSchema: "Mo-Fr 09:00-17:00",
+  hoursSchema: "Mo-Fr 08:00-17:00",
 
   barAdmissions: ["Texas", "Tennessee"],
 

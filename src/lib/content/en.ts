@@ -16,7 +16,7 @@ const andreParagraphs = [
 export const en: Content = {
   tagline: "Empowering Your Voice, Ensuring Justice",
   subTagline: "A Compassionate Advocate for Justice",
-  hours: "Monday – Friday · 9:00 am – 5:00 pm",
+  hours: "Monday – Friday · 8:00 am – 5:00 pm",
 
   heroWords: ["justice", "recovery", "dignity", "answers"],
 
@@ -50,7 +50,7 @@ export const en: Content = {
     ],
     notableTrials: [
       { caption: "State of Tennessee v. Billy Ray Turner" },
-      { caption: "State of Tennessee v. Tedarrius Bean" },
+      { caption: "United States v. Tedarrius Bean" },
     ],
   },
 
@@ -69,7 +69,7 @@ export const en: Content = {
     {
       n: "02",
       title: "Experience and Expertise",
-      body: "Andre Thomas's specialization in Personal Injury law signifies his deep expertise in this intricate domain. His impactful contributions are evident in cases like State of TN v Billy Ray Turner and State of TN v Tedarrius Bean. Cases such as these have earned him the reputation of exuding unwavering dedication and legal acumen necessary to deliver justice to his clients.",
+      body: "Andre Thomas's specialization in Personal Injury law signifies his deep expertise in this intricate domain. His impactful contributions are evident in cases like State of TN v Billy Ray Turner and United States v. Tedarrius Bean. Cases such as these have earned him the reputation of exuding unwavering dedication and legal acumen necessary to deliver justice to his clients.",
       alt: "The columned facade and steps of a county courthouse",
     },
     {
@@ -503,7 +503,7 @@ export const en: Content = {
         {
           label: "Notable trials",
           value:
-            "State of Tennessee v. Billy Ray Turner · State of Tennessee v. Tedarrius Bean",
+            "State of Tennessee v. Billy Ray Turner · United States v. Tedarrius Bean",
         },
       ],
       focus: [
