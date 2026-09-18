@@ -13,8 +13,8 @@ export const firm = {
   phone: "713-212-3003",
   phoneHref: "tel:+17132123003",
   fax: "346-663-4050",
-  email: "AT@andrethomaslaw.com",
-  emailHref: "mailto:AT@andrethomaslaw.com",
+  email: "intake@andrethomaslaw.com",
+  emailHref: "mailto:intake@andrethomaslaw.com",
 
   address: {
     street: "13201 Northwest Freeway",
