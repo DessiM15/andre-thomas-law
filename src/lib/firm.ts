@@ -3,7 +3,9 @@
  * so they live here and both languages read from the same copy.
  */
 
-export const SITE_URL = "https://andrethomaslaw.com";
+// The live site serves on www (Vercel 308s the bare domain to it), so every
+// canonical, hreflang, and sitemap URL must use www or Google sees a redirect.
+export const SITE_URL = "https://www.andrethomaslaw.com";
 
 export const firm = {
   name: "Andre Thomas Law, PLLC",
