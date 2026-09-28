@@ -824,7 +824,10 @@ export const es: Content = {
   ],
 
   ui: {
-    skipToContent: "Ir al contenido",
+    skipToContent: "Ir al contenido principal",
+    opensInNewTab: "(se abre en una pestaña nueva)",
+    navAria: "Principal",
+    motion: { pause: "Pausar la animación", resume: "Reanudar la animación" },
     freeConsultation: "Consulta Gratis",
     callPhone: "Llame al",
     sendMessage: "Enviar un mensaje",
@@ -958,6 +961,8 @@ export const es: Content = {
       errState: "Por favor seleccione un estado.",
       errLong: "Ese mensaje es demasiado largo.",
       errServer: "Algo salió mal. Por favor llámenos.",
+      requiredNote: "Los campos marcados con * son obligatorios.",
+      errorSummary: "Por favor corrija los campos señalados.",
     },
 
     footer: {
@@ -971,6 +976,7 @@ export const es: Content = {
       rights: "Todos los derechos reservados.",
       disclaimer: "Aviso Legal",
       privacy: "Privacidad",
+      accessibility: "Accesibilidad",
       poweredBy: "Sitio por",
     },
 
@@ -1009,6 +1015,7 @@ export const es: Content = {
       confidential: "Comparta datos de contacto, no detalles del caso — este chat no es privado.",
       unreachable: "No pude conectarme al servidor en este momento. Siempre puede llamar al",
       nudgeDismiss: "Cerrar",
+      typing: "El asistente está escribiendo",
 
       lead: {
         offer:
@@ -1273,6 +1280,45 @@ export const es: Content = {
         },
       ],
       questions: ["¿Preguntas sobre este aviso legal? Llame al", "o escriba a", "."],
+    },
+
+    accessibility: {
+      title: "Declaración de Accesibilidad",
+      description: `Declaración de accesibilidad de ${firm.name}. El sitio está construido para cumplir con WCAG 2.2 nivel AA, y esta página explica cómo informar un problema.`,
+      eyebrow: "Legal",
+      heading: "Declaración de Accesibilidad",
+      sections: [
+        {
+          h: "Nuestro compromiso",
+          p: [
+            `${firm.name} quiere que todas las personas que visitan este sitio web puedan usarlo, incluidas quienes dependen de un lector de pantalla, del teclado, de la ampliación de pantalla o de la configuración de reducción de movimiento. Nuestro objetivo es cumplir con las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.2 en el nivel AA.`,
+            "Esta declaración se revisó por última vez el 27 de septiembre de 2026.",
+          ],
+        },
+        {
+          h: "Lo que hemos hecho",
+          p: [
+            "Cada página tiene un enlace para ir directo al contenido principal, un único encabezado principal y un orden lógico de encabezados. Cada enlace, botón y campo de formulario se puede usar con el teclado y muestra un indicador de foco visible. El texto cumple con las relaciones de contraste mínimas. Las imágenes llevan texto alternativo descriptivo y los gráficos decorativos están ocultos para las tecnologías de asistencia.",
+            "Las animaciones respetan la configuración de reducción de movimiento de su dispositivo, y el contenido que se mueve por sí solo se puede pausar. El formulario de contacto señala en texto los campos obligatorios y anuncia sus mensajes de error. El asistente de chat es un diálogo que se puede usar con el teclado y que anuncia cada mensaje nuevo.",
+            "El sitio está disponible en inglés y en español, y cada página declara su idioma para que el lector de pantalla use la voz correcta.",
+          ],
+        },
+        {
+          h: "Limitaciones conocidas",
+          p: [
+            "El mapa de la página de contacto lo proporciona Google Maps y no está bajo nuestro control. La dirección, el teléfono y el horario también aparecen como texto en la misma página.",
+            "Las reseñas de clientes se reproducen exactamente como se publicaron. Por eso en el sitio en español aparecen en inglés, y están marcadas como inglés para que el lector de pantalla las lea correctamente.",
+            "El asistente de chat es automatizado y responde únicamente con el contenido de este sitio web. Si no satisface sus necesidades, por favor llame o escriba al despacho.",
+          ],
+        },
+        {
+          h: "Infórmenos de un problema",
+          p: [
+            `Si alguna parte de este sitio web le resulta difícil de usar, queremos saberlo. Llame al ${firm.phone} o escriba a ${firm.email} indicando la dirección de la página y una descripción del problema. Procuramos responder en un plazo de dos días hábiles, y le proporcionaremos la información que buscaba en otro formato si lo necesita.`,
+          ],
+        },
+      ],
+      questions: ["¿Un problema de accesibilidad? Llame al", "o escriba a", "."],
     },
   },
 

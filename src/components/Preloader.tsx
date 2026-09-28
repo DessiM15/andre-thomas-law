@@ -94,8 +94,8 @@ export default function Preloader({ lang }: { lang: Lang }) {
               <Image
                 src="/logo-light.png"
                 alt={c.ui.logoAlt}
-                width={1699}
-                height={870}
+                width={1675}
+                height={722}
                 priority
                 sizes="(max-width: 768px) 86vw, 800px"
                 className="h-auto w-full"

@@ -812,7 +812,10 @@ export const en: Content = {
   ],
 
   ui: {
-    skipToContent: "Skip to content",
+    skipToContent: "Skip to main content",
+    opensInNewTab: "(opens in new tab)",
+    navAria: "Primary",
+    motion: { pause: "Pause animation", resume: "Resume animation" },
     freeConsultation: "Free Consultation",
     callPhone: "Call",
     sendMessage: "Send a message",
@@ -944,6 +947,8 @@ export const en: Content = {
       errState: "Please select a state.",
       errLong: "That message is too long.",
       errServer: "Something went wrong. Please call us.",
+      requiredNote: "Fields marked * are required.",
+      errorSummary: "Please correct the highlighted fields.",
     },
 
     footer: {
@@ -957,6 +962,7 @@ export const en: Content = {
       rights: "All rights reserved.",
       disclaimer: "Disclaimer",
       privacy: "Privacy",
+      accessibility: "Accessibility",
       poweredBy: "Powered by",
     },
 
@@ -998,6 +1004,7 @@ export const en: Content = {
       confidential: "Share contact details, not case details — this chat isn't private.",
       unreachable: "I couldn't reach the server just then. You can always call",
       nudgeDismiss: "Dismiss",
+      typing: "The assistant is typing",
 
       lead: {
         offer:
@@ -1247,6 +1254,45 @@ export const en: Content = {
         },
       ],
       questions: ["Questions about this disclaimer? Call", "or email", "."],
+    },
+
+    accessibility: {
+      title: "Accessibility Statement",
+      description: `Accessibility statement for ${firm.name}. The site is built to WCAG 2.2 Level AA, and this page explains how to report a problem.`,
+      eyebrow: "Legal",
+      heading: "Accessibility Statement",
+      sections: [
+        {
+          h: "Our commitment",
+          p: [
+            `${firm.name} wants everyone who visits this website to be able to use it, including people who rely on a screen reader, a keyboard, screen magnification, or a reduced-motion setting. We aim to conform to the Web Content Accessibility Guidelines (WCAG) 2.2 at Level AA.`,
+            "This statement was last reviewed on September 27, 2026.",
+          ],
+        },
+        {
+          h: "What we have done",
+          p: [
+            "Every page has a link to skip to the main content, a single main heading, and a logical heading order. Every link, button, and form field can be operated from the keyboard and shows a visible focus indicator. Text meets the minimum contrast ratios. Images carry descriptive alternative text, and decorative graphics are hidden from assistive technology.",
+            "Animations respect your device's reduced-motion setting, and content that moves on its own can be paused. The contact form marks required fields in text and announces its error messages. The chat assistant is a keyboard-operable dialog that announces each new message.",
+            "The site is available in English and in Spanish, and each page declares its language so that a screen reader uses the right voice.",
+          ],
+        },
+        {
+          h: "Known limitations",
+          p: [
+            "The map on the contact page is provided by Google Maps and is not under our control. The address, phone number, and hours are also given as text on the same page.",
+            "Client reviews are reproduced exactly as they were published. On the Spanish site they therefore appear in English, and they are marked as English so a screen reader reads them correctly.",
+            "The chat assistant is automated and answers only from the content of this website. If it does not meet your needs, please call or email the firm instead.",
+          ],
+        },
+        {
+          h: "Tell us about a problem",
+          p: [
+            `If any part of this website is difficult for you to use, we want to know. Call ${firm.phone} or email ${firm.email} with the address of the page and a description of the problem. We aim to respond within two business days, and we will provide the information you were looking for in another format if you need it.`,
+          ],
+        },
+      ],
+      questions: ["Accessibility problem? Call", "or email", "."],
     },
   },
 

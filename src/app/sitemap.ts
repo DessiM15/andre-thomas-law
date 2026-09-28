@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { key: "about", priority: 0.8, changeFrequency: "yearly" },
     { key: "reviews", priority: 0.7, changeFrequency: "monthly" },
     { key: "contact", priority: 0.9, changeFrequency: "yearly" },
+    { key: "accessibility", priority: 0.3, changeFrequency: "yearly" },
   ];
 
   // The team pages carry placeholder people until `TEAM_PLACEHOLDER` is

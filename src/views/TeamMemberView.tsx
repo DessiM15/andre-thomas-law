@@ -119,7 +119,7 @@ export default function TeamMemberView({
                 />
                 <div className="pointer-events-none absolute inset-0 border border-gold-500/25" />
               </div>
-              <p className="mt-5 text-[0.8rem] leading-relaxed text-ink-800/60">
+              <p className="mt-5 text-[0.8rem] leading-relaxed text-ink-800/70">
                 {bio.credential}
               </p>
             </div>
@@ -142,7 +142,7 @@ export default function TeamMemberView({
                 <dl className="mt-7 space-y-6">
                   {bio.highlights.map((h) => (
                     <div key={h.label}>
-                      <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-gold-700">
+                      <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-gold-800">
                         {h.label}
                       </dt>
                       <dd className="mt-1.5 font-display text-lg leading-snug text-ink-900">
@@ -233,7 +233,7 @@ export default function TeamMemberView({
                   <p className="mt-4 font-display text-lg leading-tight text-ink-900">
                     {o.person.name}
                   </p>
-                  <p className="mt-1 text-[0.78rem] leading-snug text-ink-800/65">
+                  <p className="mt-1 text-[0.78rem] leading-snug text-ink-800/70">
                     {o.bio.role}
                   </p>
                 </Link>

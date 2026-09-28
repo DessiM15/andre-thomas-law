@@ -17,15 +17,18 @@ export default function Hero({ lang }: { lang: Lang }) {
   const ready = useIntroDone();
   const reduce = useReducedMotion();
   const [wordIndex, setWordIndex] = useState(0);
+  // The rotating word runs for as long as the page is open, which is well
+  // past the five seconds WCAG 2.2.2 allows before a pause control is owed.
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (!ready || reduce) return;
+    if (!ready || reduce || paused) return;
     const id = setInterval(
       () => setWordIndex((i) => (i + 1) % c.heroWords.length),
       2600
     );
     return () => clearInterval(id);
-  }, [ready, reduce, c.heroWords.length]);
+  }, [ready, reduce, paused, c.heroWords.length]);
 
   // Everything keys off the curtain lift; +0.35s so the motions overlap.
   const t = (d: number) => ({ duration: 1.1, delay: 0.35 + d, ease: EASE });
@@ -51,10 +54,15 @@ export default function Hero({ lang }: { lang: Lang }) {
         />
         {/* Navy wash — ties the photo to the field instead of pasting it on top */}
         <div className="absolute inset-0 bg-ink-950/45 mix-blend-multiply md:bg-ink-950/25" />
-        {/* Mobile: darken from the bottom so the type has a bed to sit on */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/75 to-ink-950/20 md:hidden" />
-        {/* Desktop: feather the left edge into the navy field */}
-        <div className="absolute inset-0 hidden bg-gradient-to-r from-ink-950 via-ink-950/55 to-transparent md:block" />
+        {/* Mobile: darken from the bottom so the type has a bed to sit on. The
+            courthouse steps behind the portrait are near-white, so the bed
+            has to be near-solid (≥90% ink-950) through the whole band the
+            text can occupy, not only at the very bottom. */}
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/92 via-55% to-ink-950/35 md:hidden" />
+        {/* Desktop: feather the left edge into the navy field. Same reason —
+            the headline's longest lines overlap the photograph's left edge on
+            a 1366px screen, and they need a solid field behind them. */}
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-ink-950 via-ink-950/85 via-40% to-transparent md:block" />
       </div>
 
       {/* ── Content ─────────────────────────────────────────────── */}
@@ -174,7 +182,7 @@ export default function Hero({ lang }: { lang: Lang }) {
         <div className="h-px w-full bg-gradient-to-r from-gold-500/70 via-ink-200/20 to-transparent" />
         <div className="flex flex-wrap items-center gap-x-10 gap-y-3 pt-5">
           <span className="eyebrow flex items-center gap-2 text-paper">
-            <span className="text-gold-500">★</span>
+            <span aria-hidden className="text-gold-500">★</span>
             {firm.reviews.rating}
             <span className="text-ink-300">
               · {firm.reviews.count} {h.reviewsSuffix}
@@ -184,6 +192,27 @@ export default function Hero({ lang }: { lang: Lang }) {
           <span className="eyebrow hidden text-ink-300 lg:block">
             {h.formerProsecutor}
           </span>
+          {/* Pause / resume for the rotating word. Hidden under reduced motion,
+              where the word never rotates in the first place. */}
+          {!reduce && (
+            <button
+              type="button"
+              onClick={() => setPaused((p) => !p)}
+              aria-pressed={paused}
+              aria-label={paused ? c.ui.motion.resume : c.ui.motion.pause}
+              className="ml-auto flex h-8 w-8 items-center justify-center border border-ink-200/30 text-paper transition-colors duration-300 hover:border-gold-500 hover:text-gold-400"
+            >
+              {paused ? (
+                <svg aria-hidden width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
+                  <path d="M2 1l7 4-7 4z" />
+                </svg>
+              ) : (
+                <svg aria-hidden width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
+                  <path d="M2 1h2v8H2zM6 1h2v8H6z" />
+                </svg>
+              )}
+            </button>
+          )}
         </div>
       </motion.div>
     </section>

@@ -25,7 +25,7 @@ export default function Pillars({ lang }: { lang: Lang }) {
               delay={i * 0.08}
               className="group border-b border-paper-edge px-0 py-10 md:border-r md:px-8 md:first:pl-0 lg:last:border-r-0 [&:nth-child(2)]:md:border-r-0 lg:[&:nth-child(2)]:border-r"
             >
-              <span className="font-display text-4xl text-gold-600/70 transition-colors duration-500 group-hover:text-gold-600">
+              <span aria-hidden className="font-display text-4xl text-gold-700 transition-colors duration-500 group-hover:text-gold-800">
                 {p.n}
               </span>
               <h3 className="mt-6 font-display text-2xl leading-snug text-ink-900">

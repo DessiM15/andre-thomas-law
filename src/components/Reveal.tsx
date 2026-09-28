@@ -173,6 +173,12 @@ export function Eyebrow({
   // The heading tag goes on the text, not the row. The row also holds the
   // section numeral, and "01Client Reviews — ..." is not the heading anyone
   // wants indexed. Both elements stay inline, so nothing moves.
+  //
+  // The numeral is decorative — a running count down the page, not content —
+  // so it is hidden from assistive technology. Its colour depends on the
+  // field: gold-600 reads at 3.1–3.4:1 on paper at this 11px size, which is
+  // the contrast failure the audit flagged, so the light-background variant
+  // uses the darker gold-800 (5.3:1+). On navy, gold-600 is 5.3:1 already.
   const Text = as;
   return (
     <div
@@ -180,7 +186,11 @@ export function Eyebrow({
         tone === "dark" ? "text-ink-700/70" : "text-ink-200"
       } ${className}`}
     >
-      {n && <span className="text-gold-600">{n}</span>}
+      {n && (
+        <span aria-hidden className={tone === "dark" ? "text-gold-800" : "text-gold-600"}>
+          {n}
+        </span>
+      )}
       <Text className="font-[inherit] text-[inherit] leading-[inherit] tracking-[inherit]">
         {children}
       </Text>

@@ -1,5 +1,6 @@
 import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/ContactForm";
+import NewTab from "@/components/NewTab";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { firm, fullAddress } from "@/lib/firm";
@@ -35,14 +36,16 @@ export default function ContactView({ lang }: { lang: Lang }) {
             </Reveal>
           </div>
 
-          <aside className="md:col-span-4 md:col-start-9">
+          {/* A labelled region rather than an <aside>: complementary
+              landmarks may not sit inside <main>. */}
+          <section aria-label={p.officeEyebrow} className="md:col-span-4 md:col-start-9">
             <Reveal delay={0.1}>
               <div className="md:sticky md:top-28">
                 <Eyebrow n="03">{p.officeEyebrow}</Eyebrow>
 
                 <dl className="mt-8 space-y-8 text-[0.95rem]">
                   <div>
-                    <dt className="eyebrow mb-3 text-gold-700">{p.phone}</dt>
+                    <dt className="eyebrow mb-3 text-gold-800">{p.phone}</dt>
                     <dd>
                       <a
                         href={firm.phoneHref}
@@ -50,14 +53,14 @@ export default function ContactView({ lang }: { lang: Lang }) {
                       >
                         {firm.phone}
                       </a>
-                      <span className="mt-2 block text-sm text-ink-800/60">
+                      <span className="mt-2 block text-sm text-ink-800/70">
                         {c.ui.footer.fax} {firm.fax}
                       </span>
                     </dd>
                   </div>
 
                   <div>
-                    <dt className="eyebrow mb-3 text-gold-700">{p.email}</dt>
+                    <dt className="eyebrow mb-3 text-gold-800">{p.email}</dt>
                     <dd>
                       <a
                         href={firm.emailHref}
@@ -69,7 +72,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
                   </div>
 
                   <div>
-                    <dt className="eyebrow mb-3 text-gold-700">{p.address}</dt>
+                    <dt className="eyebrow mb-3 text-gold-800">{p.address}</dt>
                     <dd className="leading-relaxed text-ink-800/85">
                       <a
                         href={firm.mapsUrl}
@@ -82,17 +85,18 @@ export default function ContactView({ lang }: { lang: Lang }) {
                         {firm.address.suite}
                         <br />
                         {firm.address.city}, {firm.address.state} {firm.address.zip}
+                        <NewTab lang={lang} />
                       </a>
                     </dd>
                   </div>
 
                   <div>
-                    <dt className="eyebrow mb-3 text-gold-700">{p.hours}</dt>
+                    <dt className="eyebrow mb-3 text-gold-800">{p.hours}</dt>
                     <dd className="text-ink-800/85">{c.hours}</dd>
                   </div>
 
                   <div>
-                    <dt className="eyebrow mb-3 text-gold-700">{p.licensedIn}</dt>
+                    <dt className="eyebrow mb-3 text-gold-800">{p.licensedIn}</dt>
                     <dd className="flex gap-3">
                       {firm.barAdmissions.map((s) => (
                         <span
@@ -107,7 +111,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
                 </dl>
               </div>
             </Reveal>
-          </aside>
+          </section>
         </div>
       </section>
 
@@ -138,7 +142,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
           <div className="mt-14 grid gap-px bg-ink-800/60 md:grid-cols-2 lg:grid-cols-4">
             {c.process.map((step, i) => (
               <Reveal key={step.n} delay={i * 0.06} className="bg-ink-950 p-8 md:p-10">
-                <span className="font-display text-3xl text-gold-600/70">{step.n}</span>
+                <span aria-hidden className="font-display text-3xl text-gold-600/85">{step.n}</span>
                 <h3 className="mt-5 font-display text-xl leading-snug md:text-2xl">
                   {step.title}
                 </h3>
@@ -150,7 +154,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
           </div>
 
           <Reveal>
-            <p className="mt-12 max-w-3xl text-xs leading-relaxed text-ink-300/70">
+            <p className="mt-12 max-w-3xl text-xs leading-relaxed text-ink-300">
               {p.formNote}
             </p>
           </Reveal>

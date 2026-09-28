@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import NewTab from "@/components/NewTab";
 import { getBundle } from "@/lib/chat/kb";
 import type { Reply } from "@/lib/chat/engine";
 import { content } from "@/lib/content";
@@ -28,6 +29,10 @@ type Msg = {
 };
 
 const NUDGE_KEY = "atl-chat-nudge";
+const PANEL_ID = "atl-chat-panel";
+
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 /**
  * The callback-capture flow. `idle` is ordinary Q&A; everything between
@@ -82,6 +87,9 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
   const nudged = useRef(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
 
   // Refs rather than state: `send` reads these from inside async callbacks,
   // where a state value captured at render time would be a turn stale.
@@ -111,9 +119,26 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
           chips: bundle.openers,
         },
       ]);
-      setTimeout(() => inputRef.current?.focus(), 500);
     }
   }, [open, messages.length, chat.greeting, bundle.openers]);
+
+  /**
+   * Dialog focus management. Opening moves focus into the panel (onto the
+   * composer, which is where a visitor wants to be); closing hands it back to
+   * the launcher that opened it, so a keyboard user is never dropped at the
+   * top of the page.
+   */
+  useEffect(() => {
+    if (open) {
+      wasOpen.current = true;
+      const t = setTimeout(() => inputRef.current?.focus(), 50);
+      return () => clearTimeout(t);
+    }
+    if (wasOpen.current) {
+      wasOpen.current = false;
+      launcherRef.current?.focus();
+    }
+  }, [open]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -176,11 +201,39 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
     }
   };
 
+  /**
+   * While the dialog is open: Escape closes it, and Tab cycles within it.
+   * The panel is `aria-modal`, so a screen reader already treats the page
+   * behind it as inert; the trap makes the keyboard agree.
+   */
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || !panelRef.current) return;
+      const nodes = Array.from(
+        panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)
+      ).filter((n) => n.offsetParent !== null);
+      if (nodes.length === 0) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      const inside = active ? panelRef.current.contains(active) : false;
+      if (e.shiftKey && (!inside || active === first)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (!inside || active === last)) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   /**
    * Closing the tab mid-capture should not throw the lead away. `pagehide`
@@ -447,6 +500,9 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
     }, delay);
   }
 
+  /** The newest assistant message, for the live region below the transcript. */
+  const lastBot = [...messages].reverse().find((m) => m.role === "bot");
+
   async function send(text: string) {
     const trimmed = text.trim();
     if (!trimmed || typing || step.current === "sending") return;
@@ -475,6 +531,7 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
               className="relative hidden max-w-[15rem] border border-paper-edge bg-paper shadow-[0_8px_30px_rgba(4,16,31,0.12)] sm:block"
             >
               <button
+                type="button"
                 onClick={() => {
                   dismissNudge();
                   setOpen(true);
@@ -482,12 +539,16 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
                 className="block px-4 py-3 pr-8 text-left text-[0.78rem] leading-snug text-ink-800"
               >
                 {chat.nudge}{" "}
-                <span className="text-gold-700">{chat.nudgeCta}</span>
+                <span className="text-gold-800">{chat.nudgeCta}</span>
               </button>
               <button
+                type="button"
                 onClick={dismissNudge}
                 aria-label={chat.nudgeDismiss}
-                className="absolute right-1.5 top-1.5 p-1 text-ink-300 transition-colors hover:text-ink-800"
+                // 28×28 hit area (WCAG 2.5.8 asks for 24; the bubble's border
+                // rounds a 24px box down to 23) around a 9px glyph. The bubble's
+                // pr-8 leaves room for it.
+                className="absolute right-0.5 top-0.5 flex h-7 w-7 items-center justify-center text-ink-500 transition-colors hover:text-ink-800"
               >
                 <svg width="9" height="9" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2.4">
                   <path d="M2 2l14 14M16 2L2 16" />
@@ -498,13 +559,22 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
         </AnimatePresence>
 
         <button
+          ref={launcherRef}
+          type="button"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? chat.close : chat.open}
           aria-expanded={open}
+          aria-haspopup="dialog"
+          aria-controls={open ? PANEL_ID : undefined}
           className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gold-500 text-ink-950 shadow-[0_10px_34px_rgba(4,16,31,0.28)] transition-transform duration-300 hover:scale-105 active:scale-95"
         >
+          {/* Two slow pulses, five seconds in all, then still: anything that
+              keeps moving past five seconds would need its own pause control. */}
           {!open && (
-            <span className="absolute inset-0 animate-ping rounded-full bg-gold-500 opacity-25 [animation-duration:3s]" />
+            <span
+              aria-hidden
+              className="absolute inset-0 animate-ping rounded-full bg-gold-500 opacity-25 [animation-duration:2.5s] [animation-iteration-count:2]"
+            />
           )}
           <AnimatePresence mode="wait" initial={false}>
             {open ? (
@@ -542,7 +612,10 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.45, ease: EASE }}
+            ref={panelRef}
+            id={PANEL_ID}
             role="dialog"
+            aria-modal="true"
             aria-label={chat.dialogAria}
             className="fixed inset-0 z-[86] flex flex-col bg-paper sm:inset-auto sm:bottom-[calc(6rem+var(--atl-banner-h,0px))] sm:right-7 sm:h-[min(34rem,calc(100vh-9rem-var(--atl-banner-h,0px)))] sm:w-[24rem] sm:border sm:border-paper-edge sm:shadow-[0_24px_70px_rgba(4,16,31,0.24)]"
           >
@@ -553,8 +626,8 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
                   src="/logo-light.png"
                   alt=""
                   aria-hidden
-                  width={1699}
-                  height={870}
+                  width={1675}
+                  height={722}
                   sizes="104px"
                   className="h-auto w-[6.5rem] shrink-0"
                 />
@@ -563,12 +636,13 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
                     {chat.title}
                   </p>
                   <p className="flex items-center gap-1.5 text-[0.68rem] leading-tight text-ink-300">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                     {chat.status}
                   </p>
                 </div>
               </div>
               <button
+                type="button"
                 onClick={() => setOpen(false)}
                 aria-label={chat.close}
                 className="p-1.5 text-ink-300 transition-colors hover:text-paper"
@@ -583,6 +657,17 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
             <p className="border-b border-gold-200 bg-gold-100 px-5 py-2.5 text-[0.68rem] leading-relaxed text-ink-700">
               {bundle.disclaimer}
             </p>
+
+            {/* What a screen reader hears. The transcript itself is ordinary
+                content to browse; this region carries only the newest reply,
+                politely, so an answer is read out without the user having to
+                go looking for it. */}
+            <div className="sr-only" aria-live="polite" aria-atomic="true">
+              {lastBot?.text}
+            </div>
+            <div className="sr-only" role="status">
+              {typing ? chat.typing : ""}
+            </div>
 
             {/* Transcript */}
             <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto px-5 py-5">
@@ -608,17 +693,18 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
                             href={m.link.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-3 block font-medium text-gold-700 underline underline-offset-4"
+                            className="mt-3 block font-medium text-gold-800 underline underline-offset-4"
                           >
-                            {m.link.label} ↗
+                            {m.link.label} <span aria-hidden>↗</span>
+                            <NewTab lang={lang} />
                           </a>
                         ) : (
                           <Link
                             href={m.link.href}
                             onClick={() => setOpen(false)}
-                            className="mt-3 block font-medium text-gold-700 underline underline-offset-4"
+                            className="mt-3 block font-medium text-gold-800 underline underline-offset-4"
                           >
-                            {m.link.label} →
+                            {m.link.label} <span aria-hidden>→</span>
                           </Link>
                         )
                       )}
@@ -630,6 +716,7 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
                       {m.chips.map((c) => (
                         <button
                           key={c}
+                          type="button"
                           onClick={() => send(c)}
                           className="border border-ink-200 px-3 py-1.5 text-[0.72rem] text-ink-700 transition-colors hover:border-gold-500 hover:bg-gold-100"
                         >
@@ -642,7 +729,7 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
               ))}
 
               {typing && (
-                <div className="flex gap-1.5 border border-paper-edge bg-white px-4 py-4 w-fit">
+                <div aria-hidden className="flex gap-1.5 border border-paper-edge bg-white px-4 py-4 w-fit">
                   {[0, 1, 2].map((i) => (
                     <motion.span
                       key={i}
@@ -671,7 +758,7 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
                   maxLength={500}
                   placeholder={chat.placeholder}
                   aria-label={chat.inputAria}
-                  className="flex-1 bg-transparent px-2 py-2.5 text-[0.85rem] text-ink-900 outline-none placeholder:text-ink-300"
+                  className="flex-1 bg-transparent px-2 py-2.5 text-[0.85rem] text-ink-900 placeholder:text-ink-500"
                 />
                 <button
                   type="submit"
@@ -684,9 +771,9 @@ export default function ChatWidget({ lang }: { lang: Lang }) {
                   </svg>
                 </button>
               </div>
-              <p className="px-2 pt-1.5 text-[0.65rem] text-ink-300">
+              <p className="px-2 pt-1.5 text-[0.65rem] text-ink-500">
                 {chat.confidential}{" "}
-                <a href={firm.phoneHref} className="text-gold-700 underline underline-offset-2">
+                <a href={firm.phoneHref} className="text-gold-800 underline underline-offset-2">
                   {c.ui.callPhone} {firm.phone}
                 </a>
               </p>

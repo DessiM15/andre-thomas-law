@@ -51,7 +51,7 @@ export default function Portrait({
         >
           <span
             aria-hidden
-            className={`font-display leading-none tracking-[0.08em] text-gold-600/70 ${monogramClass}`}
+            className={`font-display leading-none tracking-[0.08em] text-gold-700 ${monogramClass}`}
           >
             {person.initials}
           </span>

@@ -5,16 +5,16 @@ import { firm } from "@/lib/firm";
 import type { Lang } from "@/lib/i18n";
 
 /**
- * Privacy and disclaimer share a layout — a masthead and a stack of
- * sections. The Spanish versions carry a closing "Versión que rige"
- * section stating the English text controls.
+ * Privacy, disclaimer, and the accessibility statement share a layout — a
+ * masthead and a stack of sections. The Spanish versions carry a closing
+ * "Versión que rige" section stating the English text controls.
  */
 export default function LegalView({
   lang,
   kind,
 }: {
   lang: Lang;
-  kind: "privacy" | "disclaimer";
+  kind: "privacy" | "disclaimer" | "accessibility";
 }) {
   const c = content(lang);
   const p = c.pages[kind];
@@ -41,15 +41,15 @@ export default function LegalView({
             </Reveal>
           ))}
 
-          {kind === "disclaimer" && "questions" in p && (
+          {"questions" in p && (
             <Reveal>
-              <p className="pt-10 text-sm text-ink-800/60">
+              <p className="pt-10 text-sm text-ink-800/70">
                 {p.questions[0]}{" "}
-                <a href={firm.phoneHref} className="text-gold-700 underline underline-offset-4">
+                <a href={firm.phoneHref} className="text-gold-800 underline underline-offset-4">
                   {firm.phone}
                 </a>{" "}
                 {p.questions[1]}{" "}
-                <a href={firm.emailHref} className="text-gold-700 underline underline-offset-4">
+                <a href={firm.emailHref} className="text-gold-800 underline underline-offset-4">
                   {firm.email}
                 </a>
                 {p.questions[2]}

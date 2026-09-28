@@ -49,11 +49,11 @@ function Row({
         </div>
 
         <div className="min-w-0">
-          <p className="eyebrow text-gold-600">{bio.role}</p>
+          <p className="eyebrow text-gold-800">{bio.role}</p>
           <h3 className="mt-2 font-display text-[1.65rem] leading-tight text-ink-900 md:text-[2.1rem]">
             {person.name}
           </h3>
-          <p className="mt-1.5 text-[0.82rem] text-ink-800/60">{bio.credential}</p>
+          <p className="mt-1.5 text-[0.82rem] text-ink-800/70">{bio.credential}</p>
           {/* Two lines on desktop, three on mobile where the column is narrower. */}
           <p className="mt-3 line-clamp-3 max-w-2xl text-[0.95rem] leading-relaxed text-ink-800/80 md:line-clamp-2">
             {bio.preview}

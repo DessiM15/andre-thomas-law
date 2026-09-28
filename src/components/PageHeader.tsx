@@ -76,7 +76,7 @@ export default function PageHeader({
             href={crumb.href}
             className="eyebrow mb-8 inline-flex items-center gap-3 text-ink-300 transition-colors hover:text-gold-400"
           >
-            <span>←</span>
+            <span aria-hidden>←</span>
             {crumb.label}
           </Link>
         )}

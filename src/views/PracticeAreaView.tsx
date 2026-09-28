@@ -119,7 +119,7 @@ export default function PracticeAreaView({
                       key={cover}
                       className="flex gap-6 border-b border-paper-edge py-5 text-[1rem] leading-relaxed text-ink-800/85"
                     >
-                      <span className="shrink-0 font-display text-lg text-gold-600">
+                      <span aria-hidden className="shrink-0 font-display text-lg text-gold-800">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span>{cover}</span>
@@ -130,8 +130,9 @@ export default function PracticeAreaView({
             </Reveal>
           </div>
 
-          {/* Sidebar */}
-          <aside className="md:col-span-4 md:col-start-9">
+          {/* Sidebar. A labelled region rather than an <aside>: complementary
+              landmarks may not sit inside <main>. */}
+          <section aria-label={c.ui.freeConsultation} className="md:col-span-4 md:col-start-9">
             <div className="md:sticky md:top-28 md:space-y-8">
               <Reveal>
                 <div className="grain relative overflow-hidden bg-ink-950 p-9 text-paper">
@@ -155,7 +156,7 @@ export default function PracticeAreaView({
                     <span className="relative z-10">{c.ui.sendMessage}</span>
                     <span className="absolute inset-0 -translate-x-full bg-gold-200 transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
                   </Link>
-                  <p className="mt-6 text-[0.7rem] leading-relaxed text-ink-300/80">
+                  <p className="mt-6 text-[0.7rem] leading-relaxed text-ink-300">
                     {t.licensedNote} {c.hours}.
                   </p>
                 </div>
@@ -178,7 +179,7 @@ export default function PracticeAreaView({
                   </ul>
                   <Link
                     href={path("practiceAreas", lang)}
-                    className="eyebrow mt-7 inline-flex items-center gap-3 text-gold-700"
+                    className="eyebrow mt-7 inline-flex items-center gap-3 text-gold-800"
                   >
                     {c.ui.viewAll}
                     <span className="h-px w-8 bg-gold-500" />
@@ -186,7 +187,7 @@ export default function PracticeAreaView({
                 </div>
               </Reveal>
             </div>
-          </aside>
+          </section>
         </div>
       </section>
 
@@ -212,11 +213,11 @@ export default function PracticeAreaView({
                       <span className="font-display text-2xl leading-tight text-ink-900 transition-colors duration-500 group-hover:text-paper">
                         {r.name}
                       </span>
-                      <span className="mt-4 flex-1 text-[0.9rem] leading-relaxed text-ink-800/65 transition-colors duration-500 group-hover:text-ink-200">
+                      <span className="mt-4 flex-1 text-[0.9rem] leading-relaxed text-ink-800/70 transition-colors duration-500 group-hover:text-ink-200">
                         {r.short}
                       </span>
-                      <span className="eyebrow mt-8 text-gold-600 transition-colors duration-500 group-hover:text-gold-400">
-                        {c.ui.learnMore} →
+                      <span className="eyebrow mt-8 text-gold-800 transition-colors duration-500 group-hover:text-gold-400">
+                        {c.ui.learnMore} <span aria-hidden>→</span>
                       </span>
                     </span>
                   </Link>

@@ -1,4 +1,5 @@
 import ContactForm from "@/components/ContactForm";
+import NewTab from "@/components/NewTab";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { firm, fullAddress } from "@/lib/firm";
@@ -58,6 +59,7 @@ export default function CTABand({ lang, n = "07" }: { lang: Lang; n?: string }) 
                       className="transition-colors hover:text-paper"
                     >
                       {fullAddress}
+                      <NewTab lang={lang} />
                     </a>
                     <span className="mt-2 block text-ink-300">{c.hours}</span>
                   </dd>

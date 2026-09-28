@@ -77,7 +77,7 @@ export default function AboutPreview({ lang }: { lang: Lang }) {
                 className="group mt-10 inline-flex items-center gap-4 border border-ink-200/25 px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] transition-colors duration-300 hover:border-gold-500 hover:text-gold-400"
               >
                 {c.ui.aboutPreview.readFull}
-                <span className="transition-transform duration-300 group-hover:translate-x-1">
+                <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
                   →
                 </span>
               </Link>

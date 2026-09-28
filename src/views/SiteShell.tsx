@@ -4,6 +4,7 @@ import Preloader from "@/components/Preloader";
 import ScrollTop from "@/components/ScrollTop";
 import ChatWidget from "@/components/chat/ChatWidget";
 import LangBanner from "@/components/LangBanner";
+import MotionProvider from "@/components/MotionProvider";
 import { content } from "@/lib/content";
 import { firm, fullAddress, SITE_URL } from "@/lib/firm";
 import { htmlLang, path, type Lang } from "@/lib/i18n";
@@ -88,24 +89,31 @@ export default function SiteShell({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Skip link: the first thing a keyboard reaches on every page, in
+            both languages. `#main` carries tabIndex={-1} so the jump actually
+            moves focus rather than only scrolling. */}
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-ink-900 focus:px-4 focus:py-2 focus:text-sm focus:text-paper"
         >
           {c.ui.skipToContent}
         </a>
-        <ScrollTop />
-        <Preloader lang={lang} />
-        <Nav lang={lang} />
-        <main id="main">{children}</main>
-        <Footer lang={lang} />
-        <ChatWidget lang={lang} />
-        <LangBanner
-          lang={lang}
-          question={c.ui.banner.question}
-          action={c.ui.banner.action}
-          dismiss={c.ui.banner.dismiss}
-        />
+        <MotionProvider>
+          <ScrollTop />
+          <Preloader lang={lang} />
+          <Nav lang={lang} />
+          <main id="main" tabIndex={-1}>
+            {children}
+          </main>
+          <Footer lang={lang} />
+          <ChatWidget lang={lang} />
+          <LangBanner
+            lang={lang}
+            question={c.ui.banner.question}
+            action={c.ui.banner.action}
+            dismiss={c.ui.banner.dismiss}
+          />
+        </MotionProvider>
       </body>
     </html>
   );

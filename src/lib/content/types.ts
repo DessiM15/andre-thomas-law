@@ -104,6 +104,12 @@ export type Content = {
 
   ui: {
     skipToContent: string;
+    /** Visually hidden suffix inside every link that opens a new tab. */
+    opensInNewTab: string;
+    /** Accessible name of the primary navigation landmark. */
+    navAria: string;
+    /** Pause / resume controls for content that moves on its own. */
+    motion: { pause: string; resume: string };
     freeConsultation: string;
     callPhone: string;
     sendMessage: string;
@@ -217,6 +223,10 @@ export type Content = {
       errState: string;
       errLong: string;
       errServer: string;
+      /** "Fields marked * are required." — required is stated in text, not colour. */
+      requiredNote: string;
+      /** Announced when a submit fails validation, before focus moves to the first error. */
+      errorSummary: string;
     };
 
     footer: {
@@ -229,6 +239,7 @@ export type Content = {
       rights: string;
       disclaimer: string;
       privacy: string;
+      accessibility: string;
       poweredBy: string;
     };
 
@@ -266,6 +277,8 @@ export type Content = {
       confidential: string;
       unreachable: string;
       nudgeDismiss: string;
+      /** Read to screen readers while the typing indicator shows. */
+      typing: string;
 
       /** The callback-capture flow inside the widget. */
       lead: {
@@ -387,6 +400,12 @@ export type Content = {
     };
     privacy: Meta & { eyebrow: string; heading: string; sections: LegalSection[] };
     disclaimer: Meta & {
+      eyebrow: string;
+      heading: string;
+      sections: LegalSection[];
+      questions: [string, string, string];
+    };
+    accessibility: Meta & {
       eyebrow: string;
       heading: string;
       sections: LegalSection[];

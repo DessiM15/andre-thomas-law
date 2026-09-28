@@ -19,7 +19,10 @@ export default function WhyFirm({ lang }: { lang: Lang }) {
           <Eyebrow n="01">{c.ui.why.eyebrow}</Eyebrow>
         </Reveal>
 
+        {/* The section's h2. Without it the page ran h1 → h3 (the three
+            panel titles below), which is the heading skip the audit found. */}
         <MaskLines
+          as="h2"
           className="mt-7 max-w-4xl font-display text-[clamp(2rem,4.6vw,3.5rem)] leading-[1.08] tracking-[-0.02em] text-ink-900"
           lines={c.ui.why.titleLines}
         />

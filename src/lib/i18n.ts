@@ -32,6 +32,7 @@ export const routes = {
   contact: { en: "/contact", es: "/es/contacto" },
   privacy: { en: "/privacy", es: "/es/privacidad" },
   disclaimer: { en: "/disclaimer", es: "/es/aviso-legal" },
+  accessibility: { en: "/accessibility", es: "/es/accesibilidad" },
 } as const;
 
 export type RouteKey = keyof typeof routes;

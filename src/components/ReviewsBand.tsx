@@ -1,3 +1,4 @@
+import NewTab from "@/components/NewTab";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { firm } from "@/lib/firm";
@@ -5,7 +6,7 @@ import type { Lang } from "@/lib/i18n";
 
 function Stars({ className = "" }: { className?: string }) {
   return (
-    <span className={`text-gold-600 ${className}`} aria-hidden>
+    <span className={`text-gold-800 ${className}`} aria-hidden>
       ★★★★★
     </span>
   );
@@ -59,6 +60,7 @@ export default function ReviewsBand({
               className="group inline-flex items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-ink-800"
             >
               {c.ui.reviewsBand.readAll}
+              <NewTab lang={lang} />
               <span className="h-px w-10 bg-gold-500 transition-all duration-500 group-hover:w-16" />
             </a>
           </Reveal>
@@ -82,9 +84,9 @@ export default function ReviewsBand({
               >
                 &ldquo;{r.quote}&rdquo;
               </blockquote>
-              <footer className="mt-6 text-sm text-ink-800/65">
+              <footer className="mt-6 text-sm text-ink-800/70">
                 <span className="font-medium text-ink-900">{r.author}</span>
-                <span className="mx-2 text-gold-600">·</span>
+                <span aria-hidden className="mx-2 text-gold-800">·</span>
                 {r.date}
               </footer>
             </Reveal>
@@ -92,7 +94,7 @@ export default function ReviewsBand({
         </div>
 
         <Reveal>
-          <p className="mt-8 text-xs text-ink-800/50">{c.ui.reviewsBand.footnote}</p>
+          <p className="mt-8 text-xs text-ink-800/70">{c.ui.reviewsBand.footnote}</p>
         </Reveal>
       </div>
     </section>

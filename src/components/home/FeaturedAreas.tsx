@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Ticker from "@/components/home/Ticker";
 import { Eyebrow, GoldRule, MaskLines, Reveal } from "@/components/Reveal";
 import { content, getPracticeAreaByKey, tickerAreas } from "@/lib/content";
 import { areaPath, path, type Lang } from "@/lib/i18n";
@@ -17,9 +18,11 @@ export default function FeaturedAreas({ lang }: { lang: Lang }) {
     .map((f) => ({ ...f, area: getPracticeAreaByKey(f.key, lang) }))
     .filter((card) => card.area);
 
-  // Duplicated so the CSS loop has a seamless second half to scroll into.
-  const rest = tickerAreas(lang, featuredMedia.map((f) => f.key));
-  const ticker = [...rest, ...rest];
+  const rest = tickerAreas(lang, featuredMedia.map((f) => f.key)).map((area) => ({
+    key: area.key,
+    name: area.name,
+    href: areaPath(area.slug, lang),
+  }));
 
   return (
     <section
@@ -36,7 +39,9 @@ export default function FeaturedAreas({ lang }: { lang: Lang }) {
         </Reveal>
 
         <div className="mt-7 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          {/* The section's h2, above the six h3 cards. */}
           <MaskLines
+            as="h2"
             className="font-display text-[clamp(2.1rem,5.4vw,4.2rem)] leading-[1.04] tracking-[-0.025em]"
             lines={c.ui.featured.titleLines}
           />
@@ -95,34 +100,12 @@ export default function FeaturedAreas({ lang }: { lang: Lang }) {
       </div>
 
       {/* ── And the other ten ──────────────────────────────────── */}
-      <div className="relative mt-14">
-        <p className="container-x eyebrow mb-5 text-ink-300">
-          {c.ui.featured.alsoHandled}
-        </p>
-        <div className="relative overflow-hidden border-y border-ink-800/50 py-4">
-          <div className="flex w-max animate-[atl-ticker_48s_linear_infinite] motion-reduce:animate-none">
-            {ticker.map((area, i) => (
-              <Link
-                key={`${area.key}-${i}`}
-                href={areaPath(area.slug, lang)}
-                className="flex items-center whitespace-nowrap px-7 font-display text-lg text-paper/70 transition-colors hover:text-gold-400 md:text-xl"
-              >
-                {area.name}
-                <span className="ml-7 text-gold-600/80">✦</span>
-              </Link>
-            ))}
-          </div>
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-ink-950 to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-28 bg-gradient-to-l from-ink-950 to-transparent" />
-        </div>
-
-        <style>{`
-          @keyframes atl-ticker {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
-          }
-        `}</style>
-      </div>
+      <Ticker
+        items={rest}
+        label={c.ui.featured.alsoHandled}
+        pause={c.ui.motion.pause}
+        resume={c.ui.motion.resume}
+      />
 
       <div className="container-x relative mt-14">
         <Reveal>
@@ -131,7 +114,7 @@ export default function FeaturedAreas({ lang }: { lang: Lang }) {
             className="group relative inline-flex items-center gap-4 overflow-hidden bg-gold-500 px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-ink-950"
           >
             <span className="relative z-10">{c.ui.featured.explore}</span>
-            <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+            <span aria-hidden className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
             <span className="absolute inset-0 -translate-x-full bg-gold-200 transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />

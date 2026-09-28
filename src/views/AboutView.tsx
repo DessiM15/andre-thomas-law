@@ -74,7 +74,7 @@ export default function AboutView({ lang }: { lang: Lang }) {
                   {c.bio.education.map((e) => (
                     <li key={e.school}>
                       <p className="font-display text-xl text-ink-900">{e.school}</p>
-                      <p className="mt-1 text-sm text-ink-800/65">{e.detail}</p>
+                      <p className="mt-1 text-sm text-ink-800/70">{e.detail}</p>
                     </li>
                   ))}
                 </ul>
@@ -103,7 +103,7 @@ export default function AboutView({ lang }: { lang: Lang }) {
                 delay={i * 0.08}
                 className="border-b border-paper-edge py-10 md:border-b-0 md:border-r md:px-8 md:first:pl-0 md:last:border-r-0"
               >
-                <span className="eyebrow text-gold-600">{career.year}</span>
+                <span className="eyebrow text-gold-800">{career.year}</span>
                 <h3 className="mt-5 font-display text-2xl leading-snug text-ink-900">
                   {career.role}
                 </h3>
@@ -140,7 +140,7 @@ export default function AboutView({ lang }: { lang: Lang }) {
           <div className="mt-14 grid gap-px bg-ink-800/60 md:grid-cols-2">
             {c.bio.notableTrials.map((t, i) => (
               <Reveal key={t.caption} delay={i * 0.08} className="bg-ink-950/80 p-10 backdrop-blur-sm md:p-12">
-                <span className="font-display text-3xl text-gold-600/60">0{i + 1}</span>
+                <span aria-hidden className="font-display text-3xl text-gold-600/85">0{i + 1}</span>
                 <p className="mt-6 font-display text-2xl italic leading-snug md:text-3xl">
                   {t.caption}
                 </p>
@@ -149,7 +149,7 @@ export default function AboutView({ lang }: { lang: Lang }) {
           </div>
 
           <Reveal>
-            <p className="mt-10 max-w-2xl text-xs leading-relaxed text-ink-300/70">
+            <p className="mt-10 max-w-2xl text-xs leading-relaxed text-ink-300">
               {p.trialsNote}
             </p>
           </Reveal>
@@ -170,7 +170,7 @@ export default function AboutView({ lang }: { lang: Lang }) {
                 delay={i * 0.06}
                 className="border-b border-paper-edge py-10 md:px-10 md:odd:border-r md:odd:pl-0"
               >
-                <span className="font-display text-3xl text-gold-600/70">{pillar.n}</span>
+                <span aria-hidden className="font-display text-3xl text-gold-700">{pillar.n}</span>
                 <h3 className="mt-5 font-display text-2xl leading-snug text-ink-900">
                   {pillar.title}
                 </h3>

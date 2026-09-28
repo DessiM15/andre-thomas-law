@@ -74,12 +74,12 @@ components. Note that `panel-client.webp` shows models, not firm personnel — i
 that reads as "our team" to the client, replace it.
 
 **7. Logo.** `public/logo-dark.png` and `public/logo-light.png` are derived
-from `assets/at-logo-source.png` (2000×2000) by keying the white field to
-transparency — luminance → alpha, which preserves the hairline serifs. That
-source file carries an alpha channel, but it only clips the corners; the white
-behind the mark is still opaque, hence the keying. A true vector (SVG/EPS) from
-whoever designed the mark would still be the ideal source — drop it in and
-regenerate both variants.
+from `assets/at-logo-source.png` (the firm's 1774×887 white-on-transparent
+mark, supplied 2026-09-28) by trimming the transparent padding and tinting the
+mark: paper (#fbf9f5) for the light variant, ink-800 (#0a1a30) for the dark.
+Both are 1675×722; that ratio is hard-coded where the mark is sized (`Nav`,
+`Footer`, `Preloader`, `ChatWidget`), so regenerate all four numbers together
+if the source changes. A true vector (SVG/EPS) would still be the ideal source.
 
 ## The chat assistant
 
@@ -102,6 +102,17 @@ request, passing `allEntries` from `kb.ts` as grounding context and the
 guardrail rules as the system prompt. The response contract
 (`{ text, link, chips }`) is what the widget renders, so no front-end changes
 are needed.
+
+## Accessibility
+
+The site targets WCAG 2.2 Level AA and carries a statement at `/accessibility`
+(`/es/accesibilidad`). `npm run build && npm run a11y` runs axe-core against
+every route in the sitemap plus the legal pages and the 404, at 1366px and
+390px, with the chat dialog open and the contact form in its error state; it
+exits non-zero on any violation. Keep it green: no `outline-none` without a
+replacement ring, no `<aside>` inside `<main>`, one `h1` per page, gold text
+under 24px on paper uses `gold-800`, and every `target="_blank"` link
+carries `<NewTab />`.
 
 ## SEO
 

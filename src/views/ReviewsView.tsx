@@ -2,6 +2,7 @@ import PageHeader from "@/components/PageHeader";
 import ReviewsBand from "@/components/ReviewsBand";
 import CTABand from "@/components/CTABand";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import NewTab from "@/components/NewTab";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { firm } from "@/lib/firm";
@@ -57,7 +58,7 @@ export default function ReviewsView({ lang }: { lang: Lang }) {
                 delay={i * 0.06}
                 className="border-b border-paper-edge py-10 md:px-10 md:odd:border-r md:odd:pl-0"
               >
-                <span className="font-display text-3xl text-gold-600/70">{pillar.n}</span>
+                <span aria-hidden className="font-display text-3xl text-gold-700">{pillar.n}</span>
                 <h3 className="mt-5 font-display text-2xl leading-snug text-ink-900">
                   {pillar.title}
                 </h3>
@@ -76,6 +77,7 @@ export default function ReviewsView({ lang }: { lang: Lang }) {
               className="group mt-14 inline-flex items-center gap-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-ink-800"
             >
               {p.readOnGoogle}
+              <NewTab lang={lang} />
               <span className="h-px w-12 bg-gold-500 transition-all duration-500 group-hover:w-20" />
             </a>
           </Reveal>

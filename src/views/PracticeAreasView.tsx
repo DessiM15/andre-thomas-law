@@ -94,11 +94,11 @@ export default function PracticeAreasView({ lang }: { lang: Lang }) {
                           <span className="block font-display text-[1.4rem] leading-tight text-ink-900 transition-colors duration-500 group-hover:text-paper md:text-[1.75rem]">
                             {area.name}
                           </span>
-                          <span className="mt-1.5 block text-[0.88rem] leading-relaxed text-ink-800/60 transition-colors duration-500 group-hover:text-ink-200">
+                          <span className="mt-1.5 block text-[0.88rem] leading-relaxed text-ink-800/70 transition-colors duration-500 group-hover:text-ink-200">
                             {area.short}
                           </span>
                         </span>
-                        <span className="shrink-0 text-gold-600 transition-all duration-500 group-hover:translate-x-1 group-hover:text-gold-400">
+                        <span aria-hidden className="shrink-0 text-gold-800 transition-all duration-500 group-hover:translate-x-1 group-hover:text-gold-400">
                           →
                         </span>
                       </span>

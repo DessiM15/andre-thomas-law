@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import LangSwitch from "@/components/LangSwitch";
+import NewTab from "@/components/NewTab";
 import { content } from "@/lib/content";
 import { firm } from "@/lib/firm";
 import { areaPath, path, type Lang } from "@/lib/i18n";
@@ -18,8 +19,8 @@ export default function Footer({ lang }: { lang: Lang }) {
             <Image
               src="/logo-light.png"
               alt={c.ui.logoAlt}
-              width={1699}
-              height={870}
+              width={1675}
+              height={722}
               sizes="(max-width: 768px) 304px, 448px"
               className="h-auto w-[19rem] md:w-[28rem]"
             />
@@ -33,7 +34,7 @@ export default function Footer({ lang }: { lang: Lang }) {
             className="group inline-flex items-center gap-4 self-start border border-ink-200/25 px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-paper transition-colors duration-300 hover:border-gold-500 hover:text-gold-400 md:self-auto"
           >
             {c.ui.footer.cta}
-            <span className="transition-transform duration-300 group-hover:translate-x-1">
+            <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
           </Link>
@@ -61,14 +62,17 @@ export default function Footer({ lang }: { lang: Lang }) {
                   rel="noopener noreferrer"
                   className="link-underline text-ink-200 transition-colors hover:text-paper"
                 >
-                  {c.ui.instagram} ↗
+                  {c.ui.instagram} <span aria-hidden>↗</span>
+                  <NewTab lang={lang} />
                 </a>
               </li>
               <li>
                 <LangSwitch
                   lang={lang}
                   label={lang === "en" ? "Ver en español" : "View in English"}
-                  ariaLabel={c.ui.switchLangAria}
+                  // Same text as the label: an aria-label that does not contain
+                  // the visible words breaks voice control (WCAG 2.5.3).
+                  ariaLabel={lang === "en" ? "Ver en español" : "View in English"}
                   className="link-underline text-gold-500 transition-colors hover:text-gold-400"
                 />
               </li>
@@ -105,6 +109,7 @@ export default function Footer({ lang }: { lang: Lang }) {
                 {firm.address.suite}
                 <br />
                 {firm.address.city}, {firm.address.state} {firm.address.zip}
+                <NewTab lang={lang} />
               </a>
               <div className="space-y-1">
                 <a
@@ -130,13 +135,13 @@ export default function Footer({ lang }: { lang: Lang }) {
 
         {/* Legal */}
         <div className="border-t border-ink-800/60 pt-10">
-          <p className="max-w-4xl text-xs leading-relaxed text-ink-300/80">
+          <p className="max-w-4xl text-xs leading-relaxed text-ink-300">
             {c.ui.footer.legal}{" "}
             {lang === "es"
               ? `${firm.attorney} tiene licencia para ejercer la abogacía en Texas y Tennessee.`
               : `${firm.attorney} is licensed to practice law in Texas and Tennessee.`}
           </p>
-          <div className="mt-8 flex flex-col gap-4 text-xs text-ink-300/70 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-8 flex flex-col gap-4 text-xs text-ink-300 sm:flex-row sm:items-center sm:justify-between">
             <p>
               © {year} {firm.name}. {c.ui.footer.rights}
             </p>
@@ -147,6 +152,9 @@ export default function Footer({ lang }: { lang: Lang }) {
               <Link href={path("privacy", lang)} className="transition-colors hover:text-paper">
                 {c.ui.footer.privacy}
               </Link>
+              <Link href={path("accessibility", lang)} className="transition-colors hover:text-paper">
+                {c.ui.footer.accessibility}
+              </Link>
               <p>
                 {c.ui.footer.poweredBy}{" "}
                 <a
@@ -156,6 +164,7 @@ export default function Footer({ lang }: { lang: Lang }) {
                   className="link-underline font-medium text-gold-500 transition-colors hover:text-gold-400"
                 >
                   SmartScale
+                  <NewTab lang={lang} />
                 </a>
               </p>
             </div>
