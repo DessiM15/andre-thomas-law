@@ -407,6 +407,8 @@ export type Content = {
       tribute: { eyebrow: string; title: string; body: string[] };
       /** Shown only while `TEAM_PLACEHOLDER` is true. */
       draftNotice: string;
+      /** The "we're hiring" strip under the masthead. Rendered only while a role is open. */
+      hiring: { eyebrow: string; title: string; cta: string };
       member: {
         crumb: string;
         highlightsEyebrow: string;

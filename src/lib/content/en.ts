@@ -1175,6 +1175,11 @@ export const en: Content = {
       staffEyebrow: "Paralegals and Staff",
       staffTitle: "Who builds it",
       readBio: "Full biography",
+      hiring: {
+        eyebrow: "We're hiring",
+        title: "There is an open position at the firm in Houston.",
+        cta: "See open positions",
+      },
       tribute: {
         eyebrow: "The Team",
         title: "Not one of them is optional.",

@@ -7,6 +7,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
 import { path, teamPath, type Lang } from "@/lib/i18n";
+import { liveJobs } from "@/lib/jobs";
 import { team, SHOW_DRAFT_BANNER, TEAM_PLACEHOLDER, type TeamKind } from "@/lib/team";
 import type { TeamBio } from "@/lib/content/types";
 
@@ -118,6 +119,7 @@ function Group({
 export default function TeamView({ lang }: { lang: Lang }) {
   const c = content(lang);
   const p = c.pages.team;
+  const hiring = liveJobs().length > 0;
 
   return (
     <>
@@ -140,6 +142,32 @@ export default function TeamView({ lang }: { lang: Lang }) {
       />
 
       {TEAM_PLACEHOLDER && SHOW_DRAFT_BANNER && <DraftNotice>{p.draftNotice}</DraftNotice>}
+
+      {/* A strip, not a section: it only exists while a role is open, and it
+          should read as a notice on the way to the people, not compete with
+          them. Driven by the same data as the careers page, so it disappears
+          the day the last listing closes. */}
+      {hiring && (
+        <div className="border-b border-paper-edge bg-paper-warm">
+          <div className="container-x flex flex-col gap-4 py-6 md:flex-row md:items-center md:justify-between md:py-7">
+            <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:gap-6">
+              <Eyebrow>{p.hiring.eyebrow}</Eyebrow>
+              <p className="font-display text-xl leading-snug text-ink-900 md:text-2xl">
+                {p.hiring.title}
+              </p>
+            </div>
+            <Link
+              href={path("careers", lang)}
+              className="group inline-flex items-center gap-4 self-start border border-ink-900/20 px-6 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-ink-900 transition-colors duration-300 hover:border-gold-700 hover:text-gold-800 md:self-auto"
+            >
+              {p.hiring.cta}
+              <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+          </div>
+        </div>
+      )}
 
       <section className="bg-paper py-20 md:py-28">
         <div className="container-x space-y-24 md:space-y-32">
