@@ -1,8 +1,10 @@
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import CTABand from "@/components/CTABand";
+import FaqSection from "@/components/Faq";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content, type PracticeArea } from "@/lib/content";
+import { faqJsonLd } from "@/lib/faq";
 import { firm, SITE_URL } from "@/lib/firm";
 import { areaPath, path, type Lang } from "@/lib/i18n";
 
@@ -21,6 +23,7 @@ export default function PracticeAreaView({
     .filter((a) => a.group === area.group && a.key !== area.key)
     .slice(0, 3);
   const others = c.practiceAreas.filter((a) => a.key !== area.key).slice(0, 8);
+  const faqs = area.faqs ?? [];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -60,6 +63,8 @@ export default function PracticeAreaView({
           { "@type": "State", name: "Tennessee" },
         ],
       },
+      // Only pages whose answers the firm has signed off on carry this.
+      ...(faqs.length > 0 ? [faqJsonLd(faqs, lang)] : []),
     ],
   };
 
@@ -190,6 +195,8 @@ export default function PracticeAreaView({
           </section>
         </div>
       </section>
+
+      <FaqSection lang={lang} faqs={faqs} n="—" />
 
       {/* Related */}
       {related.length > 0 && (

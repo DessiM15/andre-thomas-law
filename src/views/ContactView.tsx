@@ -1,8 +1,10 @@
 import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/ContactForm";
+import FaqSection from "@/components/Faq";
 import NewTab from "@/components/NewTab";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
+import { faqJsonLd } from "@/lib/faq";
 import { firm, fullAddress } from "@/lib/firm";
 import type { Lang } from "@/lib/i18n";
 
@@ -10,8 +12,20 @@ export default function ContactView({ lang }: { lang: Lang }) {
   const c = content(lang);
   const p = c.pages.contact;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    ...faqJsonLd(p.faqs, lang),
+  };
+
   return (
     <>
+      {p.faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+
       <PageHeader
         eyebrow={p.eyebrow}
         n="01"
@@ -115,6 +129,8 @@ export default function ContactView({ lang }: { lang: Lang }) {
         </div>
       </section>
 
+      <FaqSection lang={lang} faqs={p.faqs} n="04" tone="warm" />
+
       {/* Map */}
       <section className="border-t border-paper-edge">
         <div className="relative h-[380px] w-full bg-paper-warm md:h-[460px]">
@@ -133,7 +149,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
       <section className="grain relative overflow-hidden bg-ink-950 py-20 text-paper md:py-28">
         <div className="container-x">
           <Reveal>
-            <Eyebrow n="04" tone="light">{p.nextEyebrow}</Eyebrow>
+            <Eyebrow n="05" tone="light">{p.nextEyebrow}</Eyebrow>
             <h2 className="mt-6 max-w-2xl font-display text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.08]">
               {p.nextTitle}
             </h2>

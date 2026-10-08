@@ -7,6 +7,13 @@ import type { TeamId } from "@/lib/team";
  * rather than an English word surfacing on a Spanish page.
  */
 
+/**
+ * One question and its answer, as paragraphs. `id` is stable across
+ * languages so a link from outside — a Business Profile post, say — reaches
+ * the same question on either page: `/practice-areas/car-accidents#faq-<id>`.
+ */
+export type Faq = { id: string; q: string; a: string[] };
+
 export type PracticeArea = {
   /** Stable across languages — the toggle maps one language to the other with it. */
   key: AreaKey;
@@ -18,6 +25,8 @@ export type PracticeArea = {
   lede: string;
   body: string[];
   covers: string[];
+  /** Answered by the firm. Absent until Andre has signed off on the answers. */
+  faqs?: Faq[];
 };
 
 export type PracticeGroup = {
@@ -243,6 +252,15 @@ export type Content = {
       poweredBy: string;
     };
 
+    /** The collapsible Q&A section that practice pages and the contact page share. */
+    faq: {
+      eyebrow: string;
+      title: string;
+      lede: string;
+      /** "Have a different question? Call" — the phone number follows. */
+      more: string;
+    };
+
     area: {
       crumb: string;
       covers: string;
@@ -370,6 +388,8 @@ export type Content = {
       nextEyebrow: string;
       nextTitle: string;
       formNote: string;
+      /** General questions — fees, deadlines, the first call. */
+      faqs: Faq[];
     };
     team: Meta & {
       eyebrow: string;
