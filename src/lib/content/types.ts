@@ -1,3 +1,4 @@
+import type { EmploymentType } from "@/lib/jobs";
 import type { AreaKey, GroupId } from "@/lib/media";
 import type { TeamId } from "@/lib/team";
 
@@ -240,6 +241,7 @@ export type Content = {
       disclaimer: string;
       privacy: string;
       accessibility: string;
+      careers: string;
       poweredBy: string;
     };
 
@@ -411,8 +413,49 @@ export type Content = {
       sections: LegalSection[];
       questions: [string, string, string];
     };
+    careers: Meta & {
+      eyebrow: string;
+      titleLines: string[];
+      lede: string;
+      whyEyebrow: string;
+      whyTitle: string;
+      whyBody: string[];
+      /** "Read more about the firm" — the link text follows. */
+      aboutLink: string;
+      aboutLinkLabel: string;
+      openingsEyebrow: string;
+      openingsTitle: string;
+      /** Shown when nothing is open, so the page never hardcodes a count. */
+      empty: string;
+      /** Spanish hub only: listings are published in English. */
+      englishNote: string;
+      viewRole: string;
+      employmentType: Record<EmploymentType, string>;
+      /** The detail page. Rendered in English only, but typed for both. */
+      job: {
+        crumb: string;
+        roleEyebrow: string;
+        responsibilities: string;
+        qualifications: string;
+        benefits: string;
+        compensation: string;
+        perHour: string;
+        perYear: string;
+        detailsEyebrow: string;
+        type: string;
+        location: string;
+        posted: string;
+        closes: string;
+        apply: string;
+        applyNote: string;
+        filledEyebrow: string;
+        filledTitle: string;
+        filledBody: string;
+        filledCta: string;
+      };
+    };
   };
 
   /** Breadcrumb + schema labels that appear inside structured data. */
-  schema: { home: string; practiceAreas: string };
+  schema: { home: string; practiceAreas: string; careers: string };
 };
