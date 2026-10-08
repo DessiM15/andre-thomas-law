@@ -56,6 +56,14 @@ export default function Footer({ lang }: { lang: Lang }) {
                 </li>
               ))}
               <li>
+                <Link
+                  href={path("careers", lang)}
+                  className="link-underline text-ink-200 transition-colors hover:text-paper"
+                >
+                  {c.ui.footer.careers}
+                </Link>
+              </li>
+              <li>
                 <a
                   href={firm.instagram}
                   target="_blank"

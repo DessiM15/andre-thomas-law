@@ -59,6 +59,10 @@ export function alternatePath(pathname: string, target: Lang): string {
     return routes.practiceAreas[target];
   }
 
+  // Job pages exist in English only; the other side is the careers hub.
+  const careersPrefix = routes.careers[current];
+  if (clean.startsWith(careersPrefix + "/")) return routes.careers[target];
+
   // Anything unrecognized (a 404, say) falls back to that language's home.
   return routes.home[target];
 }

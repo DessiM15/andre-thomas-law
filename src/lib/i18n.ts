@@ -30,6 +30,7 @@ export const routes = {
   team: { en: "/team", es: "/es/equipo" },
   reviews: { en: "/reviews", es: "/es/resenas" },
   contact: { en: "/contact", es: "/es/contacto" },
+  careers: { en: "/careers", es: "/es/carreras" },
   privacy: { en: "/privacy", es: "/es/privacidad" },
   disclaimer: { en: "/disclaimer", es: "/es/aviso-legal" },
   accessibility: { en: "/accessibility", es: "/es/accesibilidad" },
@@ -43,6 +44,9 @@ export const path = (key: RouteKey, lang: Lang): string => routes[key][lang];
 /** The path for one person's bio. Slugs are names, so they don't localize. */
 export const teamPath = (id: string, lang: Lang): string =>
   `${routes.team[lang]}/${id}`;
+
+/** The path for one opening. Listings are English only, so there is no language. */
+export const jobPath = (slug: string): string => `${routes.careers.en}/${slug}`;
 
 /** The path for a practice area, given that language's own slug. */
 export const areaPath = (slug: string, lang: Lang): string =>

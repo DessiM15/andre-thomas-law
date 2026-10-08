@@ -1,8 +1,12 @@
 import type { MetadataRoute } from "next";
 import { content, getPracticeAreaByKey } from "@/lib/content";
 import { SITE_URL } from "@/lib/firm";
-import { areaPath, routes, teamPath, type RouteKey } from "@/lib/i18n";
+import { areaPath, jobPath, routes, teamPath, type RouteKey } from "@/lib/i18n";
+import { liveJobs } from "@/lib/jobs";
 import { team, TEAM_PLACEHOLDER } from "@/lib/team";
+
+/** Daily, so an expired opening leaves the sitemap the day it closes. */
+export const revalidate = 86400;
 
 /**
  * Both languages, with `alternates.languages` on every entry — the sitemap
@@ -21,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { key: "reviews", priority: 0.7, changeFrequency: "monthly" },
     { key: "contact", priority: 0.9, changeFrequency: "yearly" },
     { key: "accessibility", priority: 0.3, changeFrequency: "yearly" },
+    { key: "careers", priority: 0.5, changeFrequency: "monthly" },
   ];
 
   // The team pages carry placeholder people until `TEAM_PLACEHOLDER` is
@@ -102,5 +107,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ];
       });
 
-  return [...corePages, ...areaPages, ...teamPages];
+  // English only and only while live — a listed job that has closed is a
+  // stale page Google will flag, and a filled role's page is noindex anyway.
+  const jobPages = liveJobs(now).map((job) => ({
+    url: abs(jobPath(job.slug)),
+    lastModified: new Date(job.datePosted),
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
+
+  return [...corePages, ...areaPages, ...teamPages, ...jobPages];
 }
