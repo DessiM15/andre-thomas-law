@@ -183,6 +183,24 @@ export const en: Content = {
         "Property damage and diminished value",
         "Dealing with the other driver's insurer on your behalf",
       ],
+      faqs: [
+        {
+          id: "texas-filing-deadline",
+          q: "How long do I have to file after a car accident in Texas?",
+          a: [
+            "In Texas, the statute of limitations for a personal injury claim is two years from the date of the accident. That is the deadline for filing a lawsuit, and it applies to car accident claims across the state, including Houston and Harris County.",
+            "Two years passes faster than it sounds. Evidence disappears, witnesses move, and insurance companies count on delay. Talk to an attorney well before the deadline — the consultation is free, and the sooner the firm starts, the more there is to work with.",
+          ],
+        },
+        {
+          id: "insurance-company-called",
+          q: "The insurance company already called me. Should I talk to them?",
+          a: [
+            `No. Call Andre Thomas first, at ${firm.phone}. The insurance company is hoping you do not have an attorney yet, so they can either get you to say something that hurts your case or offer you a settlement below what your case is worth.`,
+            "Once you hire the firm, the adjuster deals with Andre, not with you — including any request for a recorded statement.",
+          ],
+        },
+      ],
     },
     {
       key: "truck-accidents",
@@ -966,6 +984,13 @@ export const en: Content = {
       poweredBy: "Powered by",
     },
 
+    faq: {
+      eyebrow: "Frequently asked questions",
+      title: "Straight answers from Andre.",
+      lede: "The questions people ask most before they call. If yours is not here, ask it — the consultation is free.",
+      more: "Have a different question? Call",
+    },
+
     area: {
       crumb: "All practice areas",
       covers: "What this covers",
@@ -1122,6 +1147,16 @@ export const en: Content = {
       nextTitle: "No one should have to guess what comes next.",
       formNote:
         "Submitting this form does not create an attorney–client relationship, and the information you send is not privileged until such a relationship is established in writing. Please do not send confidential or time-sensitive information through this form.",
+      faqs: [
+        {
+          id: "contingency-fee",
+          q: "Do I have to pay anything upfront to hire Andre Thomas Law?",
+          a: [
+            "No. There is no upfront fee to hire the firm. Andre Thomas Law works on a contingency fee basis, which means the fee is a percentage of the settlement or verdict recovered for you, and it is paid out of that recovery — not out of your pocket.",
+            "If we do not get you a settlement, you pay nothing. The consultation is free as well, so finding out whether you have a case costs nothing.",
+          ],
+        },
+      ],
     },
 
     team: {

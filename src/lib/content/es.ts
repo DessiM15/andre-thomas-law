@@ -194,6 +194,24 @@ export const es: Content = {
         "Daños al vehículo y pérdida de valor",
         "Tratar con la aseguradora del otro conductor por usted",
       ],
+      faqs: [
+        {
+          id: "texas-filing-deadline",
+          q: "¿Cuánto tiempo tengo para presentar una demanda después de un accidente de auto en Texas?",
+          a: [
+            "En Texas, el plazo de prescripción para un reclamo por lesiones personales es de dos años a partir de la fecha del accidente. Ese es el límite para presentar la demanda, y aplica a los reclamos por accidentes de auto en todo el estado, incluidos Houston y el condado de Harris.",
+            "Dos años pasan más rápido de lo que parece. Las pruebas desaparecen, los testigos se mudan y las aseguradoras cuentan con la demora. Hable con un abogado mucho antes del plazo — la consulta es gratis, y cuanto antes empiece el despacho, más habrá con qué trabajar.",
+          ],
+        },
+        {
+          id: "insurance-company-called",
+          q: "La aseguradora ya me llamó. ¿Debo hablar con ellos?",
+          a: [
+            `No. Llame primero a Andre Thomas, al ${firm.phone}. La aseguradora espera que usted todavía no tenga abogado, para lograr que diga algo que perjudique su caso o para ofrecerle un acuerdo por debajo de lo que vale su caso.`,
+            "Una vez que contrata al despacho, el ajustador trata con Andre, no con usted — incluida cualquier solicitud de una declaración grabada.",
+          ],
+        },
+      ],
     },
     {
       key: "truck-accidents",
@@ -980,6 +998,13 @@ export const es: Content = {
       poweredBy: "Sitio por",
     },
 
+    faq: {
+      eyebrow: "Preguntas frecuentes",
+      title: "Respuestas directas de Andre.",
+      lede: "Las preguntas que más hace la gente antes de llamar. Si la suya no está aquí, hágala — la consulta es gratis.",
+      more: "¿Tiene otra pregunta? Llame al",
+    },
+
     area: {
       crumb: "Todas las áreas de práctica",
       covers: "Qué incluye",
@@ -1136,6 +1161,16 @@ export const es: Content = {
       nextTitle: "Nadie debería tener que adivinar qué sigue.",
       formNote:
         "Enviar este formulario no crea una relación abogado–cliente, y la información que envíe no está protegida por el secreto profesional hasta que dicha relación se establezca por escrito. Por favor no envíe información confidencial ni urgente a través de este formulario.",
+      faqs: [
+        {
+          id: "contingency-fee",
+          q: "¿Tengo que pagar algo por adelantado para contratar a Andre Thomas Law?",
+          a: [
+            "No. No hay ningún honorario por adelantado para contratar al despacho. Andre Thomas Law trabaja con honorarios de contingencia: el honorario es un porcentaje del acuerdo o del veredicto que se obtiene para usted, y se paga de esa recuperación, no de su bolsillo.",
+            "Si no le conseguimos un acuerdo, usted no paga nada. La consulta también es gratis, así que averiguar si tiene un caso no le cuesta nada.",
+          ],
+        },
+      ],
     },
 
     team: {
