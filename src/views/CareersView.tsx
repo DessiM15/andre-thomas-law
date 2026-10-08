@@ -57,9 +57,11 @@ export default function CareersView({ lang }: { lang: Lang }) {
         aria-labelledby="openings-heading"
         className="border-t border-paper-edge bg-paper-warm py-20 md:py-28"
       >
-        <div className="container-x">
+        {/* Centred, unlike the rest of the site's sections: this is the one
+            block a job seeker arrives for, and it sits alone on the page. */}
+        <div className="container-x mx-auto max-w-4xl text-center">
           <Reveal>
-            <Eyebrow n="03">{p.openingsEyebrow}</Eyebrow>
+            <Eyebrow n="03" className="justify-center">{p.openingsEyebrow}</Eyebrow>
             <h2
               id="openings-heading"
               className="mt-6 font-display text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.08] text-ink-900"
@@ -67,41 +69,40 @@ export default function CareersView({ lang }: { lang: Lang }) {
               {p.openingsTitle}
             </h2>
             {lang !== "en" && open.length > 0 && (
-              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-ink-800/70">
+              <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-ink-800/70">
                 {p.englishNote}
               </p>
             )}
           </Reveal>
-          <GoldRule className="mt-10 w-full" />
+          <GoldRule className="mx-auto mt-10 w-32" />
 
           {open.length === 0 ? (
             <Reveal>
-              <p className="max-w-2xl py-12 text-[1.05rem] leading-relaxed text-ink-800/85">
+              <p className="mx-auto max-w-2xl py-12 text-[1.05rem] leading-relaxed text-ink-800/85">
                 {p.empty}
               </p>
             </Reveal>
           ) : (
-            <ul>
+            <ul className="mt-4">
               {open.map((job, i) => (
                 <Reveal key={job.slug} as="li" delay={i * 0.06}>
                   <Link
                     href={jobPath(job.slug)}
                     hrefLang="en"
-                    className="group grid gap-4 border-b border-paper-edge py-8 transition-colors duration-500 hover:bg-paper/70 md:grid-cols-[1fr_auto] md:items-center md:gap-10 md:py-10"
+                    className="group flex flex-col items-center gap-4 border-b border-paper-edge py-10 transition-colors duration-500 hover:bg-paper/70 md:py-12"
                   >
-                    <span className="min-w-0">
-                      <span className="eyebrow block text-gold-800">
-                        {p.employmentType[job.employmentType]} · {firm.address.city},{" "}
-                        {firm.address.stateCode}
-                      </span>
-                      <span className="mt-3 block font-display text-[1.65rem] leading-tight text-ink-900 md:text-[2.1rem]">
-                        {job.title}
-                      </span>
-                      <span className="mt-3 line-clamp-2 block max-w-3xl text-[0.95rem] leading-relaxed text-ink-800/80">
-                        {job.summary}
-                      </span>
+                    <span className="eyebrow block text-gold-800">
+                      {p.employmentType[job.employmentType]} · {firm.address.city},{" "}
+                      {firm.address.stateCode}
                     </span>
-                    <span className="flex items-center gap-4 whitespace-nowrap text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-ink-800/70 transition-colors duration-500 group-hover:text-ink-900">
+                    <span className="block font-display text-[1.65rem] leading-tight text-ink-900 md:text-[2.1rem]">
+                      {job.title}
+                    </span>
+                    <span className="line-clamp-2 block max-w-2xl text-[0.95rem] leading-relaxed text-ink-800/80">
+                      {job.summary}
+                    </span>
+                    <span className="mt-2 flex items-center gap-4 whitespace-nowrap text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-ink-800/70 transition-colors duration-500 group-hover:text-ink-900">
+                      <span className="h-px w-8 bg-gold-500 transition-all duration-500 group-hover:w-14" />
                       {p.viewRole}
                       <span className="h-px w-8 bg-gold-500 transition-all duration-500 group-hover:w-14" />
                     </span>
