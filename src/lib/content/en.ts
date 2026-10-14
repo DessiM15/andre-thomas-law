@@ -964,6 +964,7 @@ export const en: Content = {
       errCity: "Please enter the city where it happened.",
       errState: "Please select a state.",
       errLong: "That message is too long.",
+      errLinks: "Please leave links and web addresses out of your message.",
       errServer: "Something went wrong. Please call us.",
       requiredNote: "Fields marked * are required.",
       errorSummary: "Please correct the highlighted fields.",

@@ -232,6 +232,8 @@ export type Content = {
       errCity: string;
       errState: string;
       errLong: string;
+      /** A link in the message — a lead about an injury never contains one. */
+      errLinks: string;
       errServer: string;
       /** "Fields marked * are required." — required is stated in text, not colour. */
       requiredNote: string;

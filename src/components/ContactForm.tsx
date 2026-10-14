@@ -84,6 +84,12 @@ export default function ContactForm({
   const [maxDate, setMaxDate] = useState("");
   useEffect(() => setMaxDate(todayISO()), []);
 
+  // When the form was shown, for the too-fast-to-be-human check in `sendLead`.
+  // Set after mount for the same hydration reason as `maxDate`; an empty value
+  // is skipped by the check, so a visitor without JS timing is never blocked.
+  const [startedAt, setStartedAt] = useState("");
+  useEffect(() => setStartedAt(String(Date.now())), []);
+
   // After a failed submit, focus the first field that has an error so a
   // keyboard or screen reader user is taken straight to what needs fixing.
   useEffect(() => {
@@ -153,6 +159,7 @@ export default function ContactForm({
         aria-hidden
         className="absolute h-0 w-0 overflow-hidden opacity-0"
       />
+      <input type="hidden" name="startedAt" value={startedAt} />
 
       {/* Required is said in words, once, before the first field — the
           asterisks in the labels are the shorthand for it. */}
