@@ -978,6 +978,7 @@ export const es: Content = {
       errCity: "Por favor escriba la ciudad donde ocurrió.",
       errState: "Por favor seleccione un estado.",
       errLong: "Ese mensaje es demasiado largo.",
+      errLinks: "Por favor no incluya enlaces ni direcciones web en su mensaje.",
       errServer: "Algo salió mal. Por favor llámenos.",
       requiredNote: "Los campos marcados con * son obligatorios.",
       errorSummary: "Por favor corrija los campos señalados.",

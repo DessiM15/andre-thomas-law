@@ -34,6 +34,39 @@ export const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 export const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
 
 /**
+ * Bot guards. Neither can stop someone posting to Web3Forms directly with the
+ * (public) access key — only Web3Forms' own captcha verification can — but
+ * together with the honeypot they stop scripts that drive the real form.
+ *
+ * The form has seven required fields plus a message. Nothing human finishes
+ * it in four seconds, autofill included: the matter, the accident date and
+ * the message still have to be chosen or typed by hand.
+ */
+export const MIN_FILL_MS = 4000;
+
+/**
+ * Someone describing a car crash does not paste a URL. Agencies, SEO
+ * resellers and link-droppers always do. Catches bare domains as well as
+ * full URLs, but not email addresses — `@` is excluded from the match.
+ */
+const LINK_PATTERN =
+  /(https?:\/\/|www\.|(^|[^@\w.])[\w-]+(\.[\w-]+)*\.(com|net|org|io|biz|info|xyz)\b)/i;
+
+export const hasLink = (s: string) => LINK_PATTERN.test(s);
+
+/**
+ * True when the form was submitted faster than a person could have filled
+ * it. Fail open: a missing or garbled timestamp is treated as fine, because
+ * refusing a real lead costs far more than letting one bot through.
+ */
+export function submittedTooFast(startedAt: string | undefined, now = Date.now()): boolean {
+  if (!startedAt) return false;
+  const t = Number(startedAt);
+  if (!Number.isFinite(t) || t <= 0) return false;
+  return now - t < MIN_FILL_MS;
+}
+
+/**
  * Intake screening.
  *
  * The visitor answers in their own language but the firm reads the email in
@@ -61,6 +94,11 @@ export type LeadInput = {
   message?: string;
   /** Honeypot. Real people leave it empty. */
   website?: string;
+  /**
+   * When the form was shown, as epoch milliseconds in a string (FormData only
+   * carries strings). Only the web form sends it; see `MIN_FILL_MS`.
+   */
+  startedAt?: string;
   source?: string;
   /** The day of the accident, as `YYYY-MM-DD`. */
   incidentDate?: string;
@@ -125,6 +163,7 @@ export function validateLead(
   if (!normalizeState(input.state)) errors.state = t.errState;
 
   if (input.message && input.message.length > 4000) errors.message = t.errLong;
+  else if (input.message && hasLink(input.message)) errors.message = t.errLinks;
 
   return errors;
 }
@@ -221,6 +260,8 @@ export async function sendLead(
 
   // Honeypot — say nothing, do nothing, and let the bot think it worked.
   if (input.website) return { ok: true };
+  // Same treatment for a form completed faster than a person could manage.
+  if (submittedTooFast(input.startedAt)) return { ok: true };
 
   const errors = validateLead(input, lang);
   if (Object.keys(errors).length) return { ok: false, errors };
