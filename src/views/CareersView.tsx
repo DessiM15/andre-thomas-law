@@ -111,6 +111,30 @@ export default function CareersView({ lang }: { lang: Lang }) {
               ))}
             </ul>
           )}
+
+          {/* Always shown: with nothing listed this is the only way in, and
+              with a role open it catches the people the role does not fit.
+              A mailto rather than a form — a résumé is an attachment, and
+              the contact form does not take files. */}
+          <Reveal delay={0.08} className="mt-12 border-t border-paper-edge pt-16 md:mt-16 md:pt-20">
+            <Eyebrow n="04" className="justify-center">{p.resume.eyebrow}</Eyebrow>
+            <h3 className="mt-6 font-display text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.1] text-ink-900">
+              {p.resume.title}
+            </h3>
+            <p className="mx-auto mt-6 max-w-2xl text-[1.05rem] leading-relaxed text-ink-800/85">
+              {p.resume.body}
+            </p>
+            <a
+              href={`${firm.emailHref}?subject=${encodeURIComponent(p.resume.subject)}`}
+              className="group mt-10 inline-flex items-center gap-4 border border-ink-900/20 px-6 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-ink-900 transition-colors duration-300 hover:border-gold-700 hover:text-gold-800"
+            >
+              {p.resume.cta}
+              <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </a>
+            <p className="mt-4 text-sm text-ink-800/70">{firm.email}</p>
+          </Reveal>
         </div>
       </section>
     </>

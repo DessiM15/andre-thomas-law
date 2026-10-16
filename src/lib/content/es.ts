@@ -1365,7 +1365,7 @@ export const es: Content = {
 
     careers: {
       title: "Empleo en Andre Thomas Law | Houston, TX",
-      description: `${firm.name} está contratando en Houston, Texas. Vea las vacantes actuales en un despacho de lesiones personales y defensa penal y postúlese en línea.`,
+      description: `Empleo en ${firm.name} en Houston, Texas. Vea las vacantes actuales en un despacho de lesiones personales y defensa penal, o envíe su currículum para futuros puestos.`,
       eyebrow: "Empleo",
       titleLines: ["Únase a Nuestro Equipo"],
       lede: "Un despacho de lesiones personales y defensa penal en Houston, con un equipo pequeño y bilingüe y un abogado litigante al frente. Si es ahí donde quiere trabajar, esto es lo que está abierto.",
@@ -1380,8 +1380,15 @@ export const es: Content = {
       aboutLinkLabel: "el abogado que lo dirige",
       openingsEyebrow: "Vacantes actuales",
       openingsTitle: "Puestos abiertos",
-      empty: "No hay vacantes publicadas en este momento. Vuelva a consultar — los nuevos puestos se anuncian aquí primero.",
+      empty: "No hay vacantes publicadas en este momento. Los nuevos puestos se anuncian aquí primero, y el despacho guarda los currículums que recibe — envíe el suyo más abajo.",
       englishNote: "Las vacantes se publican en inglés. Cada puesto enlaza a su descripción completa y al formulario de solicitud.",
+      resume: {
+        eyebrow: "Solicitudes abiertas",
+        title: "¿No hay un puesto que le encaje? Envíe su currículum de todos modos.",
+        body: "El despacho guarda los currículums y se comunica cuando se abre un puesto adecuado. Envíe por correo su currículum y una nota breve sobre el tipo de trabajo que busca.",
+        cta: "Enviar currículum por correo",
+        subject: "Currículum para Andre Thomas Law",
+      },
       viewRole: "Ver puesto",
       employmentType: {
         FULL_TIME: "Tiempo completo",

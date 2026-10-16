@@ -453,6 +453,8 @@ export type Content = {
       empty: string;
       /** Spanish hub only: listings are published in English. */
       englishNote: string;
+      /** The standing invitation to send a résumé, shown whether or not a role is open. */
+      resume: { eyebrow: string; title: string; body: string; cta: string; subject: string };
       viewRole: string;
       employmentType: Record<EmploymentType, string>;
       /** The detail page. Rendered in English only, but typed for both. */

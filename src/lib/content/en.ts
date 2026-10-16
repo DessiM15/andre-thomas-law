@@ -1339,7 +1339,7 @@ export const en: Content = {
 
     careers: {
       title: "Careers at Andre Thomas Law | Houston, TX",
-      description: `${firm.name} is hiring in Houston, Texas. See current openings at a personal injury and criminal defense law firm and apply online.`,
+      description: `Careers at ${firm.name} in Houston, Texas. See current openings at a personal injury and criminal defense law firm, or send your résumé for future roles.`,
       eyebrow: "Careers",
       titleLines: ["Join Our Team"],
       lede: "A Houston personal injury and criminal defense firm with a small, bilingual team and a trial lawyer at the front of it. If that is where you want to work, here is what is open.",
@@ -1354,8 +1354,15 @@ export const en: Content = {
       aboutLinkLabel: "the attorney who leads it",
       openingsEyebrow: "Current openings",
       openingsTitle: "Open positions",
-      empty: "There are no openings posted right now. Check back — new roles are listed here first.",
+      empty: "There are no openings posted right now. New roles are listed here first, and the firm keeps résumés on file — send yours below.",
       englishNote: "",
+      resume: {
+        eyebrow: "Open applications",
+        title: "No fitting role listed? Send your résumé anyway.",
+        body: "The firm keeps résumés on file and reaches out when a role opens that fits. Email a résumé and a short note about the kind of work you are looking for.",
+        cta: "Email your résumé",
+        subject: "Résumé for Andre Thomas Law",
+      },
       viewRole: "View role",
       employmentType: {
         FULL_TIME: "Full time",

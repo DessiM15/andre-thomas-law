@@ -74,7 +74,8 @@ export const jobs: Job[] = [
     salary: { min: 30, max: 35, unit: "HOUR" },
     apply: { type: "url", value: "https://app.careerplug.com/jobs/3570053/apps/new" },
     identifier: "ATL-2026-001",
-    isActive: true,
+    // Filled 2026-10-16. Kept so the page says so instead of 404ing.
+    isActive: false,
   },
 ];
 
