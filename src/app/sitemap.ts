@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { content, getPracticeAreaByKey } from "@/lib/content";
 import { SITE_URL } from "@/lib/firm";
-import { areaPath, jobPath, routes, teamPath, type RouteKey } from "@/lib/i18n";
+import { events } from "@/lib/community";
+import { areaPath, communityPath, jobPath, routes, teamPath, type RouteKey } from "@/lib/i18n";
 import { liveJobs } from "@/lib/jobs";
 import { team, TEAM_PLACEHOLDER } from "@/lib/team";
 
@@ -26,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { key: "contact", priority: 0.9, changeFrequency: "yearly" },
     { key: "accessibility", priority: 0.3, changeFrequency: "yearly" },
     { key: "careers", priority: 0.5, changeFrequency: "monthly" },
+    { key: "community", priority: 0.6, changeFrequency: "monthly" },
   ];
 
   // The team pages carry placeholder people until `TEAM_PLACEHOLDER` is
@@ -107,6 +109,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ];
       });
 
+  /**
+   * Community events, both languages, each side pointing at the other's
+   * localized slug. These stay in the sitemap after the event has happened:
+   * the page becomes the firm's record of having run it, so there is nothing
+   * to expire the way a closed job listing expires.
+   */
+  const eventPages = events.flatMap((event) => {
+    const languages = {
+      "en-US": abs(communityPath(event.slug.en, "en")),
+      "es-US": abs(communityPath(event.slug.es, "es")),
+    };
+    return [
+      {
+        url: languages["en-US"],
+        lastModified: now,
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+        alternates: { languages },
+      },
+      {
+        url: languages["es-US"],
+        lastModified: now,
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+        alternates: { languages },
+      },
+    ];
+  });
+
   // English only and only while live — a listed job that has closed is a
   // stale page Google will flag, and a filled role's page is noindex anyway.
   const jobPages = liveJobs(now).map((job) => ({
@@ -116,5 +147,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...corePages, ...areaPages, ...teamPages, ...jobPages];
+  return [...corePages, ...areaPages, ...teamPages, ...eventPages, ...jobPages];
 }

@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import { firm, SITE_URL } from "@/lib/firm";
-import { areaPath, ogLocale, path, routes, teamPath, type Lang, type RouteKey } from "@/lib/i18n";
+import type { CommunityEvent } from "@/lib/community";
+import {
+  areaPath,
+  communityPath,
+  ogLocale,
+  path,
+  routes,
+  teamPath,
+  type Lang,
+  type RouteKey,
+} from "@/lib/i18n";
 
 /**
  * Canonical + hreflang for one page.
@@ -94,6 +104,59 @@ export function teamMemberMetadata(
       siteName: firm.name,
       title,
       description,
+    },
+  };
+}
+
+/**
+ * Same, for one community event.
+ *
+ * Two things differ from the pages above. The slug is localized, so each
+ * side's hreflang has to be built from that event's own pair rather than
+ * from a shared segment. And the flyer is named as the Open Graph image:
+ * this URL goes out to reporters and into social posts, and a share card
+ * with no image is a share card nobody clicks.
+ */
+export function eventMetadata(lang: Lang, event: CommunityEvent): Metadata {
+  const { title, description, flyerAlt } = event.copy[lang];
+  const enPath = communityPath(event.slug.en, "en");
+  const esPath = communityPath(event.slug.es, "es");
+  const self = lang === "en" ? enPath : esPath;
+
+  const share = event.ogImage ?? event.flyer?.src;
+  const images = share
+    ? [
+        {
+          url: `${SITE_URL}${share}`,
+          ...(event.flyer && !event.ogImage
+            ? { width: event.flyer.width, height: event.flyer.height }
+            : {}),
+          alt: flyerAlt,
+        },
+      ]
+    : undefined;
+
+  return {
+    title,
+    description,
+    alternates: alternates(lang, enPath, esPath),
+    openGraph: {
+      type: "article",
+      locale: ogLocale[lang],
+      url: `${SITE_URL}${self}`,
+      siteName: firm.name,
+      title,
+      description,
+      ...(images ? { images } : {}),
+    },
+    // The root layout sets a card type and the firm's default title, but
+    // Next does not copy Open Graph images onto the Twitter card. Named here
+    // or the flyer simply does not appear on X.
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      ...(images ? { images: images.map((i) => i.url) } : {}),
     },
   };
 }

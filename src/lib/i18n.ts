@@ -31,6 +31,7 @@ export const routes = {
   reviews: { en: "/reviews", es: "/es/resenas" },
   contact: { en: "/contact", es: "/es/contacto" },
   careers: { en: "/careers", es: "/es/carreras" },
+  community: { en: "/community", es: "/es/comunidad" },
   privacy: { en: "/privacy", es: "/es/privacidad" },
   disclaimer: { en: "/disclaimer", es: "/es/aviso-legal" },
   accessibility: { en: "/accessibility", es: "/es/accesibilidad" },
@@ -47,6 +48,10 @@ export const teamPath = (id: string, lang: Lang): string =>
 
 /** The path for one opening. Listings are English only, so there is no language. */
 export const jobPath = (slug: string): string => `${routes.careers.en}/${slug}`;
+
+/** The path for one community event, given that language's own slug. */
+export const communityPath = (slug: string, lang: Lang): string =>
+  `${routes.community[lang]}/${slug}`;
 
 /** The path for a practice area, given that language's own slug. */
 export const areaPath = (slug: string, lang: Lang): string =>

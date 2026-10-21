@@ -983,6 +983,7 @@ export const en: Content = {
       privacy: "Privacy",
       accessibility: "Accessibility",
       careers: "Careers",
+      community: "Community",
       poweredBy: "Powered by",
     },
 
@@ -1205,6 +1206,23 @@ export const en: Content = {
       },
     },
 
+    community: {
+      title: "Community | Andre Thomas Law in Houston",
+      description: `Community events from ${firm.name} in Northwest Houston, including the firm's free Thanksgiving turkey giveaway.`,
+      eyebrow: "Community",
+      titleLines: ["In the Neighborhood"],
+      lede:
+        "The firm's office sits on Northwest Freeway and most of its clients live within a few miles of it. This is what we do here when nobody has a case.",
+      upcomingEyebrow: "Coming up",
+      upcomingTitle: "What is next",
+      pastEyebrow: "Already happened",
+      pastTitle: "Where we have been",
+      empty: "Nothing is scheduled right now. New events are posted here first.",
+      view: "Event details",
+      crumb: "All community events",
+      note:
+        "Everything on this page is free and open to anyone who shows up. You never have to be a client of the firm to come.",
+    },
     privacy: {
       title: "Privacy Policy",
       description: `Privacy policy for ${firm.name}.`,
@@ -1395,5 +1413,10 @@ export const en: Content = {
     },
   },
 
-  schema: { home: "Home", practiceAreas: "Practice Areas", careers: "Careers" },
+  schema: {
+    home: "Home",
+    practiceAreas: "Practice Areas",
+    careers: "Careers",
+    community: "Community",
+  },
 };
