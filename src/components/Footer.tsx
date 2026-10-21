@@ -55,6 +55,18 @@ export default function Footer({ lang }: { lang: Lang }) {
                   </Link>
                 </li>
               ))}
+              {/* Community sits in the footer rather than the top bar: it is
+                  a section that needs to be crawlable and reachable from
+                  every page, not a sixth item competing with the practice
+                  areas for a visitor who arrived with a case. */}
+              <li>
+                <Link
+                  href={path("community", lang)}
+                  className="link-underline text-ink-200 transition-colors hover:text-paper"
+                >
+                  {c.ui.footer.community}
+                </Link>
+              </li>
               <li>
                 <Link
                   href={path("careers", lang)}

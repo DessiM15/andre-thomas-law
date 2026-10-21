@@ -997,6 +997,7 @@ export const es: Content = {
       privacy: "Privacidad",
       accessibility: "Accesibilidad",
       careers: "Empleo",
+      community: "Comunidad",
       poweredBy: "Sitio por",
     },
 
@@ -1219,6 +1220,23 @@ export const es: Content = {
       },
     },
 
+    community: {
+      title: "Comunidad | Andre Thomas Law en Houston",
+      description: `Eventos comunitarios de ${firm.name} en el noroeste de Houston, incluida la entrega gratuita de pavos de Acción de Gracias.`,
+      eyebrow: "Comunidad",
+      titleLines: ["En el Barrio"],
+      lede:
+        "La oficina de la firma está en Northwest Freeway y casi todos nuestros clientes viven a pocas millas de aquí. Esto es lo que hacemos cuando nadie tiene un caso.",
+      upcomingEyebrow: "Próximamente",
+      upcomingTitle: "Lo que viene",
+      pastEyebrow: "Ya sucedió",
+      pastTitle: "Dónde hemos estado",
+      empty: "No hay nada programado por ahora. Los eventos nuevos se publican aquí primero.",
+      view: "Detalles del evento",
+      crumb: "Todos los eventos comunitarios",
+      note:
+        "Todo lo que aparece en esta página es gratis y abierto a cualquiera que llegue. Nunca tiene que ser cliente de la firma para venir.",
+    },
     privacy: {
       title: "Aviso de Privacidad",
       description: `Aviso de privacidad de ${firm.name}.`,
@@ -1421,5 +1439,10 @@ export const es: Content = {
     },
   },
 
-  schema: { home: "Inicio", practiceAreas: "Áreas de Práctica", careers: "Empleo" },
+  schema: {
+    home: "Inicio",
+    practiceAreas: "Áreas de Práctica",
+    careers: "Empleo",
+    community: "Comunidad",
+  },
 };

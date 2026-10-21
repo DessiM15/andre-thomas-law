@@ -1,3 +1,4 @@
+import { getEvent } from "@/lib/community";
 import { DEFAULT_LANG, langFromPath, routes, type Lang } from "@/lib/i18n";
 import type { AreaKey } from "@/lib/media";
 import { en } from "./en";
@@ -57,6 +58,16 @@ export function alternatePath(pathname: string, target: Lang): string {
     const twin = area && getPracticeAreaByKey(area.key, target);
     if (twin) return `${routes.practiceAreas[target]}/${twin.slug}`;
     return routes.practiceAreas[target];
+  }
+
+  // Community events. The slug is localized, so it maps through the event's
+  // stable `key` the way practice areas map through theirs.
+  const communityPrefix = routes.community[current];
+  if (clean.startsWith(communityPrefix + "/")) {
+    const slug = clean.slice(communityPrefix.length + 1);
+    const event = getEvent(slug, current);
+    if (event) return `${routes.community[target]}/${event.slug[target]}`;
+    return routes.community[target];
   }
 
   // Job pages exist in English only; the other side is the careers hub.

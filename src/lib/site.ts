@@ -17,5 +17,13 @@ export {
 export type { Content, PracticeArea, PracticeGroup } from "./content";
 export { featuredMedia, groupImages, panelImages } from "./media";
 export type { AreaKey, GroupId } from "./media";
-export { DEFAULT_LANG, LANGS, areaPath, langFromPath, path, routes } from "./i18n";
+export {
+  DEFAULT_LANG,
+  LANGS,
+  areaPath,
+  communityPath,
+  langFromPath,
+  path,
+  routes,
+} from "./i18n";
 export type { Lang } from "./i18n";

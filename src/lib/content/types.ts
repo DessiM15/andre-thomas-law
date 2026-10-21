@@ -253,6 +253,7 @@ export type Content = {
       privacy: string;
       accessibility: string;
       careers: string;
+      community: string;
       poweredBy: string;
     };
 
@@ -424,6 +425,27 @@ export type Content = {
         seeAll: string;
       };
     };
+    /**
+     * The `/community/` hub. Per-event copy lives in `lib/community.ts`;
+     * these are the labels wrapped around whatever that array holds, so a
+     * second drive next November needs nothing here.
+     */
+    community: Meta & {
+      eyebrow: string;
+      titleLines: string[];
+      lede: string;
+      upcomingEyebrow: string;
+      upcomingTitle: string;
+      pastEyebrow: string;
+      pastTitle: string;
+      /** Shown when the array is empty, so no page hardcodes a count. */
+      empty: string;
+      view: string;
+      /** Back-link on an event page. */
+      crumb: string;
+      /** The firm's standing note under the listing. */
+      note: string;
+    };
     privacy: Meta & { eyebrow: string; heading: string; sections: LegalSection[] };
     disclaimer: Meta & {
       eyebrow: string;
@@ -483,5 +505,5 @@ export type Content = {
   };
 
   /** Breadcrumb + schema labels that appear inside structured data. */
-  schema: { home: string; practiceAreas: string; careers: string };
+  schema: { home: string; practiceAreas: string; careers: string; community: string };
 };
