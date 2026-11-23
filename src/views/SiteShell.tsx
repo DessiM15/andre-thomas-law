@@ -1,3 +1,4 @@
+import { awards, awardSchemaName } from "@/lib/awards";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
@@ -56,6 +57,7 @@ export default function SiteShell({
       { "@type": "State", name: "Tennessee" },
     ],
     sameAs: [firm.instagram, firm.reviews.url],
+    award: awards.map(awardSchemaName),
     // No `aggregateRating` here, deliberately.
     //
     // This schema ships on every page, so a star rating the firm asserts
@@ -68,6 +70,8 @@ export default function SiteShell({
       "@type": "Person",
       name: firm.attorney,
       jobTitle: lang === "es" ? "Abogado" : "Attorney",
+      award: awards.map(awardSchemaName),
+      sameAs: awards.map((a) => a.profileUrl),
       alumniOf: [
         { "@type": "CollegeOrUniversity", name: "University of Memphis" },
         {
