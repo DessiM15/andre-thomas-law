@@ -97,6 +97,9 @@ export default function CommunityEventView({
       url: "https://andrethomaslaw.com",
       telephone: "+1-713-212-3003",
     },
+    // Optional, but Search Console flags the event without it. The firm's
+    // own people ran the drive, so the firm is who "performed" it.
+    performer: { "@type": "Organization", name: firm.name },
     isAccessibleForFree: true,
     offers: {
       "@type": "Offer",
