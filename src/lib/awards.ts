@@ -6,9 +6,8 @@
  * `Attorney` schema lists every entry under the founder's `award`.
  *
  * Texas attorney advertising rules treat an award as a statement about the
- * lawyer, so each one says who gave it and for what year. `year`,
- * `category`, and `badge` are optional only so the section can be built
- * before the firm sends them. Fill them in before this goes live.
+ * lawyer, so each one says who gave it and for what year. `category` and
+ * `badge` are optional because not every organization issues them.
  */
 
 import type { Lang } from "@/lib/i18n";
@@ -59,7 +58,7 @@ export const awards: Award[] = [
     key: "elite-lawyer",
     org: "Elite Lawyer",
     honor: "Elite Lawyer",
-    // TODO(firm): award year, category, and the official badge file.
+    year: 2026,
     profileUrl: "https://www.elitelawyer.com/profile/17443-andre-thomas",
     video: {
       youtubeId: "Kq2XE-BjhAg",
@@ -67,12 +66,19 @@ export const awards: Award[] = [
       width: 1280,
       height: 720,
     },
+    /** The badge Elite Lawyer issued, unaltered. It names the year and category itself. */
+    badge: {
+      src: "/awards/elite-lawyer-andre-thomas-personal-injury-2026.png",
+      width: 279,
+      height: 328,
+    },
     copy: {
       en: {
         eyebrow: "Recognition",
         titleLines: ["Andre Thomas,", "named an Elite Lawyer."],
         body:
-          "Houston personal injury attorney Andre Thomas has been named an Elite Lawyer. Watch the announcement from Elite Lawyer, or read his profile on their site.",
+          "Houston personal injury attorney Andre Thomas has been named a 2026 Elite Lawyer in personal injury. Watch the announcement from Elite Lawyer, or read his profile on their site.",
+        category: "Personal Injury",
         awardedBy: "Awarded by",
         yearLabel: "Year",
         categoryLabel: "Practice area",
@@ -81,13 +87,14 @@ export const awards: Award[] = [
         videoTitle: "Andre Thomas Named an Elite Lawyer",
         thumbAlt:
           "Still from the Elite Lawyer announcement video: a presenter beside a portrait of Houston personal injury attorney Andre Thomas.",
-        badgeAlt: "Elite Lawyer badge awarded to Andre Thomas",
+        badgeAlt: "Elite Lawyer 2026 badge: Andre Thomas, Personal Injury",
       },
       es: {
         eyebrow: "Reconocimiento",
         titleLines: ["Andre Thomas,", "nombrado Elite Lawyer."],
         body:
-          "Andre Thomas, abogado de lesiones personales en Houston, fue nombrado Elite Lawyer. Vea el anuncio de Elite Lawyer o lea su perfil en el sitio de la organización.",
+          "Andre Thomas, abogado de lesiones personales en Houston, fue nombrado Elite Lawyer 2026 en lesiones personales. Vea el anuncio de Elite Lawyer o lea su perfil en el sitio de la organización.",
+        category: "Lesiones personales",
         awardedBy: "Otorgado por",
         yearLabel: "Año",
         categoryLabel: "Área de práctica",
@@ -96,12 +103,12 @@ export const awards: Award[] = [
         videoTitle: "Andre Thomas Named an Elite Lawyer",
         thumbAlt:
           "Imagen del video de anuncio de Elite Lawyer: un presentador junto a un retrato de Andre Thomas, abogado de lesiones personales en Houston.",
-        badgeAlt: "Insignia de Elite Lawyer otorgada a Andre Thomas",
+        badgeAlt: "Insignia Elite Lawyer 2026: Andre Thomas, lesiones personales",
       },
     },
   },
 ];
 
-/** How an award reads in structured data: "Elite Lawyer, 2026". */
+/** How an award reads in structured data: "Elite Lawyer, Personal Injury, 2026". */
 export const awardSchemaName = (a: Award) =>
-  a.year ? `${a.honor}, ${a.year}` : a.honor;
+  [a.honor, a.copy.en.category, a.year].filter(Boolean).join(", ");
