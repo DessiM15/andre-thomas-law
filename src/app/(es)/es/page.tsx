@@ -9,6 +9,12 @@ export const metadata: Metadata = pageMetadata(
   content("es").pages.home
 );
 
+/**
+ * Daily. The community strip decides what to show from today's date, and a
+ * fully static page would keep announcing an event until the next deploy.
+ */
+export const revalidate = 86400;
+
 export default function Page() {
   return <HomeView lang="es" />;
 }

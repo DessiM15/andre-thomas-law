@@ -18,8 +18,8 @@ import { communityPath, path, type Lang } from "@/lib/i18n";
  *
  * Every event renders through this, so the next drive is an entry in
  * `lib/community.ts` and nothing else. The recap section is absent until
- * that entry grows a `recap` or `photos` field, at which point it appears
- * in the right place and the section numbering closes back up around it.
+ * that entry grows a `recap` or `photos` field, at which point it leads the
+ * page and the sections under it renumber and trade backgrounds to suit.
  */
 type SectionKey = "whenWhere" | "how" | "why" | "recap" | "ask" | "cta";
 
@@ -41,10 +41,10 @@ export default function CommunityEventView({
    * sections under it instead of leaving a gap where it used to be.
    */
   const order: SectionKey[] = [
+    ...(hasRecap ? (["recap"] as const) : []),
     "whenWhere",
     "how",
     "why",
-    ...(hasRecap ? (["recap"] as const) : []),
     "ask",
     "cta",
   ];
@@ -60,6 +60,12 @@ export default function CommunityEventView({
    * treated as malformed rather than as open-ended.
    */
   const selfPath = communityPath(event.slug[lang], lang);
+  // Photographs of the day first, then the flyer: the first image is the
+  // one a rich result shows.
+  const images = [
+    ...(event.photos ?? []).map((p) => `${SITE_URL}${p.src}`),
+    ...(event.flyer ? [`${SITE_URL}${event.flyer.src}`] : []),
+  ];
   const eventJsonLd = {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -72,7 +78,7 @@ export default function CommunityEventView({
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     url: `${SITE_URL}${selfPath}`,
     inLanguage: lang,
-    ...(event.flyer ? { image: [`${SITE_URL}${event.flyer.src}`] } : {}),
+    ...(images.length ? { image: images } : {}),
     location: {
       "@type": "Place",
       name: firm.name,
@@ -124,10 +130,84 @@ export default function CommunityEventView({
         crumb={{ label: hub.crumb, href: path("community", lang) }}
       />
 
+      {/*
+        After the event: the recap and the photographs. Absent until the entry
+        in `lib/community.ts` carries them, and first on the page once it
+        does. Somebody arriving after the drive wants to see how it went, not
+        when to show up, so the announcement's sections follow as the record.
+      */}
+      {hasRecap && (
+        <section aria-labelledby="recap" className="bg-paper py-16 md:py-24">
+          <div className="container-x">
+            {e.recap && (
+              <div className="grid gap-10 md:grid-cols-12 md:gap-12">
+                <Reveal className="md:col-span-5">
+                  <Eyebrow n={n("recap")}>{e.recap.eyebrow}</Eyebrow>
+                  <h2
+                    id="recap"
+                    className="mt-6 font-display text-[clamp(1.9rem,4.4vw,3.2rem)] leading-[1.08] text-ink-900"
+                  >
+                    {e.recap.title}
+                  </h2>
+                  <GoldRule className="mt-8 w-32" />
+                </Reveal>
+                <Reveal delay={0.08} className="md:col-span-6 md:col-start-7">
+                  <div className="space-y-6 text-[1.05rem] leading-relaxed text-ink-800/85">
+                    {e.recap.body.map((para) => (
+                      <p key={para.slice(0, 24)}>{para}</p>
+                    ))}
+                  </div>
+                </Reveal>
+              </div>
+            )}
+
+            {/*
+              The mosaic. A wide photograph holds 16:9 across two columns and
+              sets its row's height; a narrow one beside it stretches to that
+              height instead of keeping 4:3 and leaving a gap underneath. On
+              its own row, or in one column, the narrow cell falls back to
+              4:3, because there the percentage height has nothing to resolve
+              against and the aspect ratio takes over.
+            */}
+            {event.photos && event.photos.length > 0 && (
+              <div className="mt-12 grid gap-3 sm:grid-cols-2 md:mt-16 md:grid-cols-3">
+                {event.photos.map((photo, i) => (
+                  <Reveal
+                    key={photo.src}
+                    delay={i * 0.06}
+                    className={photo.wide ? "sm:col-span-2" : ""}
+                  >
+                    <div
+                      className={`relative w-full overflow-hidden bg-ink-950 ${
+                        photo.wide ? "aspect-[16/9]" : "aspect-[4/3] md:h-full"
+                      }`}
+                    >
+                      <Image
+                        src={photo.src}
+                        alt={photo.alt[lang]}
+                        fill
+                        priority={i === 0}
+                        sizes={
+                          photo.wide
+                            ? "(max-width: 640px) 92vw, 60vw"
+                            : "(max-width: 640px) 92vw, (max-width: 768px) 46vw, 30vw"
+                        }
+                        className="object-cover"
+                        style={photo.position ? { objectPosition: photo.position } : undefined}
+                      />
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* The flyer, and the four things somebody actually needs to know */}
       <section
         aria-labelledby="when-where"
-        className="bg-paper py-16 md:py-24"
+        className={`${hasRecap ? "border-t border-paper-edge bg-paper-warm" : "bg-paper"} py-16 md:py-24`}
       >
         <div className="container-x grid gap-12 md:grid-cols-12 md:items-start md:gap-12">
           <Reveal className="md:col-span-5">
@@ -142,7 +222,7 @@ export default function CommunityEventView({
                   src={event.flyer.src}
                   alt={e.flyerAlt}
                   fill
-                  priority
+                  priority={!hasRecap}
                   sizes="(max-width: 768px) 90vw, 38vw"
                   className="object-contain"
                 />
@@ -199,7 +279,7 @@ export default function CommunityEventView({
       {/* How it works */}
       <section
         aria-labelledby="how-it-works"
-        className="border-t border-paper-edge bg-paper-warm py-16 md:py-24"
+        className={`border-t border-paper-edge ${hasRecap ? "bg-paper" : "bg-paper-warm"} py-16 md:py-24`}
       >
         <div className="container-x">
           <Reveal>
@@ -267,75 +347,10 @@ export default function CommunityEventView({
         </div>
       </section>
 
-      {/*
-        After the event: the recap and the photographs. Absent until the entry
-        in `lib/community.ts` carries them, which is what keeps this page from
-        needing a rebuild on November 22.
-      */}
-      {hasRecap && (
-        <section
-          aria-labelledby="recap"
-          className="border-t border-paper-edge bg-paper py-16 md:py-24"
-        >
-          <div className="container-x">
-            {e.recap && (
-              <div className="grid gap-10 md:grid-cols-12 md:gap-12">
-                <Reveal className="md:col-span-5">
-                  <Eyebrow n={n("recap")}>{e.recap.eyebrow}</Eyebrow>
-                  <h2
-                    id="recap"
-                    className="mt-6 font-display text-[clamp(1.9rem,4.4vw,3.2rem)] leading-[1.08] text-ink-900"
-                  >
-                    {e.recap.title}
-                  </h2>
-                  <GoldRule className="mt-8 w-32" />
-                </Reveal>
-                <Reveal delay={0.08} className="md:col-span-6 md:col-start-7">
-                  <div className="space-y-6 text-[1.05rem] leading-relaxed text-ink-800/85">
-                    {e.recap.body.map((para) => (
-                      <p key={para.slice(0, 24)}>{para}</p>
-                    ))}
-                  </div>
-                </Reveal>
-              </div>
-            )}
-
-            {event.photos && event.photos.length > 0 && (
-              <div className="mt-12 grid gap-3 sm:grid-cols-2 md:mt-16 md:grid-cols-3">
-                {event.photos.map((photo, i) => (
-                  <Reveal
-                    key={photo.src}
-                    delay={i * 0.06}
-                    className={photo.wide ? "sm:col-span-2" : ""}
-                  >
-                    <div
-                      className="relative w-full overflow-hidden bg-ink-950"
-                      style={{ aspectRatio: photo.wide ? "16 / 9" : "4 / 3" }}
-                    >
-                      <Image
-                        src={photo.src}
-                        alt={photo.alt[lang]}
-                        fill
-                        sizes={
-                          photo.wide
-                            ? "(max-width: 640px) 92vw, 60vw"
-                            : "(max-width: 640px) 92vw, 30vw"
-                        }
-                        className="object-cover"
-                      />
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
       {/* Questions */}
       <section
         aria-labelledby="questions"
-        className={`${hasRecap ? "border-t border-paper-edge bg-paper-warm" : "border-t border-paper-edge bg-paper"} py-16 md:py-24`}
+        className="border-t border-paper-edge bg-paper py-16 md:py-24"
       >
         <div className="container-x">
           <Reveal>
