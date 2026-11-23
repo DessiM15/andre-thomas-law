@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import Recognition from "@/components/Recognition";
 import CTABand from "@/components/CTABand";
 import { Eyebrow, GoldRule, Reveal } from "@/components/Reveal";
 import { content } from "@/lib/content";
@@ -156,11 +157,13 @@ export default function AboutView({ lang }: { lang: Lang }) {
         </div>
       </section>
 
+      <Recognition lang={lang} n="04" tone="warm" />
+
       {/* Pillars */}
-      <section className="bg-paper py-20 md:py-28">
+      <section className="border-t border-paper-edge bg-paper py-20 md:py-28">
         <div className="container-x">
           <Reveal>
-            <Eyebrow n="04">{p.meansEyebrow}</Eyebrow>
+            <Eyebrow n="05">{p.meansEyebrow}</Eyebrow>
           </Reveal>
           <GoldRule className="mt-8 w-full" />
           <div className="grid md:grid-cols-2">
@@ -193,7 +196,7 @@ export default function AboutView({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      <CTABand lang={lang} n="05" />
+      <CTABand lang={lang} n="06" />
     </>
   );
 }
