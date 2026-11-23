@@ -119,19 +119,21 @@ export function teamMemberMetadata(
  */
 export function eventMetadata(lang: Lang, event: CommunityEvent): Metadata {
   const { title, description, flyerAlt } = event.copy[lang];
+  // The share image is cropped from the first photograph, so that is whose
+  // description it carries. Before the event there is only the flyer.
+  const card = event.ogImage ?? event.flyer;
+  const cardAlt = event.ogImage ? (event.photos?.[0]?.alt[lang] ?? flyerAlt) : flyerAlt;
   const enPath = communityPath(event.slug.en, "en");
   const esPath = communityPath(event.slug.es, "es");
   const self = lang === "en" ? enPath : esPath;
 
-  const share = event.ogImage ?? event.flyer?.src;
-  const images = share
+  const images = card
     ? [
         {
-          url: `${SITE_URL}${share}`,
-          ...(event.flyer && !event.ogImage
-            ? { width: event.flyer.width, height: event.flyer.height }
-            : {}),
-          alt: flyerAlt,
+          url: `${SITE_URL}${card.src}`,
+          width: card.width,
+          height: card.height,
+          alt: cardAlt,
         },
       ]
     : undefined;
