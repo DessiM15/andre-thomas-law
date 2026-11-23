@@ -40,7 +40,7 @@ export default function CommunityNotice({ lang }: { lang: Lang }) {
           </p>
         </div>
         <Link
-          href={recap ? `${href}#recap` : href}
+          href={href}
           className="group inline-flex items-center gap-4 self-start border border-ink-900/20 px-6 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-ink-900 transition-colors duration-300 hover:border-gold-700 hover:text-gold-800 md:self-auto"
         >
           {recap ? recap.cta : c.pages.community.view}
